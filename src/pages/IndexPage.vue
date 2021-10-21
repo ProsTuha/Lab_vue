@@ -5,11 +5,17 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
 import { Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator'
+import { inversifyContainer } from '@/apps/test/inversify/inversify.config'
+import { TYPES } from '@/apps/test/inversify/types';
 
 export default class IndexPage extends Vue {
   @Prop(String)
   readonly title!: string;
+
+  mounted() {
+    console.log(inversifyContainer.get(TYPES.Warrior))
+  }
 }
 </script>

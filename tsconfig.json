@@ -6,13 +6,19 @@
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
     "baseUrl": ".",
     "types": [
+      "reflect-metadata",
       "webpack-env",
       "jest"
     ],
@@ -22,10 +28,12 @@
       ]
     },
     "lib": [
-      "esnext",
+      "scripthost",
+      "es6",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "ESNext",
+      "ESNext.AsyncIterable"
     ]
   },
   "include": [

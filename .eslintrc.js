@@ -14,10 +14,14 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    semi: 0,
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'import/prefer-default-export': 'off',
+    'quotes': 'warn',
+    'semi': 0,
     'comma-dangle': 0,
-    quotes: 'warn',
+    'linebreak-style': 0,
     'max-classes-per-file': 0,
+    'class-methods-use-this': 0,
     'lines-between-class-members': 0
   },
   overrides: [
