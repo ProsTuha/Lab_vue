@@ -8,6 +8,9 @@ interface iProduct {
   id: number;
   categoryId: number;
   productName: string;
-  productPrice: number;
   productDescription: string;
+  productPrice: number;
+  productGenre: string; // ИЗМЕНИТЬ НА ПЕРЕЧИСЛЕНИЕ!
+  productRating: number;
+  productImagePath: string;
 }

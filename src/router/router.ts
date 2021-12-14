@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/Home.vue';
-import CategoryCards from '@/components/CategoryCards.vue';
+import CategoryCards from '@/components/CategoryCard.vue';
 import Products from '@/pages/Products.vue';
 import About from '@/pages/About.vue';
 import Error from '@/pages/Page404.vue';

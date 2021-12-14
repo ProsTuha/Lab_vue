@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import CategoryCard from '@/components/CategoryCards.vue';
+import CategoryCard from '@/components/CategoryCard.vue';
 import Section from '@/components/Section.vue';
 
 @Options({
