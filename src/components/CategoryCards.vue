@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { ICategory } from '@/categories';
+import { ICategory } from '@/interfaces';
 
 @Options({
 })

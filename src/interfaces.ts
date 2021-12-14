@@ -6,7 +6,8 @@ export interface ICategory {
 
 interface iProduct {
   id: number;
-  productName:string;
   categoryId: number;
+  productName: string;
+  productPrice: number;
   productDescription: string;
 }
