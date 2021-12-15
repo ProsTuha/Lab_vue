@@ -16,9 +16,15 @@
                         Categories
                     </div> 
                     <div class="header__navigation__dropdown-content">
-                        <router-link to="/products/pc-products">PC</router-link>
-                        <router-link to="/products/playstation-products">PlayStation</router-link>
-                        <router-link to="/products/xbox-products">Xbox</router-link>
+                        <router-link class="header__navigation__dropdown-link" 
+                        to="/products/pc-products">PC</router-link>
+
+                        <router-link class="header__navigation__dropdown-link" 
+                        to="/products/playstation-products">PlayStation</router-link>
+
+                        <router-link class="header__navigation__dropdown-link" 
+                        to="/products/xbox-products">Xbox</router-link>
+
                     </div>
                 </div>
                 <router-link class="header__navigation-link" to="/about">
@@ -46,37 +52,35 @@ export default class HeaderNavigation extends Vue {
         vertical-align: middle;
 
         &__navigation {
-            display: inherit;
-            width: 30%;
+          display: inherit;
+          width: 30%;
+        }
 
-            &-link {
-                font-size: 23px;
-                font-weight: 500;
-                color: $color-gray;
-                width: 30%;
-                height: 100%;
-                text-align: center;
-                line-height: 65px;
-                text-decoration: none;
-                margin: 0 auto;
+        &__navigation-link {
+          font-size: 23px;
+          font-weight: 500;
+          color: $color-gray;
+          width: 30%;
+          height: 100%;
+          text-align: center;
+          line-height: 65px;
+          text-decoration: none;
+          margin: 0 auto;
             
-                &:focus {
-                    color: $color-purple;
-                }
+          &:focus {
+            color: $color-purple;
+          }
 
-                &:hover {
-                    border-bottom: 5px solid $color-purple;
-                    background-color: $navigation-bg-hover;
-                    height: 60px;
-                    color: $color-white;
-                }
+          &:hover {
+            border-bottom: 5px solid $color-purple;
+            background-color: $navigation-bg-hover;
+            height: 60px;
+            color: $color-white;
+          }
 
-                &--active {
-                    color: $color-purple;
-                    height: 60px;
-                }
-            }
-
+          &--active {
+            color: $color-purple;
+          }
         }
 
         &__inner-wrap {

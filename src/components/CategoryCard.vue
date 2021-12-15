@@ -64,32 +64,32 @@ export default class CategoryCards extends Vue {
     border-radius: 15px;
     text-decoration: none;
 
-    &-links {
-      width: 98%;
-      text-decoration: none;
-      margin: 2px auto 2%;
-      background: $color-white;
-      border-radius: 15px;
-
-      &__logo {
-        width: 25%;
-        margin: 5% auto 0;
-      }
-
-      &__description {
-        font-size: 1.5em;
-        font-weight: 500;
-        margin-bottom: 2%;
-        color: $color-black;
-      }
-    }
-
     &:hover {
       background-color: $color-black;
 
       .categories__platform-links {
         background-color: $color-purple;
       }
+    }
+  }
+
+  &__platform-links {
+    width: 98%;
+    text-decoration: none;
+    margin: 2px auto 2%;
+    background: $color-white;
+    border-radius: 15px;
+
+    &__logo {
+      width: 30%;
+      margin: 5% auto 0;
+    }
+
+    &__description {
+      font-size: 1.5em;
+      font-weight: 500;
+      margin-bottom: 2%;
+      color: $color-black;
     }
   }
 }
