@@ -6,6 +6,11 @@
           <CategoryCard/>
         </Section>
       </div>
+      <div class="home__content__categories">
+        <Section headerName="Recently added">
+          <ProductCard/>
+        </Section>
+      </div>
     </div> 
   </div>
 </template>
@@ -13,11 +18,13 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import CategoryCard from '@/components/CategoryCard.vue';
+import ProdouctCard from '@/components/ProductCard.vue'
 import Section from '@/components/Section.vue';
 
 @Options({
   components: {
     CategoryCard,
+    ProdouctCard,
     Section
   }
 })
