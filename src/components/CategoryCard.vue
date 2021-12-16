@@ -20,9 +20,6 @@
 import { Options, Vue } from 'vue-class-component'
 import { ICategory } from '@/interfaces';
 
-@Options({
-})
-
 export default class CategoryCards extends Vue {
   categories: ICategory[] = [
     {
@@ -50,7 +47,6 @@ export default class CategoryCards extends Vue {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 1% 1%;
   margin: 0 auto;
 
   &__platform {
