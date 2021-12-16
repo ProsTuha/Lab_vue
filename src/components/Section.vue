@@ -43,8 +43,8 @@ export default class Section extends Vue {
   }
   
   &__content {
-    width: 100%;
     margin: 1em auto 0;
+    padding: 0 4%;
   }
 }
 </style>
