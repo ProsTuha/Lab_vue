@@ -9,7 +9,7 @@
       "productGenre": "Shooter",
       "productRating": 5,
       "productImagePath": "Overwatch.jpg",
-      "creationDate": null
+      "creationDate": "2016-05-03"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
       "productGenre": "Action & Adventure",
       "productRating": 5,
       "productImagePath": "Minecraft.jpg",
-      "creationDate": null
+      "creationDate": "2009-05-17"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "productGenre": "Action & Adventure",
       "productRating": 5,
       "productImagePath": "Terraria.jpg",
-      "creationDate": null
+      "creationDate": "2011-05-16"
     }
   ]
 }

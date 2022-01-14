@@ -13,5 +13,5 @@ export interface IProduct {
   productGenre: string; 
   productRating: number;
   productImagePath: string;
-  creationDate: Date;
+  creationDate: string;
 }

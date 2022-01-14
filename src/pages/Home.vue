@@ -1,17 +1,26 @@
 <template>
   <div class="home">
     <div class="home__content">
-      <div class="home__content__input-wrap">
-        <Input @input="value" :inputType="'text'" :placeholder="'Search'"/>
+      <div class="home__content__search">
+        <Section headerName="Search">
+          <div class="home__content__search__input">
+            <Input :inputType="'text'" 
+            @input-event="createRequest"
+            :placeholder="'Enter game name'"/>
+          </div>
+          <div class="home__content__search__result">
+            <ProductCard :products="products"/>
+          </div>
+        </Section>
       </div>
       <div class="home__content__categories">
         <Section headerName="Categories">
           <CategoryCard/>
         </Section>
       </div>
-      <div class="home__content__products">
+      <div class="home__content__last-products">
         <Section headerName="Recently added">
-          <ProductCard/>
+          <ProductCard :products="sortedLastProducts.slice(0,3)"/>
         </Section>
       </div>
     </div> 
@@ -19,11 +28,13 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import CategoryCard from '@/components/CategoryCard.vue';
+import { Options, Vue } from 'vue-class-component'
+import axios from 'axios'
+import CategoryCard from '@/components/CategoryCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
-import Section from '@/components/Section.vue';
+import Section from '@/components/Section.vue'
 import Input from '@/components/Input.vue'
+import { IProduct } from '@/interfaces'
 
 @Options({
   components: {
@@ -31,10 +42,45 @@ import Input from '@/components/Input.vue'
     ProductCard,
     Section,
     Input
+  },
+  computed: {
+    sortedLastProducts() {
+      this.recentlyProducts.sort((a, b) => {
+        if (a.creationDate < b.creationDate) {
+          return 1;
+        }
+        if (a.creationDate > b.creationDate) {
+          return -1;
+        }
+        return 0;
+      });
+      return this.recentlyProducts;
+    }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/products')
+      .then((response) => {
+        this.recentlyProducts = response.data
+      });
   }
 })
 export default class HomePage extends Vue {
-  value = ''
+  products: IProduct[] = []
+  recentlyProducts: IProduct[] = []
+  ifProductsLoading = true
+  
+  createRequest(value) {
+    if (value !== '') {
+      axios
+        .get(`http://localhost:3000/products?productName_like=^${value}`)
+        .then((response) => {
+          this.products = response.data
+        })
+    } else {
+      this.products.length = 0
+    }
+  }
 }
 </script>
 
@@ -44,10 +90,18 @@ export default class HomePage extends Vue {
 
   &__content {
 
-    &__input-wrap {
-      width: 50%;
-      margin: 0 auto;
-      font-size: 150%;
+    &__search{
+
+      &__input {
+        width: 80%;
+        margin: 0 auto;
+        font-size: 150%;
+      }
+
+      &__result {
+        margin-top: 10px;
+      }
+
     }
   }
 }

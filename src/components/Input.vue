@@ -1,8 +1,11 @@
 <template>
   <div class="input-wrap">
     <form class="input-wrap__form" action="">
-      <input @input="addClear" v-model="inputValue" :type="inputType" 
-      :placeholder="placeholder" class="input-wrap__input">
+      <input @input="getValue" 
+      v-model="inputValue" 
+      :type="inputType" 
+      :placeholder="placeholder" 
+      class="input-wrap__input">
     </form>
     <img src="@/img/others/basket-icon.png" alt="clear" @click="clearInput"
      v-if="isWritten" class="input-wrap__cleaning-basket">
@@ -26,14 +29,14 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class Input extends Vue {
     isWritten = false
-    inputValue = ''
 
-    addClear(event) {
-      this.isWritten = event.target.value;
+    getValue(event) {
+      this.isWritten = event.target.value
+      this.$emit('inputEvent', event.target.value)
     }
 
     clearInput() {
-      this.inputValue = ''
+      this.$emit('inputEvent', '')
     }
 }
 </script>
@@ -65,8 +68,8 @@ export default class Input extends Vue {
   &__cleaning-basket {
     height: 4%;
     position: absolute;
-    top: 11.2%;
-    right: 25%;
+    top: 21.4%;
+    right: 27%;
     margin: 2px;
   }
 

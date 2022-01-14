@@ -25,20 +25,18 @@
               </div>
             </div>
           </div>
-          
-            <div class="product-cards__wrapper__card__back">
-              <router-link class="product-cards__wrapper__link" :to="'/products/product-info'">
-              <div class="product-cards__wrapper__card__back__description">
-                {{product.productDescription}}
-              </div>
-              </router-link>
-              <div class="product-cards__wrapper__card__back__add-to-cart">
-                <button class="product-cards__wrapper__card__back__add-to-cart__button" href="#">
-                  Add to cart
-                </button>
-              </div>
+          <div class="product-cards__wrapper__card__back">
+            <router-link class="product-cards__wrapper__link" :to="'/products/product-info'">
+            <div class="product-cards__wrapper__card__back__description">
+              {{product.productDescription}}
             </div>
-          
+            </router-link>
+            <div class="product-cards__wrapper__card__back__add-to-cart">
+              <button class="product-cards__wrapper__card__back__add-to-cart__button" href="#">
+                Add to cart
+              </button>
+            </div>
+          </div>
         </div>
     </div>
   </div>
@@ -46,44 +44,16 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { IProduct } from '@/interfaces';
+
+@Options({
+  props: {
+    products: {
+      type: Array
+    }
+  }
+})
 
 export default class ProductCard extends Vue {
-  products: IProduct[] = [
-    {
-      id: 1,
-      categoryId: 1,
-      productName: 'Overwatch',
-      productDescription: 'Some description',
-      productPrice: 23.99,
-      productGenre: 'Shooter',
-      productRating: 5,
-      productImagePath: 'Overwatch.jpg',
-      creationDate: new Date()
-    },
-    {
-      id: 2,
-      categoryId: 1,
-      productName: 'Minecraft',
-      productDescription: 'Some description',
-      productPrice: 25.99,
-      productGenre: 'Action & Adventure',
-      productRating: 5,
-      productImagePath: 'Minecraft.jpg',
-      creationDate: new Date()
-    },
-    {
-      id: 3,
-      categoryId: 1,
-      productName: 'Terraria',
-      productDescription: 'Some description',
-      productPrice: 4.99,
-      productGenre: 'Action & Adventure',
-      productRating: 5,
-      productImagePath: 'Terraria.jpg',
-      creationDate: new Date()
-    },
-  ];
   raitingStars: string[] = ['★', '★', '★', '★', '★'];
 }
 </script>
