@@ -1,8 +1,7 @@
 <template>
-    <!-- <div class="products">
+    <div class="products">
         <h1 class="products__content indicator">Products!</h1>
-    </div> -->
-    <ProductCard/>
+    </div>
 </template>
 
 <script>
