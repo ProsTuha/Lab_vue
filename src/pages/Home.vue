@@ -9,7 +9,9 @@
             :placeholder="'Enter game name'"/>
           </div>
           <div class="home__content__search__result">
-            <ProductCard :products="products"/>
+            <ProductCard v-for="product in products" 
+            :key="product.id"
+            :product="product"/>
           </div>
         </Section>
       </div>
@@ -20,7 +22,11 @@
       </div>
       <div class="home__content__last-products">
         <Section headerName="Recently added">
-          <ProductCard :products="sortedLastProducts.slice(0,3)"/>
+          <div class="home__content__last-products-wrap">
+            <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
+            :key="product.id" 
+            :product="product"/>
+          </div>
         </Section>
       </div>
     </div> 
@@ -101,8 +107,13 @@ export default class HomePage extends Vue {
       &__result {
         margin-top: 10px;
       }
-
     }
+    
+    &__last-products-wrap {
+        display: flex;
+        width: 100%;
+        height: 370px;
+      }
   }
 }
 </style>

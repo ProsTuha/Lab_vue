@@ -1,8 +1,7 @@
 <template>
   <div class="input-wrap">
     <form class="input-wrap__form" action="">
-      <input @input="getValue" 
-      v-model="inputValue" 
+      <input @input="getValue"  
       :type="inputType" 
       :placeholder="placeholder" 
       class="input-wrap__input">
