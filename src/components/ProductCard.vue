@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card">
+<div class="product-card">
     <div class="product-card__front">
       <img class="product-card__front__logo" 
       :src="require('@/img/products/card/'+ product.productImagePath)" 
@@ -53,17 +53,17 @@ export default class ProductCard extends Vue {
 
 <style lang="scss" scoped>
 .product-card {
+  position: relative;
   width: 100%;
   height: 100%;
   perspective: 1000px;
-  margin-bottom: 20px;
-  position: relative;
-      
-  &__front {
+  margin: 0 auto 20px;
+
+    &__front {
     position: absolute;
     background-color: $color-black;
     height: 100%;
-    width: 70%;
+    width: 100%;
     backface-visibility: hidden;
     transition: 1s;
     margin: 0 auto;
@@ -114,7 +114,7 @@ export default class ProductCard extends Vue {
   &__back {
     position: absolute;
     top: 0;
-    width: 70%;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
     background-color: $color-black;

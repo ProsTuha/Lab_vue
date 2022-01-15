@@ -17,7 +17,12 @@
       </div>
       <div class="home__content__categories">
         <Section headerName="Categories">
-          <CategoryCard/>
+          <div class="home__content__categories-wrap">
+            <CategoryCard v-for="category in platformCategories" 
+            class="home__content__categories-wrap__category"
+            :key="category.id" 
+            :category="category"/>
+          </div>
         </Section>
       </div>
       <div class="home__content__last-products">
@@ -25,7 +30,8 @@
           <div class="home__content__last-products-wrap">
             <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
-            :product="product"/>
+            :product="product"
+            class="home__content__last-products-wrap__product"/>
           </div>
         </Section>
       </div>
@@ -40,7 +46,7 @@ import CategoryCard from '@/components/CategoryCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Section from '@/components/Section.vue'
 import Input from '@/components/Input.vue'
-import { IProduct } from '@/interfaces'
+import { IProduct, ICategory } from '@/interfaces'
 
 @Options({
   components: {
@@ -69,11 +75,17 @@ import { IProduct } from '@/interfaces'
       .then((response) => {
         this.recentlyProducts = response.data
       });
+    axios
+      .get('http://localhost:3000/categories')
+      .then((response) => {
+        this.platformCategories = response.data
+      });  
   }
 })
 export default class HomePage extends Vue {
   products: IProduct[] = []
   recentlyProducts: IProduct[] = []
+  platformCategories: ICategory[] = []
   ifProductsLoading = true
   
   createRequest(value) {
@@ -96,7 +108,7 @@ export default class HomePage extends Vue {
 
   &__content {
 
-    &__search{
+    &__search {
 
       &__input {
         width: 80%;
@@ -110,10 +122,24 @@ export default class HomePage extends Vue {
     }
     
     &__last-products-wrap {
-        display: flex;
-        width: 100%;
-        height: 370px;
+      display: flex;
+      justify-content: space-between;
+      height: 370px;
+
+      &__product {
+        width: 235px;
       }
+    }
+
+    &__categories-wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      &__category {
+        margin: 0 15px;
+      }
+    }
   }
 }
 </style>

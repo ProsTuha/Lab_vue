@@ -33,5 +33,23 @@
       "productImagePath": "Terraria.jpg",
       "creationDate": "2011-05-16"
     }
+  ],
+  "categories":
+  [
+    {
+      "id": 1, 
+      "logoPath": "pc-logo.png",
+      "categoryName": "PC"
+    },
+    {
+      "id": 2,
+      "logoPath": "playstation-logo.png",
+      "categoryName": "PlayStation"
+    },
+    {
+      "id": 3,
+      "logoPath": "xbox-logo.png",
+      "categoryName": "Xbox"
+    }
   ]
 }
