@@ -11,7 +11,6 @@ const routes = [
     component: Home
   },
   {
-    // ЗАМЕНИТЬ КОМПОНЕНТЫ!!!
 
     path: '/products',
     component: Products,
@@ -27,7 +26,10 @@ const routes = [
       {
         path: 'xbox-products',
         component: Home
-      }
+      },
+      // {
+      //   path: ''
+      // }
     ]
   },
   {

@@ -9,7 +9,13 @@
       "productGenre": "Shooter",
       "productRating": 5,
       "productImagePath": "Overwatch.jpg",
-      "creationDate": "2016-05-03"
+      "creationDate": "2016-05-03",
+      "publisher": "Blizzard Entertainment",
+      "country": "USA",
+      "edition": "Origins",
+      "announcementDate": "2014-11-07",
+      "tags": "#shooter #overwatch",
+      "systemRequirements": "CPU: Intel® Core™ i3 или AMD Phenom™ X3 8650\nNVIDIA® GeForce® GTX 460, ATI Radeon™ HD 4850, or Intel® HD Graphics 4400 graphics card"
     },
     {
       "id": 2,
@@ -20,7 +26,13 @@
       "productGenre": "Action & Adventure",
       "productRating": 5,
       "productImagePath": "Minecraft.jpg",
-      "creationDate": "2009-05-17"
+      "creationDate": "2011-11-18",
+      "publisher": "Mojang Studios",
+      "country": "Sweden",
+      "edition": "Java",
+      "announcementDate": "2009-05-17",
+      "tags": "#sandbox #minecraft",
+      "systemRequirements": "CPU: Intel Pentium 4 2.0 Ghz / AMD Athlon XP 2200+\nNvidia GeForce 8600 / ATI Radeon HD 2600 graphics card"
     },
     {
       "id": 3,
@@ -31,7 +43,13 @@
       "productGenre": "Action & Adventure",
       "productRating": 5,
       "productImagePath": "Terraria.jpg",
-      "creationDate": "2011-05-16"
+      "creationDate": "2011-05-16",
+      "publisher": " Re-Logic",
+      "country": "USA",
+      "edition": "Standart",
+      "announcementDate": "2011-04-18",
+      "tags": "#sandbox #terraria",
+      "systemRequirements": "CPU: clocked at 1.6 GHz\nwith 128 MB VRAM and Shader 1.1 support"
     }
   ]
 }

@@ -14,4 +14,10 @@ export interface IProduct {
   productRating: number;
   productImagePath: string;
   creationDate: string;
+  publisher: string;
+  country: string;
+  edition: string;
+  announcementDate: string;
+  tags: string;
+  systemRequirements: string;
 }
