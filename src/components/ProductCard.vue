@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="product-card__back">
-      <router-link class="product-card__back__link" :to="'/products/product-info'">
+      <router-link class="product-card__back__link" :to="'/products/product/' + product.id">
       <div class="product-card__back__description">
         {{product.productDescription}}
       </div>
@@ -135,6 +135,11 @@ export default class ProductCard extends Vue {
         border-radius: 5px;
         border: 0;
       }
+    }
+
+    &__description {
+      width: 100%;
+      height: 100%;
     }
 
     &__link {
