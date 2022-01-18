@@ -29,7 +29,7 @@ export default class Section extends Vue {
 <style lang="scss" scoped>
 .section {
   background-color: $section-bg;
-  width: 60%;
+  width: 65%;
   margin: 1% auto;
   border-radius: 40px;
   padding: 1% 0 3%;
@@ -43,8 +43,9 @@ export default class Section extends Vue {
   }
   
   &__content {
-    width: 100%;
     margin: 1em auto 0;
+    padding: 0 4%;
+    width: 90%;
   }
 }
 </style>
