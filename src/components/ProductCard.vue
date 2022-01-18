@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="product-card__back">
-      <router-link class="product-card__back__link" :to="'/products/product/' + product.id">
+      <router-link class="product-card__back__link" :to="'/product/' + product.id">
       <div class="product-card__back__description">
         {{product.productDescription}}
       </div>
