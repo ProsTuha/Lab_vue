@@ -11,7 +11,6 @@ const routes = [
     component: Home
   },
   {
-    // ЗАМЕНИТЬ КОМПОНЕНТЫ!!!
 
     path: '/products',
     component: Products,

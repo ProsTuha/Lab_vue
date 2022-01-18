@@ -22,7 +22,6 @@ import { ICategory } from '@/interfaces';
     category: Object
   }
 })
-
 export default class CategoryCards extends Vue {
   categories: ICategory[] = [
     {
@@ -50,7 +49,6 @@ export default class CategoryCards extends Vue {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 1% 1%;
   margin: 0 auto;
   background-color: $color-purple;
   text-align: center;
@@ -82,6 +80,26 @@ export default class CategoryCards extends Vue {
 
     .category__link {
       background-color: $color-purple;
+    }
+  }
+
+  &__platform-links {
+    width: 98%;
+    text-decoration: none;
+    margin: 2px auto 2%;
+    background: $color-white;
+    border-radius: 15px;
+
+    &__logo {
+      width: 30%;
+      margin: 5% auto 0;
+    }
+
+    &__description {
+      font-size: 1.5em;
+      font-weight: 500;
+      margin-bottom: 2%;
+      color: $color-black;
     }
   }
 }

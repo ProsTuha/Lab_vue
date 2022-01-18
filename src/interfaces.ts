@@ -9,8 +9,8 @@ export interface IProduct {
   categoryId: number;
   productName: string;
   productDescription: string;
-  productPrice: number;
-  productGenre: string; 
+  productPrice: number; 
+  productGenre: string;
   productRating: number;
   productImagePath: string;
   creationDate: string;
