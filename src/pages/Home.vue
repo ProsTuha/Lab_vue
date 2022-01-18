@@ -3,12 +3,12 @@
     <div class="home__content">
       <div class="home__content__search">
         <Section headerName="Search">
-          <div class="home__content__search__input">
+          <div class="home__content__search-input">
             <Input :inputType="'text'" 
             @input-event="createRequest"
             :placeholder="'Enter game name'"/>
           </div>
-          <div class="home__content__search__result">
+          <div class="home__content__search-result">
             <ProductCard v-for="product in products" 
             :key="product.id"
             :product="product"/>
@@ -19,7 +19,7 @@
         <Section headerName="Categories">
           <div class="home__content__categories-wrap">
             <CategoryCard v-for="category in platformCategories" 
-            class="home__content__categories-wrap__category"
+            class="home__content__category"
             :key="category.id" 
             :category="category"/>
           </div>
@@ -31,7 +31,7 @@
             <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
             :product="product"
-            class="home__content__last-products-wrap__product"/>
+            class="home__content__last-product"/>
           </div>
         </Section>
       </div>
@@ -108,37 +108,34 @@ export default class HomePage extends Vue {
 
   &__content {
 
-    &__search {
+    &__search-input {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 150%;
+    }
 
-      &__input {
-        width: 80%;
-        margin: 0 auto;
-        font-size: 150%;
-      }
-
-      &__result {
-        margin-top: 10px;
-      }
+    &__search-result {
+      margin-top: 10px;
     }
     
     &__last-products-wrap {
       display: flex;
       justify-content: space-between;
       height: 370px;
+    }
 
-      &__product {
-        width: 235px;
-      }
+    &__last-product {
+      width: 235px;
     }
 
     &__categories-wrap {
       display: flex;
       justify-content: space-between;
       width: 100%;
+    }
 
-      &__category {
-        margin: 0 15px;
-      }
+    &__category {
+      margin: 0 15px;
     }
   }
 }
