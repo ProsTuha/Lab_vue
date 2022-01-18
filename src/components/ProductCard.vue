@@ -6,7 +6,7 @@
       :alt="product.productName">
       <div class="product-card__front__info">
         <div class="product-card__front__info__name">
-          {{product.productName}}
+          {{productName}}
         </div>
         <div class="product-card__front__info__price">
           {{product.productPrice + '$'}}
@@ -43,6 +43,14 @@ import { Options, Vue } from 'vue-class-component';
 @Options({
   props: {
     product: Object
+  },
+  computed: {
+    productName() {
+      if (this.product.productName.length > 10) {
+        return `${this.product.productName.substr(0, 10)}...`
+      }
+      return this.product.productName
+    }
   }
 })
 
