@@ -10,7 +10,7 @@ interface iProduct {
   productName: string;
   productDescription: string;
   productPrice: number;
-  productGenre: string; // ИЗМЕНИТЬ НА ПЕРЕЧИСЛЕНИЕ!
+  productGenre: string;
   productRating: number;
   productImagePath: string;
 }
