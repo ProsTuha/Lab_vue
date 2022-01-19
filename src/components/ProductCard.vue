@@ -71,7 +71,7 @@ export default class ProductCard extends Vue {
     position: absolute;
     background-color: $color-black;
     height: 100%;
-    width: 70%;
+    width: 100%;
     backface-visibility: hidden;
     transition: 1s;
     margin: 0 auto;
@@ -122,7 +122,7 @@ export default class ProductCard extends Vue {
   &__back {
     position: absolute;
     top: 0;
-    width: 70%;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
     background-color: $color-black;
