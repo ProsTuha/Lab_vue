@@ -102,5 +102,23 @@
       "tags": "#action #thewitcher3",
       "systemRequirements": "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940 | GPU: Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870"
     }
+  ],
+  "categories":
+  [
+    {
+      "id": 1, 
+      "logoPath": "pc-logo.png",
+      "categoryName": "PC"
+    },
+    {
+      "id": 2,
+      "logoPath": "playstation-logo.png",
+      "categoryName": "PlayStation"
+    },
+    {
+      "id": 3,
+      "logoPath": "xbox-logo.png",
+      "categoryName": "Xbox"
+    }
   ]
 }
