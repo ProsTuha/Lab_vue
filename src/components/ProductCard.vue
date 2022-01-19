@@ -6,7 +6,7 @@
       :alt="product.productName">
       <div class="product-card__front-info">
         <div class="product-card__front-name">
-          {{productName}}
+          {{product.productName}}
         </div>
         <div class="product-card__front-price">
           {{product.productPrice + '$'}}
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="product-card__back">
-      <router-link class="product-card__back-link" :to="'/product/' + product.id">
+      <router-link class="product-card__back-link" :to="'/products/product-info'">
       <div class="product-card__back-description">
         {{product.productDescription}}
       </div>
@@ -43,14 +43,6 @@ import { Options, Vue } from 'vue-class-component';
 @Options({
   props: {
     product: Object
-  },
-  computed: {
-    productName() {
-      if (this.product.productName.length > 10) {
-        return `${this.product.productName.substr(0, 10)}...`
-      }
-      return this.product.productName
-    }
   }
 })
 
@@ -144,11 +136,6 @@ export default class ProductCard extends Vue {
       background-color: $color-purple;
       border-radius: 5px;
       border: 0;
-    }
-
-    &__back-description {
-      width: 100%;
-      height: 100%;
     }
 
     &__back-link {
