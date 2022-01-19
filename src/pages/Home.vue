@@ -11,13 +11,18 @@
           <div class="home__content__search-result">
             <ProductCard v-for="product in products" 
             :key="product.id"
-            :product="product" class="home__content__search-result-card"/>
+            :product="product"/>
           </div>
         </Section>
       </div>
       <div class="home__content__categories">
         <Section headerName="Categories">
-          <CategoryCard/>
+          <div class="home__content__categories-wrap">
+            <CategoryCard v-for="category in platformCategories" 
+            class="home__content__category"
+            :key="category.id" 
+            :category="category"/>
+          </div>
         </Section>
       </div>
       <div class="home__content__last-products">
@@ -25,7 +30,8 @@
           <div class="home__content__last-products-wrap">
             <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
-            :product="product"/>
+            :product="product"
+            class="home__content__last-product"/>
           </div>
         </Section>
       </div>
@@ -40,7 +46,7 @@ import CategoryCard from '@/components/CategoryCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Section from '@/components/Section.vue'
 import Input from '@/components/Input.vue'
-import { IProduct } from '@/interfaces'
+import { IProduct, ICategory } from '@/interfaces'
 
 @Options({
   components: {
@@ -69,11 +75,17 @@ import { IProduct } from '@/interfaces'
       .then((response) => {
         this.recentlyProducts = response.data
       });
+    axios
+      .get('http://localhost:3000/categories')
+      .then((response) => {
+        this.platformCategories = response.data
+      });  
   }
 })
 export default class HomePage extends Vue {
   products: IProduct[] = []
   recentlyProducts: IProduct[] = []
+  platformCategories: ICategory[] = []
   ifProductsLoading = true
   
   createRequest(value) {
@@ -101,21 +113,33 @@ export default class HomePage extends Vue {
       margin: 0 auto;
       font-size: 150%;
     }
-    
+
     &__search-result {
       margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
     }
-
-    &__search-result-card {
-      height: 370px;
-      width: 33%;
-    }
-
+    
     &__last-products-wrap {
       display: flex;
+      justify-content: space-between;
       height: 370px;
+    }
+
+    &__last-product {
+      width: 235px;
+    }
+
+    &__categories-wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__category {
+      margin: 0 15px;
+    }
+
+    &__last-products {
+      
     }
   }
 }
