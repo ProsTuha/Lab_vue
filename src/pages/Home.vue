@@ -26,7 +26,7 @@
             <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
             :product="product"
-            class="home__content__last-products-wrap"/>
+            class="home__content__last-product"/>
           </div>
         </Section>
       </div>
@@ -110,14 +110,18 @@ export default class HomePage extends Vue {
     }
 
     &__search-result-card {
-      height: 370px;
-      width: 33%;
-      }
+    height: 370px;
+    width: 33%;
+    }
 
     &__last-products-wrap {
-        display: flex;
-        height: 370px;
-      }
+      display: flex;
+      height: 370px;
+    }
+
+    &__last-product {
+      width: 235px;
+    }
   }
 }
 </style>
