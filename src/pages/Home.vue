@@ -116,23 +116,26 @@ export default class HomePage extends Vue {
 
     &__search-result {
       margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
     }
-
-    &__result-card {
-      height: 370px;
-      width: 33%;
-    }
-
+    
     &__last-products-wrap {
       display: flex;
+      justify-content: space-between;
       height: 370px;
+    }
+
+    &__last-product {
+      width: 235px;
     }
 
     &__categories-wrap {
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__category {
+      margin: 0 15px;
     }
   }
 }
