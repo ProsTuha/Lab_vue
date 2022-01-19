@@ -53,10 +53,8 @@ export default class Input extends Vue {
     width: 100%;
 
     .input-wrap__input {
-      margin-top: 5px;
       width: 100%;
       height: 100%;
-      padding: 10px;
       border: 2px solid $color-black;
       background: $input-background;
       border-radius: 20px;
@@ -68,11 +66,8 @@ export default class Input extends Vue {
   }
 
   &__cleaning-basket {
-    height: 4%;
-    position: absolute;
-    top: 21.4%;
-    right: 27%;
-    margin: 2px;
+    height: 50%;
+    position: relative;
   }
 
   &__cleaning-basket:hover {

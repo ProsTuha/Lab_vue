@@ -1,45 +1,47 @@
 <template>
-    <header class="header">
-        <div class="header__inner-wrap">
-            <div class="header__logo">
-                <router-link class="header__logo-link" to="/">Game Store</router-link>
-            </div>
-            <nav class="header__navigation">
-                <router-link class="header__navigation-link" to="/">
-                    Home
-                </router-link>
-                <router-link class="header__navigation-link" to="/products">
-                    Products
-                </router-link>
-                <div class="header__navigation-link dropdown">
-                    <div class="header__navigation__dropdown-button">
-                        Categories
-                    </div> 
-                    <div class="header__navigation__dropdown-content">
-                        <router-link class="header__navigation__dropdown-link" 
-                        to="/products/pc-products">PC</router-link>
+  <header class="header">
+    <div class="header__inner-wrap">
+      <div class="header__logo">
+        <router-link class="header__logo-link" to="/">Game Store</router-link>
+      </div>
+      <nav class="header__navigation">
+        <router-link class="header__navigation-link" to="/">
+          Home
+        </router-link>
+        <router-link class="header__navigation-link" to="/products">
+          Products
+        </router-link>
+        <div class="header__navigation-link dropdown">
+          Categories
+          <div class="header__navigation__dropdown-content">
+            <router-link class="header__navigation__dropdown-link" 
+            to="/products/pc-products">PC</router-link>
 
-                        <router-link class="header__navigation__dropdown-link" 
-                        to="/products/playstation-products">PlayStation</router-link>
+            <router-link class="header__navigation__dropdown-link" 
+            to="/products/playstation-products">PlayStation</router-link>
 
-                        <router-link class="header__navigation__dropdown-link" 
-                        to="/products/xbox-products">Xbox</router-link>
-
-                    </div>
-                </div>
-                <router-link class="header__navigation-link" to="/about">
-                    About
-                </router-link>
-            </nav>
+            <router-link class="header__navigation__dropdown-link" 
+            to="/products/xbox-products">Xbox</router-link>
+          </div>
         </div>
-    </header>
+        <router-link class="header__navigation-link" to="/about">
+          About
+        </router-link>
+        <div class="header__navigation-link">
+          Sign In
+        </div>
+      </nav>
+    </div>
+  </header>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 
 export default class HeaderNavigation extends Vue {
-  
+  test() {
+    console.log('hello');
+  }
 }
 
 </script>
@@ -53,20 +55,19 @@ export default class HeaderNavigation extends Vue {
 
         &__navigation {
           display: inherit;
-          width: 30%;
         }
 
         &__navigation-link {
           font-size: 23px;
           font-weight: 500;
           color: $color-gray;
-          width: 30%;
           height: 100%;
+          width: 92px;
           text-align: center;
           line-height: 65px;
           text-decoration: none;
-          margin: 0 auto;
-            
+          padding: 0 7px;
+
           &:focus {
             color: $color-purple;
           }

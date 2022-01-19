@@ -110,19 +110,20 @@ export default class HomePage extends Vue {
   &__content {
 
     &__search-input {
-      width: 80%;
+      height: 40px;
+      width: 60%;
       margin: 0 auto;
       font-size: 150%;
     }
 
     &__search-result {
-      margin-top: 20px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
 
     &__search-result-card {
+      margin-top: 20px;
       width: 235px;
       height: 370px;
       margin-bottom: 20px;

@@ -39,7 +39,7 @@ const routes = [
   {
     path: '/:catchAll(.*)',
     component: Error
-  },
+  }
 ]
 
 const router = createRouter({
