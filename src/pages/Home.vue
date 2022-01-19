@@ -3,26 +3,21 @@
     <div class="home__content">
       <div class="home__content__search">
         <Section headerName="Search">
-          <div class="home__content__search-input">
+          <div class="home__content__search__input">
             <Input :inputType="'text'" 
             @input-event="createRequest"
             :placeholder="'Enter game name'"/>
           </div>
-          <div class="home__content__search-result">
+          <div class="home__content__search__result">
             <ProductCard v-for="product in products" 
             :key="product.id"
-            :product="product" class="home__content__result-card"/>
+            :product="product" class="home__content__search__result-card"/>
           </div>
         </Section>
       </div>
       <div class="home__content__categories">
         <Section headerName="Categories">
-          <div class="home__content__categories-wrap">
-            <CategoryCard v-for="category in platformCategories" 
-            class="home__content__category"
-            :key="category.id" 
-            :category="category"/>
-          </div>
+          <CategoryCard/>
         </Section>
       </div>
       <div class="home__content__last-products">
@@ -30,8 +25,7 @@
           <div class="home__content__last-products-wrap">
             <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
-            :product="product"
-            class="home__content__last-product"/>
+            :product="product"/>
           </div>
         </Section>
       </div>
@@ -46,7 +40,7 @@ import CategoryCard from '@/components/CategoryCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Section from '@/components/Section.vue'
 import Input from '@/components/Input.vue'
-import { IProduct, ICategory } from '@/interfaces'
+import { IProduct } from '@/interfaces'
 
 @Options({
   components: {
@@ -75,17 +69,11 @@ import { IProduct, ICategory } from '@/interfaces'
       .then((response) => {
         this.recentlyProducts = response.data
       });
-    axios
-      .get('http://localhost:3000/categories')
-      .then((response) => {
-        this.platformCategories = response.data
-      });  
   }
 })
 export default class HomePage extends Vue {
   products: IProduct[] = []
   recentlyProducts: IProduct[] = []
-  platformCategories: ICategory[] = []
   ifProductsLoading = true
   
   createRequest(value) {
@@ -108,35 +96,30 @@ export default class HomePage extends Vue {
 
   &__content {
 
-    &__search-input {
-      width: 80%;
-      margin: 0 auto;
-      font-size: 150%;
-    }
+    &__search{
 
-    &__search-result {
-      margin-top: 10px;
+      &__input {
+        width: 80%;
+        margin: 0 auto;
+        font-size: 150%;
+      }
+
+      &__result {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      &__result-card {
+        height: 370px;
+        width: 33%;
+      }
     }
     
     &__last-products-wrap {
-      display: flex;
-      justify-content: space-between;
-      height: 370px;
-    }
-
-    &__last-product {
-      width: 235px;
-    }
-
-    &__categories-wrap {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    &__category {
-      margin: 0 15px;
-    }
+        display: flex;
+        height: 370px;
+      }
   }
 }
 </style>
