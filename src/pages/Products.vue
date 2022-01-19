@@ -45,7 +45,7 @@ export default class Products extends Vue {
 
   &__product-card {
     height: 370px;
-    width: 33%;
+    width: 235px;
     margin-bottom: 20px;
   }
 }
