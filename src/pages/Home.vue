@@ -3,15 +3,15 @@
     <div class="home__content">
       <div class="home__content__search">
         <Section headerName="Search">
-          <div class="home__content__search__input">
+          <div class="home__content__search-input">
             <Input :inputType="'text'" 
             @input-event="createRequest"
             :placeholder="'Enter game name'"/>
           </div>
-          <div class="home__content__search__result">
+          <div class="home__content__search-result">
             <ProductCard v-for="product in products" 
             :key="product.id"
-            :product="product" class="home__content__search__result-card"/>
+            :product="product" class="home__content__search-result-card"/>
           </div>
         </Section>
       </div>
@@ -96,30 +96,27 @@ export default class HomePage extends Vue {
 
   &__content {
 
-    &__search{
-
-      &__input {
-        width: 80%;
-        margin: 0 auto;
-        font-size: 150%;
-      }
-
-      &__result {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      &__result-card {
-        height: 370px;
-        width: 33%;
-      }
+    &__search-input {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 150%;
     }
     
+    &__search-result {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__search-result-card {
+      height: 370px;
+      width: 33%;
+    }
+
     &__last-products-wrap {
-        display: flex;
-        height: 370px;
-      }
+      display: flex;
+      height: 370px;
+    }
   }
 }
 </style>
