@@ -11,7 +11,7 @@
           <div class="home__content__search-result">
             <ProductCard v-for="product in products" 
             :key="product.id"
-            :product="product" class="home__content__search__result-card"/>
+            :product="product" class="home__content__result-card"/>
           </div>
         </Section>
       </div>
@@ -132,12 +132,7 @@ export default class HomePage extends Vue {
 
     &__categories-wrap {
       display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    &__category {
-      margin: 0 15px;
+      flex-wrap: wrap;
     }
   }
 }
