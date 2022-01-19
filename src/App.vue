@@ -21,7 +21,7 @@ import './assets/colors.scss';
       HeaderNavigation,
       Footer,
       ErrorBoundary,
-      CategoryCards
+      CategoryCards,
     }
   })
   

@@ -1,0 +1,55 @@
+ { "products": 
+  [
+    {
+      "id": 1,
+      "categoryId": 1,
+      "productName": "Overwatch",
+      "productDescription": "Some description",
+      "productPrice": 23.99,
+      "productGenre": "Shooter",
+      "productRating": 5,
+      "productImagePath": "Overwatch.jpg",
+      "creationDate": "2016-05-03"
+    },
+    {
+      "id": 2,
+      "categoryId": 1,
+      "productName": "Minecraft",
+      "productDescription": "Some description",
+      "productPrice": 25.99,
+      "productGenre": "Action & Adventure",
+      "productRating": 5,
+      "productImagePath": "Minecraft.jpg",
+      "creationDate": "2009-05-17"
+    },
+    {
+      "id": 3,
+      "categoryId": 1,
+      "productName": "Terraria",
+      "productDescription": "Some description",
+      "productPrice": 4.99,
+      "productGenre": "Action & Adventure",
+      "productRating": 5,
+      "productImagePath": "Terraria.jpg",
+      "creationDate": "2011-05-16"
+    }
+  ],
+  "categories":
+  [
+    {
+      "id": 1, 
+      "logoPath": "pc-logo.png",
+      "categoryName": "PC"
+    },
+    {
+      "id": 2,
+      "logoPath": "playstation-logo.png",
+      "categoryName": "PlayStation"
+    },
+    {
+      "id": 3,
+      "logoPath": "xbox-logo.png",
+      "categoryName": "Xbox"
+    }
+  ]
+}
