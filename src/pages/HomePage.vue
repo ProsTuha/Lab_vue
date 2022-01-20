@@ -123,7 +123,7 @@ export default class HomePage extends Vue {
     }
 
     &__search-result-card {
-      margin-top: 20px;
+      margin-top: 30px;
       width: 235px;
       height: 370px;
       margin-bottom: 20px;

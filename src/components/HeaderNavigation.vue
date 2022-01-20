@@ -27,20 +27,34 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <div class="header__navigation-link">
+        <div class="header__navigation-link" @click="showSignIn">
           Sign In
         </div>
       </nav>
     </div>
   </header>
+
+  <Modal :title="'Registration'" :buttons="buttons">
+    <SignInModal :teleportModal="teleportModal"/>
+  </Modal>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Options, Vue } from 'vue-class-component';
+import SignInModal from '@/components/SignInModal.vue';
+import Modal from '@/components/Modal.vue';
 
+@Options({
+  components: {
+    SignInModal,
+    Modal
+  }
+})
 export default class HeaderNavigation extends Vue {
-  test() {
-    console.log('hello');
+  teleportModal = false;
+
+  showSignIn() {
+    this.teleportModal = true
   }
 }
 
@@ -67,6 +81,7 @@ export default class HeaderNavigation extends Vue {
           line-height: 65px;
           text-decoration: none;
           padding: 0 7px;
+          cursor: pointer;
 
           &:focus {
             color: $color-purple;

@@ -1,10 +1,11 @@
 <template>
-  <div class="modal" v-if="!closeWindow">
+<teleport to="#modal" :disabled="!teleportModal">
+  <div class="modal" v-if="showModal">
     <div class="modal-top">
       <div class="modal-top__title">
         {{title}}
       </div>
-      <div class="modal-top__close-wrap" @click="closeWindow = true">
+      <div class="modal-top__close-wrap" @click="this.$emit('update:show', false)">
         ×
       </div>
     </div>
@@ -21,6 +22,7 @@
       </div>
     </div>
   </div>
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -31,21 +33,32 @@ import { Options, Vue } from 'vue-class-component'
     title: String,
     buttons: {
       type: Array
+    },
+    teleportModal: {
+      type: Boolean,
+      default: false
+    },
+    showModal: {
+      type: Boolean,
+      default: true
     }
   }
 })
 
 export default class ModalWindow extends Vue {
-  closeWindow = false
+
 }
 </script>
 
 <style lang="scss" scoped>
   .modal {
     width: 33%;
-    margin: 0 auto;
-    background: red;
-    border-radius: 15px;
+    background: #121212;
+    border-radius: 20px;
+    padding: 10px;
+    position: absolute;
+    top: 25%;
+    left: calc(67%/2);
 
     &__buttons {
       display: flex;
@@ -57,11 +70,24 @@ export default class ModalWindow extends Vue {
     }
 
     &__button {
-      background: pink;
+      background: $color-pink;
+      font-size: 20px;
+      font-weight: 600;
       border-radius: 10px;
       border: 2px solid black;
       width: 120px;
       height: 30px;
+      cursor: pointer;
+    }
+
+    &__button:hover {
+      box-shadow: 0 0 1px $color-white, 0 0 2px $color-pink, 0 0 4px $color-white, 
+      0 0 8px $color-pink, 0 0 16px $color-pink, 0 0 20px $color-pink, 
+      0 0 25px $color-pink;
+    }
+
+    &__button:active {
+      background: $color-white;
     }
   }
 
@@ -69,6 +95,8 @@ export default class ModalWindow extends Vue {
     height: 40px;
     display: flex;
     justify-content: space-between;
+    color: $color-white;
+    margin-bottom: 25px;
 
     &__close-wrap {
       font-size: 40px;
@@ -80,12 +108,12 @@ export default class ModalWindow extends Vue {
       border-radius: 5px;
 
       &:hover {
-        background: white;
+        background: $color-purple;
       }
     }
 
     &__title {
-      font-size: 30px;
+      font-size: 35px;
       text-align: left;
       margin-left: 20px;
       line-height: 40px;

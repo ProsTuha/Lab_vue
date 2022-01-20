@@ -229,6 +229,7 @@ export default class DetailPage extends Vue {
       background: $color-pink;
       border: 2px solid black;
       font-size: 30px; 
+      cursor: pointer;
     }
 
     &__basic-info-rating-star {
@@ -240,6 +241,10 @@ export default class DetailPage extends Vue {
       box-shadow: 0 0 1px $color-white, 0 0 2px $color-pink, 0 0 4px $color-white, 
       0 0 8px $color-pink, 0 0 16px $color-pink, 0 0 20px $color-pink, 
       0 0 25px $color-pink;
+    }
+
+    &__basic-info-adding-button:active {
+      background: $color-white;
     }
 
     &__additional-info {

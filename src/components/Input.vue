@@ -39,6 +39,7 @@ export default class Input extends Vue {
     clearInput() {
       this.$emit('inputEvent', '')  
       this.inputValue = ''
+      this.isWritten = false
     }
 }
 </script>
@@ -47,6 +48,7 @@ export default class Input extends Vue {
 .input-wrap {
   height: 100%;
   width: 100%;
+  position: relative;
 
   &__form {
     height: 100%;
@@ -54,10 +56,11 @@ export default class Input extends Vue {
 
     .input-wrap__input {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 4px);
       border: 2px solid $color-black;
       background: $input-background;
       border-radius: 20px;
+      padding-left: 7px;
     }
   }
 
@@ -66,8 +69,10 @@ export default class Input extends Vue {
   }
 
   &__cleaning-basket {
-    height: 50%;
-    position: relative;
+    position: absolute;
+    right: 0;
+    height: 70%;
+    top: 15%;
   }
 
   &__cleaning-basket:hover {
