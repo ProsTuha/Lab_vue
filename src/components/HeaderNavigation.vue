@@ -27,39 +27,64 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <div class="header__navigation-link" @click="showSignIn">
+        <div class="header__navigation-link" @click="showSignIn" v-if="!userLogin">
           Sign In
+        </div>
+        <div class="header__navigation-link" @click="showSignUp" v-if="!userLogin">
+          Sign Up
+        </div>
+        <div class="header__user-login" v-if="userLogin">
+          {{userLogin}}
         </div>
       </nav>
     </div>
   </header>
 
-  <Modal :title="'Registration'" 
-  :buttons="['Submit']" 
-  v-model:teleportModal="teleportModal" 
-  v-model:showModal="showModal">
-    <SignInModal/>
+  <Modal :title="'Authorization'" 
+  v-model:modal="signIn" v-if="signIn">
+    <SignInModal @authorized="authorizedUser"/>
+  </Modal>
+
+  <Modal :title="'Registration'"  
+  v-model:modal="signUp" v-if="signUp">
+    <SignUpModal/>
   </Modal>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import SignInModal from '@/components/SignInModal.vue';
+import SignUpModal from '@/components/SignUpModal.vue'
 import Modal from '@/components/Modal.vue';
 
 @Options({
   components: {
     SignInModal,
+    SignUpModal,
     Modal
   }
 })
 export default class HeaderNavigation extends Vue {
-  teleportModal = false;
-  showModal = false;
+  modal = false;
+  signIn = false;
+  signUp = false;
+  userLogin = '';
+
+  showSignUp() {
+    this.modal = true;
+    this.signUp = true;
+    this.signIn = false;
+  }
 
   showSignIn() {
-    this.teleportModal = true;
-    this.showModal = true;
+    this.modal = true;
+    this.signIn = true;
+    this.signUp = false;
+  }
+
+  authorizedUser(value) {
+    this.signIn = false;
+    this.userLogin = value.login;
   }
 }
 
@@ -67,63 +92,69 @@ export default class HeaderNavigation extends Vue {
 
 <style scoped lang="scss">
 @import '@/assets/dropdown-styles.scss';
-    .header {
-        background-color: $color-black;
-        height: 65px;
-        vertical-align: middle;
+  .header {
+    background-color: $color-black;
+    height: 65px;
+    vertical-align: middle;
 
-        &__navigation {
-          display: inherit;
-        }
-
-        &__navigation-link {
-          font-size: 23px;
-          font-weight: 500;
-          color: $color-gray;
-          height: 100%;
-          width: 92px;
-          text-align: center;
-          line-height: 65px;
-          text-decoration: none;
-          padding: 0 7px;
-          cursor: pointer;
-
-          &:focus {
-            color: $color-purple;
-          }
-
-          &:hover {
-            border-bottom: 5px solid $color-purple;
-            background-color: $navigation-bg-hover;
-            height: 60px;
-            color: $color-white;
-          }
-
-          &--active {
-            color: $color-purple;
-          }
-        }
-
-        &__inner-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0px 17px;
-            height: 100%;
-        }
-
-        &__logo-link {
-            font-size: 40px;
-            font-weight: 500;
-            color: $color-gray;
-            height: 100%;
-            line-height: 65px;
-            text-decoration: none;
-
-            &:hover,
-            &:focus {
-              color: $color-purple;
-            }
-        }
+    &__navigation {
+      display: inherit;
     }
+
+    &__navigation-link {
+      font-size: 23px;
+      font-weight: 500;
+      color: $color-gray;
+      height: 100%;
+      width: 92px;
+      text-align: center;
+      line-height: 65px;
+      text-decoration: none;
+      padding: 0 7px;
+      cursor: pointer;
+
+      &:focus {
+        color: $color-purple;
+      }
+
+      &:hover {
+        border-bottom: 5px solid $color-purple;
+        background-color: $navigation-bg-hover;
+        height: 60px;
+        color: $color-white;
+      }
+
+      &--active {
+        color: $color-purple;
+      }
+    }
+
+    &__inner-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 17px;
+      height: 100%;
+    }
+
+    &__logo-link {
+      font-size: 40px;
+      font-weight: 500;
+      color: $color-gray;
+      height: 100%;
+      line-height: 65px;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: $color-purple;
+      }
+    }
+
+    &__user-login {
+      font-size: 20px;
+      color: $color-purple;
+      line-height: 65px;
+    }
+  }
 </style>

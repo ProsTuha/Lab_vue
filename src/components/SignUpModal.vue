@@ -1,33 +1,39 @@
 <template>
-    <div class="authorization">
-      <div class="authorization__login-field row">
+    <div class="registration">
+      <div class="registration__login-field row">
         Login
         <Input :inputType="'text'" 
         :placeholder="'Enter your e-mail'" 
         @input-event="checkMail"
-        class="authorization__input"/>
+        class="registration__input"/>
       </div>
-      <div class="authorization__bad-mail-notice" v-if="badMail">
+      <div class="registration__bad-mail-notice" v-if="badMail">
         {{errorLogin}}
       </div>
-      <div class="authorization__password-field row">
+      <div class="registration__password-field row">
         Password
         <Input :inputType="'password'" 
         :placeholder="'Password'" 
         @input-event="checkPassword"
-        class="authorization__input"/>
+        class="registration__input"/>
       </div>
-      <div class="authorization__bad-password-notice" v-if="badPassword">
+      <div class="registration__bad-password-notice" v-if="badPassword">
         {{errorPassword}}
       </div>
-      <div class="authorization__no-user" v-if="absentUser">
-        User is not found
+      <div class="registration__repeat-password-field row">
+        Repeat password
+        <Input :inputType="'password'" 
+        :placeholder="'Repeat password'"
+        @input-event="checkRepeatPassword" 
+        class="registration__input"/>
       </div>
-      <div class="authorization__buttons">
-        <div class="authorization__button-wrap">
-          <button class="authorization__button" 
-          @click="checkUser">
-            Log In
+      <div class="registration__bad-repeat-notice" v-if="badRepeat">
+        {{errorRepeat}}
+      </div>
+      <div class="registration__buttons">
+        <div class="registration__button-wrap">
+          <button class="registration__button" @click="registerUser">
+            Register
           </button>
         </div>
     </div>
@@ -37,20 +43,38 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
+import Modal from '@/components/Modal.vue';
 import Input from '@/components/Input.vue';
 
 @Options({
   components: {
+    Modal,
     Input
+  },
+  props: {
+    teleportModal: {
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/users')
+      .then((response) => {
+        console.log(response.data)
+        this.userCount = response.data.length;
+      })
   }
 })
 
 export default class SignInModal extends Vue {
   badMail = true;
   badPassword = true;
-  absentUser = false;
+  badRepeat = true;
+  userCount = 0;
   errorLogin = 'Fill in the field';
   errorPassword = 'Fill in the field';
+  errorRepeat = 'Fill in the field';
   login = '';
   password = '';
 
@@ -85,26 +109,33 @@ export default class SignInModal extends Vue {
     }
   }
 
-  checkUser() { 
-    if (this.badMail === false && this.badPassword === false) {
-      axios
-        .get(`http://localhost:3000/users?login_like=${this.login}&password_like=${this.password}`)
-        .then((response) => {
-          console.log(response);
-          if (response.data.length === 0) {
-            this.absentUser = true;
-          } else {
-            this.absentUser = false;
-            this.$emit('authorized', response.data[0]);
-          }
-        })
+  checkRepeatPassword(value) {
+    if (value.length !== 0) {
+      if (value.length < 5 || value !== this.password) {
+        this.badRepeat = true;
+        this.errorRepeat = 'Password mismatch';
+      } else {
+        this.badRepeat = false;
+      }
+    } else {
+      this.errorRepeat = 'Fill in the field';
+      this.badRepeat = true;
     }
+  }
+
+  registerUser() {
+    axios
+      .post('http://localhost:3000/users', {
+        id: this.userCount + 1,
+        login: this.login,
+        password: this.password
+      })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .authorization {
+  .registration {
     .row {
       display: flex;
       justify-content: space-between;
@@ -131,7 +162,8 @@ export default class SignInModal extends Vue {
     }
 
     &__bad-mail-notice,
-    &__bad-password-notice {
+    &__bad-password-notice,
+    &__bad-repeat-notice {
       color: red;
       font-size: 20px;
       text-align: right;
@@ -156,22 +188,6 @@ export default class SignInModal extends Vue {
       width: 120px;
       height: 30px;
       cursor: pointer;
-    }
-
-    &__button:hover {
-      box-shadow: 0 0 1px $color-white, 0 0 2px $color-pink, 0 0 4px $color-white, 
-      0 0 8px $color-pink, 0 0 16px $color-pink, 0 0 20px $color-pink, 
-      0 0 25px $color-pink;
-    }
-
-    &__button:active {
-      background: $color-white;
-    }
-
-    &__no-user {
-      color: red;
-      font-size: 20px;
-      text-align: center;
     }
   }
 </style>

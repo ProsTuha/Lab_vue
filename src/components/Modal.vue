@@ -1,6 +1,6 @@
 <template>
-<teleport to="#modal" :disabled="!teleportModal">
-  <div class="modal" v-if="showModal">
+<teleport to="#modal" :disabled="!modal">
+  <div class="modal" v-if="modal">
     <div class="modal-top">
       <div class="modal-top__title">
         {{title}}
@@ -14,13 +14,6 @@
         
       </slot>
     </div>
-    <div class="modal__buttons">
-      <div class="modal__button-wrap" v-for="button in buttons" :key="button">
-        <button class="modal__button">
-          {{button}}
-        </button>
-      </div>
-    </div>
   </div>
   </teleport>
 </template>
@@ -31,31 +24,23 @@ import { Options, Vue } from 'vue-class-component'
 @Options({
   props: {
     title: String,
-    buttons: {
-      type: Array
-    },
-    teleportModal: {
+    modal: {
       type: Boolean,
       default: false
-    },
-    showModal: {
-      type: Boolean,
-      default: true
     }
   }
 })
 
 export default class ModalWindow extends Vue {
   closeWindow() {
-    this.$emit('update:showModal', false);
-    this.$emit('update:teleportModal', false);
+    this.$emit('update:modal', false);
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .modal {
-    width: 33%;
+    width: 28%;
     background: #121212;
     border-radius: 20px;
     padding: 10px;
@@ -63,36 +48,6 @@ export default class ModalWindow extends Vue {
     top: 25%;
     left: calc(67%/2);
     z-index: 1;
-
-    &__buttons {
-      display: flex;
-      justify-content: center;
-    }
-
-    &__button-wrap {
-      margin: 10px;
-    }
-
-    &__button {
-      background: $color-pink;
-      font-size: 20px;
-      font-weight: 600;
-      border-radius: 10px;
-      border: 2px solid black;
-      width: 120px;
-      height: 30px;
-      cursor: pointer;
-    }
-
-    &__button:hover {
-      box-shadow: 0 0 1px $color-white, 0 0 2px $color-pink, 0 0 4px $color-white, 
-      0 0 8px $color-pink, 0 0 16px $color-pink, 0 0 20px $color-pink, 
-      0 0 25px $color-pink;
-    }
-
-    &__button:active {
-      background: $color-white;
-    }
   }
 
   .modal-top {

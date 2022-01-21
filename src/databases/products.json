@@ -1,5 +1,5 @@
- { "products": 
-  [
+{
+  "products": [
     {
       "id": 1,
       "categoryId": 1,
@@ -103,10 +103,9 @@
       "systemRequirements": "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940 | GPU: Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870"
     }
   ],
-  "categories":
-  [
+  "categories": [
     {
-      "id": 1, 
+      "id": 1,
       "logoPath": "pc-logo.png",
       "categoryName": "PC"
     },
@@ -119,6 +118,18 @@
       "id": 3,
       "logoPath": "xbox-logo.png",
       "categoryName": "Xbox"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "login": "user1@mail.ru",
+      "password": "12345"
+    },
+    {
+      "id": 2,
+      "login": "user2@mail.ru",
+      "password": "567890"
     }
   ]
 }
