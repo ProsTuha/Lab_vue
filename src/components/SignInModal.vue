@@ -37,8 +37,7 @@ import Input from '@/components/Input.vue'
 })
 
 export default class SignInModal extends Vue {
-  close = true
-  buttons: string[] = ['Submit']
+
 }
 </script>
 

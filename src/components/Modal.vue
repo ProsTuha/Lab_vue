@@ -5,7 +5,7 @@
       <div class="modal-top__title">
         {{title}}
       </div>
-      <div class="modal-top__close-wrap" @click="this.$emit('update:show', false)">
+      <div class="modal-top__close-wrap" @click="closeWindow">
         ×
       </div>
     </div>
@@ -46,7 +46,10 @@ import { Options, Vue } from 'vue-class-component'
 })
 
 export default class ModalWindow extends Vue {
-
+  closeWindow() {
+    this.$emit('update:showModal', false);
+    this.$emit('update:teleportModal', false);
+  }
 }
 </script>
 
@@ -59,6 +62,7 @@ export default class ModalWindow extends Vue {
     position: absolute;
     top: 25%;
     left: calc(67%/2);
+    z-index: 1;
 
     &__buttons {
       display: flex;
@@ -106,6 +110,7 @@ export default class ModalWindow extends Vue {
       line-height: 20px;
       margin-top: 10px;
       border-radius: 5px;
+      cursor: pointer;
 
       &:hover {
         background: $color-purple;

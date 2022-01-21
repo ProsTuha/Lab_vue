@@ -34,8 +34,11 @@
     </div>
   </header>
 
-  <Modal :title="'Registration'" :buttons="buttons">
-    <SignInModal :teleportModal="teleportModal"/>
+  <Modal :title="'Registration'" 
+  :buttons="['Submit']" 
+  v-model:teleportModal="teleportModal" 
+  v-model:showModal="showModal">
+    <SignInModal/>
   </Modal>
 </template>
 
@@ -52,9 +55,11 @@ import Modal from '@/components/Modal.vue';
 })
 export default class HeaderNavigation extends Vue {
   teleportModal = false;
+  showModal = false;
 
   showSignIn() {
-    this.teleportModal = true
+    this.teleportModal = true;
+    this.showModal = true;
   }
 }
 

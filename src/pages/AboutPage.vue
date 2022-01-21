@@ -1,6 +1,5 @@
 <template>
     <div class="about">
-      <SignInModal/>
       <h1 class="about__content indicator">About!</h1>
     </div>
 </template>

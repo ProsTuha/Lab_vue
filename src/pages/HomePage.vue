@@ -118,12 +118,12 @@ export default class HomePage extends Vue {
 
     &__search-result {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-wrap: wrap;
     }
 
     &__search-result-card {
-      margin-top: 30px;
+      margin-top: 15px;
       width: 235px;
       height: 370px;
       margin-bottom: 20px;
