@@ -47,7 +47,7 @@
 
   <Modal :title="'Registration'"  
   v-model:modal="signUp" v-if="signUp">
-    <SignUpModal/>
+    <SignUpModal @registered="registeredUser"/>
   </Modal>
 </template>
 
@@ -85,6 +85,11 @@ export default class HeaderNavigation extends Vue {
   authorizedUser(value) {
     this.signIn = false;
     this.userLogin = value.login;
+  }
+
+  registeredUser(value) {
+    this.signUp = false;
+    this.userLogin = value;
   }
 }
 

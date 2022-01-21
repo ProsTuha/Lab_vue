@@ -61,7 +61,6 @@ import Input from '@/components/Input.vue';
     axios
       .get('http://localhost:3000/users')
       .then((response) => {
-        console.log(response.data)
         this.userCount = response.data.length;
       })
   }
@@ -129,7 +128,9 @@ export default class SignInModal extends Vue {
         id: this.userCount + 1,
         login: this.login,
         password: this.password
-      })
+      });
+    this.$emit('registered', this.login);
+    console.log(this.login);
   }
 }
 </script>
