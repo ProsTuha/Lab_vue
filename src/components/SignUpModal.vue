@@ -165,7 +165,7 @@ export default class SignInModal extends Vue {
     &__bad-mail-notice,
     &__bad-password-notice,
     &__bad-repeat-notice {
-      color: red;
+      color:  $color-red;
       font-size: 20px;
       text-align: right;
       margin-right: 5%;
