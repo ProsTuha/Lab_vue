@@ -136,7 +136,7 @@ export default class DetailPage extends Vue {
 
 <style lang="scss" scoped>
   .product-details {
-    background: white;
+    background: $color-white;
 
     &__basic-info {
       display: flex;
@@ -147,10 +147,10 @@ export default class DetailPage extends Vue {
 
       &__main {
         width: 75%;
-        background: #9933cc4d;
+        background: $additional-info;
         margin: 15px 20px 15px 5px;
         border-radius: 20px;
-        border: 2px solid black;
+        border: 2px solid $color-black;
         box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
         0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
         0 0 25px $color-purple;
@@ -175,7 +175,7 @@ export default class DetailPage extends Vue {
       height: 450px;
       width: 100%;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
       0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
       0 0 25px $color-purple;
@@ -188,11 +188,11 @@ export default class DetailPage extends Vue {
       font-size: 60px;
       font-weight: 600;
       margin: 5px 0 10px 0px;
-      color: black;
+      color: $color-black;
       text-align: center;
       background: $color-purple;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
     }
 
     &__basic-info-description,
@@ -200,7 +200,7 @@ export default class DetailPage extends Vue {
     &__basic-info-rating,
     &__basic-info-publisher,
     &__basic-info-price{
-      color: black;
+      color: $color-black;
       font-size: 30px;
       text-align: left;
     }
@@ -215,7 +215,7 @@ export default class DetailPage extends Vue {
     &__basic-info-publisher-inscription,
     &__basic-info-price-inscription {
       font-size: 35px;
-      color: rgba(0, 0, 0, 0.5);
+      color: $transparent-black;
       margin-left: 20px;
     }
 
@@ -227,7 +227,7 @@ export default class DetailPage extends Vue {
       border-radius: 20px;
       width: 200px;
       background: $color-pink;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       font-size: 30px; 
     }
 
@@ -243,10 +243,10 @@ export default class DetailPage extends Vue {
     }
 
     &__additional-info {
-      background: #9933cc4d;
+      background: $additional-info;
       margin: 15px 10px 15px;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
       0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
       0 0 25px $color-purple;
@@ -267,7 +267,7 @@ export default class DetailPage extends Vue {
       &__requirements-inscription,
       &__tags-inscription {
         font-size: 32px;
-        color: rgba(0, 0, 0, 0.5);
+        color: $transparent-black;
         font-weight: 500;
       }
     }
