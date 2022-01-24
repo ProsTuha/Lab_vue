@@ -136,7 +136,7 @@ export default class DetailPage extends Vue {
 
 <style lang="scss" scoped>
   .product-details {
-    background: white;
+    background: $color-white;
 
     &__basic-info {
       display: flex;
@@ -150,7 +150,7 @@ export default class DetailPage extends Vue {
         background: #9933cc4d;
         margin: 15px 20px 15px 5px;
         border-radius: 20px;
-        border: 2px solid black;
+        border: 2px solid $color-black;
         box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
         0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
         0 0 25px $color-purple;
@@ -175,7 +175,7 @@ export default class DetailPage extends Vue {
       height: 450px;
       width: 100%;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
       0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
       0 0 25px $color-purple;
@@ -188,11 +188,11 @@ export default class DetailPage extends Vue {
       font-size: 60px;
       font-weight: 600;
       margin: 5px 0 10px 0px;
-      color: black;
+      color: $color-black;
       text-align: center;
       background: $color-purple;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
     }
 
     &__basic-info-description,
@@ -200,7 +200,7 @@ export default class DetailPage extends Vue {
     &__basic-info-rating,
     &__basic-info-publisher,
     &__basic-info-price{
-      color: black;
+      color: $color-black;
       font-size: 30px;
       text-align: left;
     }
@@ -227,7 +227,7 @@ export default class DetailPage extends Vue {
       border-radius: 20px;
       width: 200px;
       background: $color-pink;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       font-size: 30px; 
       cursor: pointer;
     }
@@ -251,7 +251,7 @@ export default class DetailPage extends Vue {
       background: #9933cc4d;
       margin: 15px 10px 15px;
       border-radius: 20px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
       0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
       0 0 25px $color-purple;
