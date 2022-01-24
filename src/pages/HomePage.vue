@@ -11,7 +11,8 @@
           <div class="home__content__search-result">
             <ProductCard v-for="product in products" 
             :key="product.id"
-            :product="product"/>
+            :product="product"
+            class="home__content__search-result-card"/>
           </div>
         </Section>
       </div>
@@ -109,13 +110,23 @@ export default class HomePage extends Vue {
   &__content {
 
     &__search-input {
-      width: 80%;
+      height: 40px;
+      width: 60%;
       margin: 0 auto;
       font-size: 150%;
     }
 
     &__search-result {
-      margin-top: 10px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    &__search-result-card {
+      margin-top: 15px;
+      width: 235px;
+      height: 370px;
+      margin-bottom: 20px;
     }
     
     &__last-products-wrap {

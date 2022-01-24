@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/pages/Home.vue';
-import CategoryCards from '@/components/CategoryCard.vue';
-import Products from '@/pages/Products.vue';
-import About from '@/pages/About.vue';
+import Home from '@/pages/HomePage.vue';
+import Products from '@/pages/ProductsPage.vue';
+import About from '@/pages/AboutPage.vue';
 import Error from '@/pages/Page404.vue';
+import Details from '@/pages/DetailPage.vue'
 
 const routes = [
   {
@@ -11,7 +11,6 @@ const routes = [
     component: Home
   },
   {
-
     path: '/products',
     component: Products,
     children: [
@@ -30,13 +29,17 @@ const routes = [
     ]
   },
   {
+    path: '/product/:id',
+    component: Details
+  },
+  {
     path: '/about',
     component: About
   },
   {
     path: '/:catchAll(.*)',
     component: Error
-  },
+  }
 ]
 
 const router = createRouter({

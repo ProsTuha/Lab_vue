@@ -1,7 +1,8 @@
 <template>
   <div class="input-wrap">
     <form class="input-wrap__form" action="">
-      <input @input="getValue"  
+      <input @input="getValue" 
+      v-model="inputValue" 
       :type="inputType" 
       :placeholder="placeholder" 
       class="input-wrap__input">
@@ -28,6 +29,7 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class Input extends Vue {
     isWritten = false
+    inputValue = ''
 
     getValue(event) {
       this.isWritten = event.target.value
@@ -35,7 +37,9 @@ export default class Input extends Vue {
     }
 
     clearInput() {
-      this.$emit('inputEvent', '')
+      this.$emit('inputEvent', '')  
+      this.inputValue = ''
+      this.isWritten = false
     }
 }
 </script>
@@ -44,19 +48,19 @@ export default class Input extends Vue {
 .input-wrap {
   height: 100%;
   width: 100%;
+  position: relative;
 
   &__form {
     height: 100%;
     width: 100%;
 
     .input-wrap__input {
-      margin-top: 5px;
       width: 100%;
-      height: 100%;
-      padding: 10px;
+      height: calc(100% - 4px);
       border: 2px solid $color-black;
       background: $input-background;
       border-radius: 20px;
+      padding-left: 7px;
     }
   }
 
@@ -65,11 +69,10 @@ export default class Input extends Vue {
   }
 
   &__cleaning-basket {
-    height: 4%;
     position: absolute;
-    top: 21.4%;
-    right: 27%;
-    margin: 2px;
+    right: 0;
+    height: 70%;
+    top: 15%;
   }
 
   &__cleaning-basket:hover {
