@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { ICategory } from '@/interfaces';
 
 @Options({
   props: {
@@ -24,23 +23,7 @@ import { ICategory } from '@/interfaces';
 })
 
 export default class CategoryCards extends Vue {
-  categories: ICategory[] = [
-    {
-      id: 1, 
-      logoPath: 'pc-logo.png',
-      categoryName: 'PC'
-    }, 
-    {
-      id: 2,
-      logoPath: 'playstation-logo.png',
-      categoryName: 'PlayStation'
-    },
-    {
-      id: 3,
-      logoPath: 'xbox-logo.png',
-      categoryName: 'Xbox'
-    }
-  ];
+  
 }
 </script>
 
