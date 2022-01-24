@@ -3,8 +3,9 @@ import App from './App.vue';
 import router from '@/router/router'
 import './assets/main-styles.scss'
 import './interfaces'
+import store from '@/store'
 
-const app = createApp(App).use(router);
+const app = createApp(App).use(router).use(store);
 
 const errors: any[] = [];
 app.config.errorHandler = function (err, vm, info) {
