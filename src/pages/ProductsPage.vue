@@ -40,10 +40,11 @@ export default class Products extends Vue {
 .products {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 
   &__product-card {
+    margin-top: 15px;
     height: 370px;
     width: 235px;
     margin-bottom: 20px;

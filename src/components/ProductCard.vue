@@ -66,6 +66,7 @@ export default class ProductCard extends Vue {
   perspective: 1000px;
   margin-bottom: 20px;
   position: relative;
+  cursor: pointer;
       
   &__front {
     position: absolute;
@@ -144,6 +145,7 @@ export default class ProductCard extends Vue {
     background-color: $color-purple;
     border-radius: 5px;
     border: 0;
+    cursor: pointer;
   }
 
   &__back-description {
