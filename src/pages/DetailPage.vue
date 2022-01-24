@@ -147,7 +147,7 @@ export default class DetailPage extends Vue {
 
       &__main {
         width: 75%;
-        background: #9933cc4d;
+        background: $additional-info;
         margin: 15px 20px 15px 5px;
         border-radius: 20px;
         border: 2px solid $color-black;
@@ -215,7 +215,7 @@ export default class DetailPage extends Vue {
     &__basic-info-publisher-inscription,
     &__basic-info-price-inscription {
       font-size: 35px;
-      color: rgba(0, 0, 0, 0.5);
+      color: $transparent-black;
       margin-left: 20px;
     }
 
@@ -248,7 +248,7 @@ export default class DetailPage extends Vue {
     }
 
     &__additional-info {
-      background: #9933cc4d;
+      background: $additional-info;
       margin: 15px 10px 15px;
       border-radius: 20px;
       border: 2px solid $color-black;
@@ -272,7 +272,7 @@ export default class DetailPage extends Vue {
       &__requirements-inscription,
       &__tags-inscription {
         font-size: 32px;
-        color: rgba(0, 0, 0, 0.5);
+        color: $transparent-black;
         font-weight: 500;
       }
     }

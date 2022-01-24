@@ -90,12 +90,12 @@ export default class SignInModal extends Vue {
       axios
         .get(`http://localhost:3000/users?login_like=${this.login}&password_like=${this.password}`)
         .then((response) => {
-          console.log(response);
           if (response.data.length === 0) {
             this.absentUser = true;
           } else {
             this.absentUser = false;
             this.$emit('authorized', response.data[0]);
+            // console.log(this.$store.state.isAuthorized);
           }
         })
     }
