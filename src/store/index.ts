@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import VuexPersistence from 'vuex-persist';
+import { IUser } from '@/interfaces'
 
 interface IWarnAndError {
   message: string;
@@ -9,10 +10,7 @@ interface IWarnAndError {
 
 interface IStore {
   isAuthorized : boolean;
-  user: {
-    login: string;
-    password: string;
-  };  
+  user: IUser;
   warns: IWarnAndError[];
   errors: IWarnAndError[];
 }
@@ -27,8 +25,17 @@ export default createStore<IStore>({
   state: {
     isAuthorized: false,
     user: {
+      id: -1,
       login: '',
-      password: ''
+      role: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      sex: '',
+      age: 0,
+      address: '',
+      shippingAddress: '',
+      paymentCard: ''
     },
     warns: [],
     errors: []

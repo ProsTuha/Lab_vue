@@ -124,22 +124,54 @@
     {
       "id": 1,
       "login": "user1@mail.ru",
-      "password": "12345"
+      "password": "12345",
+      "role": "user",
+      "firstName": "Ann",
+      "lastName": "Drine",
+      "sex": "Female",
+      "age": "14",
+      "address": "Some street",
+      "shippingAddress": "Some street",
+      "paymentCard": "4231 4398 4231 8923"
     },
     {
       "id": 2,
       "login": "user2@mail.ru",
-      "password": "567890"
+      "password": "567890",
+      "role": "user",
+      "firstName": "Bob",
+      "lastName": "Semler",
+      "sex": "Male",
+      "age": "25",
+      "address": "Some street",
+      "shippingAddress": "Some street",
+      "paymentCard": "4231 4398 4231 8923"
     },
     {
       "id": 3,
       "login": "user3@mail.ru",
-      "password": "user3"
+      "password": "user3",
+      "role": "user",
+      "firstName": "Rinna",
+      "lastName": "Sayer",
+      "sex": "Female",
+      "age": "17",
+      "address": "Some street",
+      "shippingAddress": "Some street",
+      "paymentCard": "4231 4398 4231 8923"
     },
     {
       "id": 4,
       "login": "user4@mail.ru",
-      "password": "user4"
+      "password": "user4",
+      "role": "user",
+      "firstName": "John",
+      "lastName": "Wuge",
+      "sex": "Male",
+      "age": "19",
+      "address": "Some street",
+      "shippingAddress": "Some street",
+      "paymentCard": "4231 4398 4231 8923"
     }
   ]
 }

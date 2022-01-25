@@ -22,14 +22,14 @@ export interface IProduct {
   systemRequirements: string;
 }
 
-export interface IUser {
+export interface IUser {  
   id: number;
   login: string;
   role: string;
   firstName: string;
   lastName: string;
   password: string;
-  sex: 'Male'|'Female';
+  sex: string;
   age: number;
   address: string;
   shippingAddress: string;

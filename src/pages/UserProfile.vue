@@ -1,11 +1,12 @@
 <template>
-  <div>
-
+  <div class="user-profile">
+    
   </div>
 </template>
 
 <script>
-import { Vue } from 'vue-class-component'
+import { Vue } from 'vue-class-component';
+import { IUser } from '@/interfaces'
 
 export default class UserProfile extends Vue {
     
