@@ -4,7 +4,7 @@
       <div class="product-details__basic-info-view">
         <div class="product-details__basic-info-poster">
           <img class="product-details__basic-info-img" 
-          :src="require('@/img/products/card/'+ product.productImagePath)" 
+          :src="require('@/img/products/'+ product.productImagePath)" 
           :alt="product.productName">
           <h1 class="product-details__basic-info-title">{{product.productName}}</h1>
         </div>
@@ -113,6 +113,7 @@ import { IProduct } from '@/interfaces'
 })
 
 export default class DetailPage extends Vue {
+  isLoading = true;
   product: IProduct = {
     id: -1,
     categoryId: -1,
@@ -121,7 +122,7 @@ export default class DetailPage extends Vue {
     productPrice: -1,
     productGenre: '', 
     productRating: -1,
-    productImagePath: '',
+    productImagePath: 'defaultImage.png',
     creationDate: '',
     publisher: '',
     country: '',
