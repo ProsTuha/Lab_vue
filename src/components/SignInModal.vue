@@ -94,11 +94,11 @@ export default class SignInModal extends Vue {
             this.absentUser = true;
           } else {
             this.absentUser = false;
-            this.$emit('authorized', response.data[0]);
+            this.$emit('authorized'); 
+            this.$store.commit('setUserData', response.data[0]);
           }
         })
     }
-    console.log(this.$store.state.isAuthorized);
   }
 }
 </script>

@@ -1,16 +1,29 @@
 import { createStore } from 'vuex';
+import VuexPersistence from 'vuex-persist';
+
+interface IWarnAndError {
+  message: string;
+  vueAplic: any;
+  information: string;
+}
 
 interface IStore {
   isAuthorized : boolean;
   user: {
     login: string;
     password: string;
-  };
-  warns: any[];
-  errors: any[];
+  };  
+  warns: IWarnAndError[];
+  errors: IWarnAndError[];
 }
 
+const vuexLocal = new VuexPersistence<IStore>({
+  storage: window.localStorage
+})
+
 export default createStore<IStore>({
+  plugins: [vuexLocal.plugin],
+
   state: {
     isAuthorized: false,
     user: {
@@ -28,9 +41,9 @@ export default createStore<IStore>({
     userLogOut(state) {
       state.isAuthorized = false;
     },
-    setUserData(state, [login, password]) {
-      state.user.login = login;
-      state.user.password = password;
+    setUserData(state, userData) {
+      state.user.login = userData.login;
+      state.user.password = userData.password;
     },
     clearUserData(state) {
       state.user.login = '';

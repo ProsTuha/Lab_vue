@@ -27,14 +27,18 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <div class="header__navigation-link" @click="showSignIn" v-if="!userLogin">
+        <div class="header__navigation-link" @click="showSignIn" v-if="!$store.state.isAuthorized">
           Sign In
         </div>
-        <div class="header__navigation-link" @click="showSignUp" v-if="!userLogin">
+        <div class="header__navigation-link" @click="showSignUp" v-if="!$store.state.isAuthorized">
           Sign Up
         </div>
-        <div class="header__user-login" v-if="userLogin">
-          {{userLogin}}
+        <div class="header__user-login" v-if="$store.state.isAuthorized">
+          {{$store.state.user.login}}
+        </div>
+        <div class="header__log-out" 
+        @click="logOut" v-if="$store.state.isAuthorized">
+          <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
         </div>
       </nav>
     </div>
@@ -68,7 +72,6 @@ export default class HeaderNavigation extends Vue {
   modal = false;
   signIn = false;
   signUp = false;
-  userLogin = '';
 
   showSignUp() {
     this.modal = true;
@@ -82,14 +85,19 @@ export default class HeaderNavigation extends Vue {
     this.signUp = false;
   }
 
-  authorizedUser(value) {
+  authorizedUser() {
     this.signIn = false;
-    this.userLogin = value.login;
+    this.$store.commit('userLogIn');
   }
 
-  registeredUser(value) {
+  registeredUser() {
     this.signUp = false;
-    this.userLogin = value;
+    this.$store.state.isAuthorized = true;
+  }
+
+  logOut() {
+    this.$store.commit('userLogOut');
+    this.$store.commit('clearUserData');
   }
 }
 
@@ -160,6 +168,27 @@ export default class HeaderNavigation extends Vue {
       font-size: 20px;
       color: $color-purple;
       line-height: 65px;
+    }
+
+    &__log-out {
+      height: 30px;
+      line-height: 30px;
+      margin: 17.5px 10px 17.5px;
+      width: 30px;
+      text-align: center;
+      border-radius: 5px;
+      border: 2px solid black;
+      background: $color-pink;
+    }
+
+    &__log-out:hover {
+      background: $color-purple;
+      transition: background 0.5s;
+    }
+
+    &__log-out-img {
+      vertical-align: middle;
+      height: 23px;
     }
   }
 </style>
