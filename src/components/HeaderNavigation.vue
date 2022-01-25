@@ -33,9 +33,9 @@
         <div class="header__navigation-link" @click="showSignUp" v-if="!$store.state.isAuthorized">
           Sign Up
         </div>
-        <div class="header__user-login" v-if="$store.state.isAuthorized">
+        <router-link class="header__user-login" v-if="$store.state.isAuthorized" to="/profile">
           {{$store.state.user.login}}
-        </div>
+        </router-link>
         <div class="header__log-out" 
         @click="logOut" v-if="$store.state.isAuthorized">
           <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
@@ -168,6 +168,7 @@ export default class HeaderNavigation extends Vue {
       font-size: 20px;
       color: $color-purple;
       line-height: 65px;
+      text-decoration: none;
     }
 
     &__log-out {

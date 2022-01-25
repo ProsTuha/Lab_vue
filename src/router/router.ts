@@ -3,7 +3,8 @@ import Home from '@/pages/HomePage.vue';
 import Products from '@/pages/ProductsPage.vue';
 import About from '@/pages/AboutPage.vue';
 import Error from '@/pages/Page404.vue';
-import Details from '@/pages/DetailPage.vue'
+import Details from '@/pages/DetailPage.vue';
+import UserProfile from '@/pages/UserProfile.vue';
 
 const routes = [
   {
@@ -39,6 +40,10 @@ const routes = [
   {
     path: '/:catchAll(.*)',
     component: Error
+  },
+  {
+    path: '/profile',
+    component: UserProfile
   }
 ]
 
