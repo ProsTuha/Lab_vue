@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import VuexPersistence from 'vuex-persist';
+import createPersistedState from 'vuex-persistedstate';
 import { IUser } from '@/interfaces'
 
 interface IWarnAndError {
@@ -15,12 +15,8 @@ interface IStore {
   errors: IWarnAndError[];
 }
 
-const vuexLocal = new VuexPersistence<IStore>({
-  storage: window.localStorage
-})
-
 export default createStore<IStore>({
-  plugins: [vuexLocal.plugin],
+  plugins: [createPersistedState({})],
 
   state: {
     isAuthorized: false,
