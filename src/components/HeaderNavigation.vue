@@ -36,10 +36,10 @@
         <router-link class="header__user-login" v-if="$store.state.isAuthorized" to="/profile">
           {{$store.state.user.login}}
         </router-link>
-        <div class="header__log-out" 
-        @click="logOut" v-if="$store.state.isAuthorized">
+        <router-link class="header__log-out" 
+        @click="logOut" v-if="$store.state.isAuthorized" to="/">
           <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
-        </div>
+        </router-link>
       </nav>
     </div>
   </header>

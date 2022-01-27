@@ -50,6 +50,15 @@ export default createStore<IStore>({
     clearUserData(state) {
       state.user.login = '';
       state.user.password = '';
+      state.user.id = -1;
+      state.user.role = '';
+      state.user.firstName = '';
+      state.user.lastName = '';
+      state.user.sex = '';
+      state.user.age = 0;
+      state.user.address = '';
+      state.user.shippingAddress = '';
+      state.user.paymentCard = '';
     },
     addWarn(state, warning) {
       if (state.warns.length < 5) {

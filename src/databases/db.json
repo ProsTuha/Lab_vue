@@ -125,11 +125,11 @@
       "id": 1,
       "login": "user1@mail.ru",
       "password": "12345",
-      "role": "user",
+      "role": "",
       "firstName": "Ann",
       "lastName": "Drine",
       "sex": "Female",
-      "age": "14",
+      "age": "16",
       "address": "Some street",
       "shippingAddress": "Some street",
       "paymentCard": "4231 4398 4231 8923"
