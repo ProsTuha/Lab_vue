@@ -1,4 +1,5 @@
 <template>
+  <teleport to="#alert">
     <div class="alert">
         <div class="alert__inner" 
         :class="{'error': isError, 
@@ -9,6 +10,7 @@
             {{message}}
         </div>
     </div>    
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -36,11 +38,14 @@ import { Options, Vue } from 'vue-class-component';
         type: String,
         default: 'Success!'
       }
-    }        
+    },
+    mounted() {
+      window.setTimeout(() => { this.show = false }, 2000)
+    }      
   })
 
 export default class App extends Vue {
-
+  show = true;
 }
 </script>
 

@@ -125,14 +125,14 @@
       "id": 1,
       "login": "user1@mail.ru",
       "password": "12345",
-      "role": "",
+      "role": "User",
       "firstName": "Ann",
-      "lastName": "Drine",
+      "lastName": "Kern",
       "sex": "Female",
-      "age": "16",
+      "age": "21",
       "address": "Some street",
       "shippingAddress": "Some street",
-      "paymentCard": "4231 4398 4231 8923"
+      "paymentCard": "4231 4398 4231 8999"
     },
     {
       "id": 2,
@@ -166,12 +166,23 @@
       "password": "user4",
       "role": "user",
       "firstName": "John",
-      "lastName": "Wuge",
+      "lastName": "Marn",
       "sex": "Male",
       "age": "19",
       "address": "Some street",
       "shippingAddress": "Some street",
       "paymentCard": "4231 4398 4231 8923"
+    },
+    {
+      "id": 5,
+      "login": "user5@mail.ru",
+      "password": "user5",
+      "sex": "Male",
+      "age": "26",
+      "role": "User",
+      "address": "Some street",
+      "shippingAddress": "Some street",
+      "paymentCard": "1234 5678 1234 5678"
     }
   ]
 }

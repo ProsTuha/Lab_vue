@@ -24,12 +24,19 @@ import { Options, Vue } from 'vue-class-component';
     placeholder: {
       type: String,
       default: ''
+    },
+    content: {
+      type: String,
+      default: ''
     }
+  },
+  mounted() {
+    this.inputValue = this.content;
   }
 })
 export default class Input extends Vue {
-    isWritten = false
-    inputValue = ''
+    isWritten = false;
+    inputValue = '';
 
     getValue(event) {
       this.isWritten = event.target.value

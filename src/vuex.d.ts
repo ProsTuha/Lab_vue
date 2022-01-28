@@ -1,12 +1,10 @@
-import { Store } from 'vuex'
+import { Store } from 'vuex';
+import { IUser } from '@/interfaces';
 
 declare module '@vue/runtime-core' {
   interface State{
     isAuthorized : boolean;
-    user: {
-      login: string;
-      password: string;
-    };
+    user: IUser;
     warns: any[];
     errors: any[];
   }
