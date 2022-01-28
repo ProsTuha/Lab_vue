@@ -129,8 +129,8 @@ export default class SignInModal extends Vue {
         login: this.login,
         password: this.password
       });
-    this.$emit('registered', this.login);
-    console.log(this.login);
+    this.$emit('registered');
+    this.$store.commit('setUserData', { login: this.login, password: this.password });
   }
 }
 </script>
