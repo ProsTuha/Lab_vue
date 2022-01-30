@@ -129,10 +129,10 @@
       "firstName": "Ann",
       "lastName": "Kern",
       "sex": "Female",
-      "age": "21",
+      "age": "17",
       "address": "Some street",
       "shippingAddress": "Some street",
-      "paymentCard": "4231 4398 4231 8999"
+      "paymentCard": "1234123412341234"
     },
     {
       "id": 2,

@@ -1,7 +1,7 @@
 <template>
   <div class="input-wrap">
     <form class="input-wrap__form" action="">
-      <input @input="getValue" 
+      <input @input="getValue"
       v-model="inputValue" 
       :type="inputType" 
       :placeholder="placeholder" 
@@ -32,15 +32,16 @@ import { Options, Vue } from 'vue-class-component';
   },
   mounted() {
     this.inputValue = this.content;
+    this.isWritten = this.inputValue.length > 0;
   }
 })
 export default class Input extends Vue {
     isWritten = false;
     inputValue = '';
 
-    getValue(event) {
-      this.isWritten = event.target.value
-      this.$emit('inputEvent', event.target.value)
+    getValue() {
+      this.isWritten = this.inputValue.length > 0;
+      this.$emit('inputEvent', this.inputValue);
     }
 
     clearInput() {

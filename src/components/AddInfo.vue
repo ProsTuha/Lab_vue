@@ -19,34 +19,44 @@ import { Options, Vue } from 'vue-class-component';
 import Input from '@/components/Input.vue';
 
 @Options({
+  mounted() {
+    this.inputValue = this.content;
+  },
   props: {
     isEdit: false,
     hide: false,
-    content: ''
+    content: String
   },
   inheritAttrs: false,
   components: {
     Input
+  },
+  methods: {
+    confirmAdding() {
+      if (!this.wasInput) {
+        this.inputValue = this.content;
+      } 
+      this.$emit('confirm', this.inputValue);
+      this.$emit('update:hide', false)
+      this.addingInfo = false;
+      this.wasInput = false;
+    }
   }
 })
 
 export default class AddInfo extends Vue {
   addingInfo = false;
   inputValue = '';
+  wasInput = false;
 
   addInfo() {
     this.addingInfo = true;
     this.$emit('update:hide', true)
   }
 
-  confirmAdding() {
-    this.$emit('confirm', this.inputValue);
-    this.$emit('update:hide', false)
-    this.addingInfo = false;
-  }
-
   getValue(value) {
     this.inputValue = value;
+    this.wasInput = true;
   }
 }
 </script>

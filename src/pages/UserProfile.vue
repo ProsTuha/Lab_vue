@@ -51,7 +51,32 @@
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
                 {{$store.state.user.password}}
-                <AddInfo class="user-profile__edit-icon" :isEdit="true" title="Edit info"/>
+                <img src="@/img/others/edit-icon.png" alt="Edit" 
+                class="user-profile__edit-icon" @click="showModal = true">
+
+                <Modal v-if="showModal" v-model:modal="showModal" :title="'Change Password'">
+                  <div class="user-profile__password">
+                    Enter old password:
+                    <Input :inputType="'text'" 
+                    :placeholder="'Enter old password'" 
+                    @input-event="checkOldPassword"
+                    class="user-profile__password-input"/>
+                  </div>
+                  <div class="user-profile__password">
+                    Enter new password:
+                    <Input :inputType="'text'" 
+                    :placeholder="'Enter new password'" 
+                    @input-event="checkNewPassword"
+                    class="user-profile__password-input"/>
+                  </div>
+                  <div class="user-profile__password">
+                    Repeat new password:
+                    <Input :inputType="'text'" 
+                    :placeholder="'Repeat new password'" 
+                    @input-event="checkRepeatPassword"
+                    class="user-profile__password-input"/>
+                  </div>
+                </Modal>
               </span>              
             </div>
           </div>
@@ -163,7 +188,7 @@
       </div>
     </div>
   </div>
-  <Alert v-if="this.showAlert" :isError="this.error" 
+  <Alert v-if="this.alert" :isError="this.error" 
   :isSuccess="!this.error" :message="this.alertMessage"/>
 </template>
 
@@ -172,12 +197,16 @@ import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 import AddInfo from '@/components/AddInfo.vue';
 import Alert from '@/components/Alert.vue';
+import Input from '@/components/Input.vue';
 import { IUser } from '@/interfaces';
+import Modal from '@/components/Modal.vue';
 
 @Options({
   components: {
     AddInfo,
-    Alert
+    Alert,
+    Modal,
+    Input
   },
 
   mounted() {
@@ -203,7 +232,9 @@ export default class UserProfile extends Vue {
 
   error = false;
   alertMessage = '';
-  showAlert = false;
+  alert = false;
+
+  showModal = false;
 
   userData: IUser = {
     id: -1,
@@ -220,9 +251,15 @@ export default class UserProfile extends Vue {
   };
 
   addLogin(value) {
-    this.userData.login = value;
-    this.$store.commit('setUserData', this.userData);
-    this.makeRequest();
+    const reg = /^.+@.+\..+/;
+    if (reg.test(value) === true) {
+      this.userData.login = value;
+      this.$store.commit('setUserData', this.userData);
+      this.makeRequest();   
+    } else {
+      this.alertMessage = 'Invalid login!';
+      this.showAlert(false);
+    }
   }
 
   addFirstName(value) {
@@ -244,9 +281,14 @@ export default class UserProfile extends Vue {
   }
 
   addAge(value) {
-    this.userData.age = value;
-    this.$store.commit('setUserData', this.userData);
-    this.makeRequest();
+    if (Number(value) > 0 && Number(value) < 121) {
+      this.userData.age = value;
+      this.$store.commit('setUserData', this.userData);
+      this.makeRequest();
+    } else {
+      this.alertMessage = 'Invalid age value!';
+      this.showAlert(false);
+    }
   }
 
   addRole(value) {
@@ -268,9 +310,19 @@ export default class UserProfile extends Vue {
   }
 
   addPaymentCard(value) {
-    this.userData.paymentCard = value;
-    this.$store.commit('setUserData', this.userData);
-    this.makeRequest();
+    const cardValue = value.replace(/\s+/g, '').trim();
+    if (cardValue.length === 16) {
+      this.userData.paymentCard = cardValue;
+      this.$store.commit('setUserData', this.userData);
+      this.makeRequest();
+    } else {
+      this.alertMessage = 'Invalid card number value!';
+      this.showAlert(false);
+    }
+  }
+
+  checkOldPassword(value) {
+    console.log('test');
   }
 
   makeRequest() {
@@ -278,17 +330,25 @@ export default class UserProfile extends Vue {
       .put(`http://localhost:3000/users/${this.$store.state.user.id}`, this.$store.state.user)
       .catch((error) => {
         if (error) {
-          this.error = true;
           this.alertMessage = 'There were errors in the process :(';
-          this.showAlert = true;
+          this.showAlert(false);
         }
       });
     if (!this.error) {
       this.alertMessage = 'Success!';
-      this.showAlert = true;
+      this.showAlert(true);
+    }
+  }
+
+  showAlert(isSuccess: boolean) {
+    if (!isSuccess) {
+      this.error = true;
+      this.alert = true;
+    } else {
+      this.alert = true;
     }
     window.setTimeout(() => { 
-      this.showAlert = false;
+      this.alert = false;
       this.error = false; 
     }, 2000)
   }

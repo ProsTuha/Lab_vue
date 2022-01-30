@@ -30,7 +30,7 @@
             Log In
           </button>
         </div>
-    </div>
+      </div>
     </div>
 </template>
 
