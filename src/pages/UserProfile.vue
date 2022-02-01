@@ -50,7 +50,7 @@
             <div class="user-profile__basic-info-password">
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
-                {{user.password}}
+                {{user.password.replace(/\w/g, '*')}}
                 <img src="@/img/others/edit-icon.png" alt="Edit" 
                 class="user-profile__edit-icon" @click="showModal = true">
 
@@ -252,14 +252,12 @@ export default class UserProfile extends Vue {
   alertMessage = '';
   alert = false;
 
-  // .replace(/\w/g, '*')
-
-  badOldPassword = false;
-  badNewPassword = false;
-  badRepeatPassword = false;
-  errorOldPassword = '';
-  errorNewPassword = '';
-  errorRepeatPassword = '';
+  badOldPassword = true;
+  badNewPassword = true;
+  badRepeatPassword = true;
+  errorOldPassword = 'Fill in the field';
+  errorNewPassword = 'Fill in the field';
+  errorRepeatPassword = 'Fill in the field';
 
   showModal = false;
 
