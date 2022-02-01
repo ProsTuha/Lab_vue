@@ -50,7 +50,7 @@
             <div class="user-profile__basic-info-password">
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
-                {{user.password}}
+                {{this.user.password}}
                 <img src="@/img/others/edit-icon.png" alt="Edit" 
                 class="user-profile__edit-icon" @click="showModal = true">
 
@@ -227,10 +227,10 @@ import Modal from '@/components/Modal.vue';
 
   mounted() {
     axios
-      .get(`http://localhost:3000/users?id_like=${this.$store.state.user.id}`)
+      .get(`http://localhost:3000/users?id_like=${this.user.id}`)
       .then((response) => {
         this.$store.commit('setUserData', response.data[0]);
-        this.userData = this.$store.state.user;
+        this.userData = this.user;
       });
   },
   computed: 
