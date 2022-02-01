@@ -2,7 +2,7 @@
   <div class="product-card">
     <div class="product-card__front">
       <img class="product-card__front-logo" 
-      :src="require('@/img/products/card/'+ product.productImagePath)" 
+      :src="require('@/img/products/'+ product.productImagePath)" 
       :alt="product.productName">
       <div class="product-card__front-info">
         <div class="product-card__info-name">

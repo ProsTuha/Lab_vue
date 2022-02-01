@@ -27,15 +27,19 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <div class="header__navigation-link" @click="showSignIn" v-if="!userLogin">
+        <div class="header__navigation-link" @click="showSignIn" v-if="!isAuthorized">
           Sign In
         </div>
-        <div class="header__navigation-link" @click="showSignUp" v-if="!userLogin">
+        <div class="header__navigation-link" @click="showSignUp" v-if="!isAuthorized">
           Sign Up
         </div>
-        <div class="header__user-login" v-if="userLogin">
-          {{userLogin}}
-        </div>
+        <router-link class="header__user-login" v-if="isAuthorized" to="/profile">
+          {{user.login}}
+        </router-link>
+        <router-link class="header__log-out" 
+        @click="logOut" v-if="isAuthorized" to="/">
+          <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
+        </router-link>
       </nav>
     </div>
   </header>
@@ -53,6 +57,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapState } from 'vuex';
 import SignInModal from '@/components/SignInModal.vue';
 import SignUpModal from '@/components/SignUpModal.vue'
 import Modal from '@/components/Modal.vue';
@@ -62,13 +67,17 @@ import Modal from '@/components/Modal.vue';
     SignInModal,
     SignUpModal,
     Modal
-  }
+  },
+  computed: 
+    mapState(['isAuthorized', 'user'])
 })
 export default class HeaderNavigation extends Vue {
   modal = false;
   signIn = false;
   signUp = false;
-  userLogin = '';
+
+  isAuthorized: any;
+  user: any;
 
   showSignUp() {
     this.modal = true;
@@ -82,14 +91,19 @@ export default class HeaderNavigation extends Vue {
     this.signUp = false;
   }
 
-  authorizedUser(value) {
+  authorizedUser() {
     this.signIn = false;
-    this.userLogin = value.login;
+    this.$store.commit('userLogIn');
   }
 
-  registeredUser(value) {
+  registeredUser() {
     this.signUp = false;
-    this.userLogin = value;
+    this.$store.state.isAuthorized = true;
+  }
+
+  logOut() {
+    this.$store.commit('userLogOut');
+    this.$store.commit('clearUserData');
   }
 }
 
@@ -160,6 +174,28 @@ export default class HeaderNavigation extends Vue {
       font-size: 20px;
       color: $color-purple;
       line-height: 65px;
+      text-decoration: none;
+    }
+
+    &__log-out {
+      height: 30px;
+      line-height: 30px;
+      margin: 17.5px 10px 17.5px;
+      width: 30px;
+      text-align: center;
+      border-radius: 5px;
+      border: 2px solid $color-black;
+      background: $color-pink;
+    }
+
+    &__log-out:hover {
+      background: $color-purple;
+      transition: background 0.5s;
+    }
+
+    &__log-out-img {
+      vertical-align: middle;
+      height: 23px;
     }
   }
 </style>

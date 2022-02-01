@@ -123,14 +123,16 @@ export default class SignInModal extends Vue {
   }
 
   registerUser() {
-    axios
-      .post('http://localhost:3000/users', {
-        id: this.userCount + 1,
-        login: this.login,
-        password: this.password
-      });
-    this.$emit('registered', this.login);
-    console.log(this.login);
+    if (!this.badMail && !this.badPassword && !this.badRepeat) {
+      axios
+        .post('http://localhost:3000/users', {
+          id: this.userCount + 1,
+          login: this.login,
+          password: this.password
+        });
+      this.$emit('registered');
+      this.$store.commit('setUserData', { login: this.login, password: this.password });
+    }
   }
 }
 </script>

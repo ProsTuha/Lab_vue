@@ -30,7 +30,7 @@
             Log In
           </button>
         </div>
-    </div>
+      </div>
     </div>
 </template>
 
@@ -86,16 +86,16 @@ export default class SignInModal extends Vue {
   }
 
   checkUser() { 
-    if (this.badMail === false && this.badPassword === false) {
+    if (!this.badMail && !this.badPassword) {
       axios
         .get(`http://localhost:3000/users?login_like=${this.login}&password_like=${this.password}`)
         .then((response) => {
-          console.log(response);
           if (response.data.length === 0) {
             this.absentUser = true;
           } else {
             this.absentUser = false;
-            this.$emit('authorized', response.data[0]);
+            this.$emit('authorized'); 
+            this.$store.commit('setUserData', response.data[0]);
           }
         })
     }
@@ -152,7 +152,7 @@ export default class SignInModal extends Vue {
       font-size: 20px;
       font-weight: 600;
       border-radius: 10px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       width: 120px;
       height: 30px;
       cursor: pointer;
