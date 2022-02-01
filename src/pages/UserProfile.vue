@@ -50,7 +50,7 @@
             <div class="user-profile__basic-info-password">
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
-                {{this.user.password}}
+                {{user.password}}
                 <img src="@/img/others/edit-icon.png" alt="Edit" 
                 class="user-profile__edit-icon" @click="showModal = true">
 
@@ -230,7 +230,7 @@ import Modal from '@/components/Modal.vue';
       .get(`http://localhost:3000/users?id_like=${this.user.id}`)
       .then((response) => {
         this.$store.commit('setUserData', response.data[0]);
-        this.userData = this.user;
+        this.setUserData();
       });
   },
   computed: 
@@ -251,6 +251,8 @@ export default class UserProfile extends Vue {
   error = false;
   alertMessage = '';
   alert = false;
+
+  // .replace(/\w/g, '*')
 
   badOldPassword = false;
   badNewPassword = false;
@@ -277,6 +279,20 @@ export default class UserProfile extends Vue {
 
   isAuthorized: any;
   user: any;
+
+  setUserData() {
+    this.userData.id = this.user.id;
+    this.userData.login = this.user.login;
+    this.userData.role = this.user.role;
+    this.userData.firstName = this.user.firstName;
+    this.userData.lastName = this.user.lastName;
+    this.userData.password = this.user.password;
+    this.userData.sex = this.user.sex;
+    this.userData.age = this.user.age;
+    this.userData.address = this.user.address;
+    this.userData.shippingAddress = this.user.shippingAddress;
+    this.userData.paymentCard = this.user.paymentCard;
+  }
 
   addLogin(value) {
     const reg = /^.+@.+\..+/;
@@ -371,6 +387,7 @@ export default class UserProfile extends Vue {
       } else {
         this.badNewPassword = false;
         this.userData.password = value;
+        console.log('ok!')
       }
     } else {
       this.errorNewPassword = 'Fill in the field';
@@ -394,6 +411,7 @@ export default class UserProfile extends Vue {
 
   changePassword() {
     if (!this.badOldPassword && !this.badNewPassword && !this.badRepeatPassword) {
+      this.$store.commit('setUserData', this.userData);
       this.makeRequest();
       this.showModal = false;
     }

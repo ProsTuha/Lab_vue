@@ -124,10 +124,10 @@
     {
       "id": 1,
       "login": "user1@mail.ru",
-      "password": "12345",
       "role": "User",
       "firstName": "Ann",
       "lastName": "Kern",
+      "password": "user1",
       "sex": "Female",
       "age": "17",
       "address": "Some street",
@@ -137,10 +137,10 @@
     {
       "id": 2,
       "login": "user2@mail.ru",
-      "password": "567890",
       "role": "user",
       "firstName": "Bob",
       "lastName": "Semler",
+      "password": "567890",
       "sex": "Male",
       "age": "25",
       "address": "Some street",
@@ -176,13 +176,14 @@
     {
       "id": 5,
       "login": "user5@mail.ru",
+      "role": "User",
+      "firstName": "",
       "password": "user5",
       "sex": "Male",
       "age": "26",
-      "role": "User",
       "address": "Some street",
       "shippingAddress": "Some street",
-      "paymentCard": "1234 5678 1234 5678"
+      "paymentCard": "1234567812345678"
     }
   ]
 }

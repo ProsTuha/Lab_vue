@@ -45,7 +45,17 @@ export default createStore<IStore>({
       state.isAuthorized = false;
     },
     setUserData(state, userData) {
-      state.user = userData;
+      state.user.login = userData.login;
+      state.user.password = userData.password;
+      state.user.id = userData.id;
+      state.user.role = userData.role;
+      state.user.firstName = userData.firstName;
+      state.user.lastName = userData.lastName;
+      state.user.sex = userData.sex;
+      state.user.age = userData.age;
+      state.user.address = userData.address;
+      state.user.shippingAddress = userData.shippingAddress;
+      state.user.paymentCard = userData.paymentCard;
     },
     clearUserData(state) {
       state.user.login = '';
