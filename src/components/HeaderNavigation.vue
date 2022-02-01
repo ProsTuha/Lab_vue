@@ -27,17 +27,17 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <div class="header__navigation-link" @click="showSignIn" v-if="!$store.state.isAuthorized">
+        <div class="header__navigation-link" @click="showSignIn" v-if="!isAuthorized">
           Sign In
         </div>
-        <div class="header__navigation-link" @click="showSignUp" v-if="!$store.state.isAuthorized">
+        <div class="header__navigation-link" @click="showSignUp" v-if="!isAuthorized">
           Sign Up
         </div>
-        <router-link class="header__user-login" v-if="$store.state.isAuthorized" to="/profile">
-          {{$store.state.user.login}}
+        <router-link class="header__user-login" v-if="isAuthorized" to="/profile">
+          {{user.login}}
         </router-link>
         <router-link class="header__log-out" 
-        @click="logOut" v-if="$store.state.isAuthorized" to="/">
+        @click="logOut" v-if="isAuthorized" to="/">
           <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
         </router-link>
       </nav>
@@ -57,6 +57,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapState } from 'vuex';
 import SignInModal from '@/components/SignInModal.vue';
 import SignUpModal from '@/components/SignUpModal.vue'
 import Modal from '@/components/Modal.vue';
@@ -66,12 +67,17 @@ import Modal from '@/components/Modal.vue';
     SignInModal,
     SignUpModal,
     Modal
-  }
+  },
+  computed: 
+    mapState(['isAuthorized', 'user'])
 })
 export default class HeaderNavigation extends Vue {
   modal = false;
   signIn = false;
   signUp = false;
+
+  isAuthorized: any;
+  user: any;
 
   showSignUp() {
     this.modal = true;
@@ -178,7 +184,7 @@ export default class HeaderNavigation extends Vue {
       width: 30px;
       text-align: center;
       border-radius: 5px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       background: $color-pink;
     }
 

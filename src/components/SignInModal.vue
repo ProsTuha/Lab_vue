@@ -86,7 +86,7 @@ export default class SignInModal extends Vue {
   }
 
   checkUser() { 
-    if (this.badMail === false && this.badPassword === false) {
+    if (!this.badMail && !this.badPassword) {
       axios
         .get(`http://localhost:3000/users?login_like=${this.login}&password_like=${this.password}`)
         .then((response) => {
@@ -152,7 +152,7 @@ export default class SignInModal extends Vue {
       font-size: 20px;
       font-weight: 600;
       border-radius: 10px;
-      border: 2px solid black;
+      border: 2px solid $color-black;
       width: 120px;
       height: 30px;
       cursor: pointer;

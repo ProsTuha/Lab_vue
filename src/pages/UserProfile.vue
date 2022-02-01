@@ -4,15 +4,15 @@
       <div class="user-profile__basic-info-view">
           <img class="user-profile__basic-info-img" 
           src="@/img/profiles/profile-avatar.png" 
-          :alt="$store.state.user.firstName">
+          :alt="user.firstName">
           <div class="user-profile__basic-info-signature">
-            <p class="user-profile__basic-info-name" v-if="$store.state.user.firstName">
+            <p class="user-profile__basic-info-name" v-if="user.firstName">
               <span class="user-profile__name-inscription">
                 First Name:
               </span>
               <span class="user-profile__edit-info">
-                <span v-if="!firstNameHide">{{$store.state.user.firstName}}</span> 
-                <AddInfo class="user-profile__edit-icon" :content="$store.state.user.firstName"
+                <span v-if="!firstNameHide">{{user.firstName}}</span> 
+                <AddInfo class="user-profile__edit-icon" :content="user.firstName"
                 v-model:hide="firstNameHide" :isEdit="true" title="Edit info" 
                 @confirm="addFirstName"/>
               </span>              
@@ -22,13 +22,13 @@
               <AddInfo class="user-profile__adding-plus" 
               @confirm="addFirstName" title="Add First Name"/>
             </div>
-            <p class="user-profile__basic-info-surname" v-if="$store.state.user.lastName">
+            <p class="user-profile__basic-info-surname" v-if="user.lastName">
               <span class="user-profile__surname-inscription">
                 Last Name:
               </span>
               <span class="user-profile__edit-info">
-                <span v-if="!lastNameHide">{{$store.state.user.lastName}}</span> 
-                <AddInfo class="user-profile__edit-icon" :content="$store.state.user.lastName"
+                <span v-if="!lastNameHide">{{user.lastName}}</span> 
+                <AddInfo class="user-profile__edit-icon" :content="user.lastName"
                 v-model:hide="lastNameHide" :isEdit="true" title="Edit info"
                 @confirm="addLastName"/>
               </span>              
@@ -41,8 +41,8 @@
             <div class="user-profile__basic-info-login">
               <span class="user-profile__login-inscription">Login:</span>
               <span class="user-profile__edit-info">
-                <span v-if="!loginHide">{{$store.state.user.login}}</span>
-                <AddInfo class="user-profile__edit-icon" :content="$store.state.user.login"
+                <span v-if="!loginHide">{{user.login}}</span>
+                <AddInfo class="user-profile__edit-icon" :content="user.login"
                 v-model:hide="loginHide" :isEdit="true" title="Edit info"
                 @confirm="addLogin"/>
               </span>              
@@ -50,33 +50,48 @@
             <div class="user-profile__basic-info-password">
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
-                {{$store.state.user.password}}
+                {{user.password}}
                 <img src="@/img/others/edit-icon.png" alt="Edit" 
                 class="user-profile__edit-icon" @click="showModal = true">
 
                 <Modal v-if="showModal" v-model:modal="showModal" :title="'Change Password'">
-                  <div class="user-profile__password">
+                  <div class="user-profile__change-password">
                     Enter old password:
                     <Input :inputType="'text'" 
                     :placeholder="'Enter old password'" 
                     @input-event="checkOldPassword"
                     class="user-profile__password-input"/>
                   </div>
-                  <div class="user-profile__password">
+                  <div class="user-profile__password-error" v-if="badOldPassword">
+                    {{errorOldPassword}}
+                  </div>
+                  <div class="user-profile__change-password">
                     Enter new password:
                     <Input :inputType="'text'" 
                     :placeholder="'Enter new password'" 
                     @input-event="checkNewPassword"
                     class="user-profile__password-input"/>
                   </div>
-                  <div class="user-profile__password">
+                  <div class="user-profile__password-error" v-if="badNewPassword">
+                    {{errorNewPassword}}
+                  </div>
+                  <div class="user-profile__change-password">
                     Repeat new password:
                     <Input :inputType="'text'" 
                     :placeholder="'Repeat new password'" 
                     @input-event="checkRepeatPassword"
                     class="user-profile__password-input"/>
                   </div>
+                  <div class="user-profile__password-error" v-if="badRepeatPassword">
+                    {{errorRepeatPassword}}
+                  </div>
+                  <div class="user-profile__buttons">
+                    <button class="user-profile__password-button" @click="changePassword">
+                      Confirm
+                    </button>
+                  </div>
                 </Modal>
+
               </span>              
             </div>
           </div>
@@ -88,16 +103,16 @@
           <span class="user-profile__sex-inscription">
             Sex:<br>
           </span>
-          <span v-if="$store.state.user.sex">
+          <span v-if="user.sex">
             <span class="user-profile__edit-info">
-              <span v-if="!sexHide">{{$store.state.user.sex}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.sex"
+              <span v-if="!sexHide">{{user.sex}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.sex"
               v-model:hide="sexHide" :isEdit="true" title="Edit info"
               @confirm="addSex"/>
             </span>            
           </span>
           <AddInfo  class="user-profile__adding-plus" 
-          @confirm="addSex" title="Add info" v-if="!$store.state.user.sex"/>
+          @confirm="addSex" title="Add info" v-if="!user.sex"/>
         </p>
       </div>
       <div class="user-profile__age">
@@ -105,16 +120,16 @@
           <span class="user-profile__age-inscription">
             Age:<br>
           </span>
-          <span v-if="$store.state.user.age">
+          <span v-if="user.age">
             <span class="user-profile__edit-info">
-              <span v-if="!ageHide">{{$store.state.user.age}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.age"
+              <span v-if="!ageHide">{{user.age}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.age"
               v-model:hide="ageHide" :isEdit="true" title="Edit info"
               @confirm="addAge"/>
             </span>            
             </span>
           <AddInfo  class="user-profile__adding-plus"
-          @confirm="addAge" title="Add info" v-if="!$store.state.user.age"/>
+          @confirm="addAge" title="Add info" v-if="!user.age"/>
         </p>
       </div>
       <div class="user-profile__role">
@@ -122,16 +137,16 @@
           <span class="user-profile__role-inscription">
             Role:<br>
           </span>
-          <span v-if="$store.state.user.role">
+          <span v-if="user.role">
             <span class="user-profile__edit-info">
-              <span v-if="!roleHide">{{$store.state.user.role}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.role"
+              <span v-if="!roleHide">{{user.role}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.role"
               v-model:hide="roleHide" :isEdit="true" title="Edit info"
               @confirm="addRole"/>
             </span>            
           </span>
           <AddInfo  class="user-profile__adding-plus"
-           @confirm="addRole" title="Add info" v-if="!$store.state.user.role"/>
+           @confirm="addRole" title="Add info" v-if="!user.role"/>
         </p>
       </div>
       <div class="user-profile__address">
@@ -139,16 +154,16 @@
           <span class="user-profile__address-inscription">
             Address:<br>
           </span>
-          <span v-if="$store.state.user.address">
+          <span v-if="user.address">
             <span class="user-profile__edit-info">
-              <span v-if="!addressHide">{{$store.state.user.address}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.address"
+              <span v-if="!addressHide">{{user.address}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.address"
               v-model:hide="addressHide" :isEdit="true" title="Edit info"
               @confirm="addAddress"/>
             </span>            
           </span>
           <AddInfo  class="user-profile__adding-plus" 
-          @confirm="addAddress" title="Add info" v-if="!$store.state.user.address"/>
+          @confirm="addAddress" title="Add info" v-if="!user.address"/>
         </p>
       </div>
       <div class="user-profile__shipping-address">
@@ -156,17 +171,17 @@
           <span class="user-profile__shipping-address-inscription">
             Shipping address:<br>
           </span>
-          <span v-if="$store.state.user.shippingAddress">
+          <span v-if="user.shippingAddress">
             <span class="user-profile__edit-info">
-              <span v-if="!shippingAddressHide">{{$store.state.user.shippingAddress}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.shippingAddress"
+              <span v-if="!shippingAddressHide">{{user.shippingAddress}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.shippingAddress"
               v-model:hide="shippingAddressHide" :isEdit="true" title="Edit info"
               @confirm="addShippingAddress"/>
             </span>            
           </span>
           <AddInfo  class="user-profile__adding-plus"
           @confirm="addShippingAddress" 
-          title="Add info" v-if="!$store.state.user.shippingAddress"/>
+          title="Add info" v-if="!user.shippingAddress"/>
         </p>
       </div>
       <div class="user-profile__payment-card">
@@ -174,16 +189,16 @@
           <span class="user-profile__payment-card-inscription">
             Payment card:<br>
           </span>
-          <span v-if="$store.state.user.paymentCard">
+          <span v-if="user.paymentCard">
             <span class="user-profile__edit-info">
-              <span v-if="!paymentCardHide">{{$store.state.user.paymentCard}}</span>
-              <AddInfo class="user-profile__edit-icon" :content="$store.state.user.paymentCard"
+              <span v-if="!paymentCardHide">{{user.paymentCard}}</span>
+              <AddInfo class="user-profile__edit-icon" :content="user.paymentCard"
               v-model:hide="paymentCardHide" :isEdit="true" title="Edit info"
               @confirm="addPaymentCard"/>
             </span>            
           </span>
           <AddInfo  class="user-profile__adding-plus"
-          @confirm="addPaymentCard" title="Add info" v-if="!$store.state.user.paymentCard"/>
+          @confirm="addPaymentCard" title="Add info" v-if="!user.paymentCard"/>
         </p>
       </div>
     </div>
@@ -194,6 +209,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapState } from 'vuex';
 import axios from 'axios';
 import AddInfo from '@/components/AddInfo.vue';
 import Alert from '@/components/Alert.vue';
@@ -216,7 +232,9 @@ import Modal from '@/components/Modal.vue';
         this.$store.commit('setUserData', response.data[0]);
         this.userData = this.$store.state.user;
       });
-  }
+  },
+  computed: 
+    mapState(['isAuthorized', 'user'])
 })
 
 export default class UserProfile extends Vue {
@@ -234,6 +252,13 @@ export default class UserProfile extends Vue {
   alertMessage = '';
   alert = false;
 
+  badOldPassword = false;
+  badNewPassword = false;
+  badRepeatPassword = false;
+  errorOldPassword = '';
+  errorNewPassword = '';
+  errorRepeatPassword = '';
+
   showModal = false;
 
   userData: IUser = {
@@ -249,6 +274,9 @@ export default class UserProfile extends Vue {
     shippingAddress: '',
     paymentCard: ''
   };
+
+  isAuthorized: any;
+  user: any;
 
   addLogin(value) {
     const reg = /^.+@.+\..+/;
@@ -322,12 +350,58 @@ export default class UserProfile extends Vue {
   }
 
   checkOldPassword(value) {
-    console.log('test');
+    if (value.length !== 0) {
+      if (value !== this.user.password) {
+        this.badOldPassword = true;
+        this.errorOldPassword = 'Password mismatch';
+      } else {
+        this.badOldPassword = false;
+      }
+    } else {
+      this.badOldPassword = true;
+      this.errorOldPassword = 'Enter old password';
+    }
+  }
+
+  checkNewPassword(value) {
+    if (value.length !== 0) {
+      if (value.length < 5) {
+        this.badNewPassword = true;
+        this.errorNewPassword = 'Password must contain at least 5 characters';
+      } else {
+        this.badNewPassword = false;
+        this.userData.password = value;
+      }
+    } else {
+      this.errorNewPassword = 'Fill in the field';
+      this.badNewPassword = true;
+    }
+  }
+
+  checkRepeatPassword(value) {
+    if (value.length !== 0) {
+      if (value.length < 5 || value !== this.userData.password) {
+        this.badRepeatPassword = true;
+        this.errorRepeatPassword = 'Password mismatch';
+      } else {
+        this.badRepeatPassword = false;
+      }
+    } else {
+      this.errorRepeatPassword = 'Fill in the field';
+      this.badRepeatPassword = true;
+    }
+  }
+
+  changePassword() {
+    if (!this.badOldPassword && !this.badNewPassword && !this.badRepeatPassword) {
+      this.makeRequest();
+      this.showModal = false;
+    }
   }
 
   makeRequest() {
     axios
-      .put(`http://localhost:3000/users/${this.$store.state.user.id}`, this.$store.state.user)
+      .put(`http://localhost:3000/users/${this.user.id}`, this.user)
       .catch((error) => {
         if (error) {
           this.alertMessage = 'There were errors in the process :(';
@@ -375,6 +449,44 @@ export default class UserProfile extends Vue {
       border-radius: 20px;
       border: 5px solid $color-black;
       background: $color-purple;
+    }
+
+    &__change-password {
+      width: 90%;
+      height: 150%;
+      text-align: left;
+      font-size: 25px;
+      margin: 0 5px 10px;
+      color: $color-gray;
+    }
+
+    &__password-error {
+      color: $color-red;
+      font-size: 20px;
+      text-align: right;
+      margin-right: 5%;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__password-button {
+      background: $color-pink;
+      font-size: 20px;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 2px solid $color-black;
+      width: 120px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    &__password-button:hover {
+      box-shadow: 0 0 1px $color-white, 0 0 2px $color-pink, 0 0 4px $color-white, 
+      0 0 8px $color-pink, 0 0 16px $color-pink, 0 0 20px $color-pink, 
+      0 0 25px $color-pink;
     }
 
     &__basic-info-signature {
