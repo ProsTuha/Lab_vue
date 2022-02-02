@@ -50,7 +50,7 @@
             <div class="user-profile__basic-info-password">
               <span class="user-profile__password-inscription">Password:</span>
               <span class="user-profile__edit-info">
-                {{user.password.replace(/\w/g, '*')}}
+                {{hidePassword}}
                 <img src="@/img/others/edit-icon.png" alt="Edit" 
                 class="user-profile__edit-icon" @click="showModal = true">
 
@@ -233,8 +233,12 @@ import Modal from '@/components/Modal.vue';
         this.setUserData();
       });
   },
-  computed: 
-    mapState(['isAuthorized', 'user'])
+  computed: {
+    ...mapState(['isAuthorized', 'user']),
+    hidePassword() {
+      return this.user.password.replace(/\w/g, '*');
+    }
+  } 
 })
 
 export default class UserProfile extends Vue {
