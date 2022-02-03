@@ -165,11 +165,8 @@ export default class Products extends Vue {
   }
   
   filterProductsByPrice() {
-    if (this.less) {
-      this.products = this.products.filter((product) => product.productPrice < this.price);
-    } else {
-      this.products = this.products.filter((product) => product.productPrice > this.price);
-    }
+    this.products = this.products.filter((product) => (this.less 
+      ? product.productPrice < this.price : product.productPrice > this.price));
   }
 
   filterProductsByPlatform() {
