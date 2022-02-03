@@ -106,12 +106,14 @@ import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 import ProductCard from '@/components/ProductCard.vue';
 import Section from '@/components/Section.vue';
+import Loader from '@/components/Loader.vue'
 import { IProduct } from '@/interfaces';
 
 @Options({
   components: {
     ProductCard,
-    Section
+    Section,
+    Loader
   },
 
   mounted() {
