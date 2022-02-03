@@ -116,7 +116,7 @@ export default class DetailPage extends Vue {
   isLoading = true;
   product: IProduct = {
     id: -1,
-    categoryId: -1,
+    categoryId: '-1',
     productName: '',
     productDescription: '',
     productPrice: -1,
