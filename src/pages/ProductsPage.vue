@@ -8,18 +8,18 @@
       <div class="products-page__sorting-wrap">
         <span class="products-page__sorting-criteria-inscription">Criteria</span>
         <div class="products-page__select-dropdown dropdown">
-          {{sortInscription}}
+          {{sortCriteriaInscription}}
           <div class="header__navigation__dropdown-content">
             <span class="header__navigation__dropdown-link" 
-            @click="sortInscription = 'Rating', sortProducts()">
+            @click="changeCriteria('productRating')">
               Rating
             </span>
             <span class="header__navigation__dropdown-link" 
-            @click="sortInscription = 'Price', sortProducts()">
+            @click="changeCriteria('productPrice')">
               Price
             </span>
             <span class="header__navigation__dropdown-link" 
-            @click="sortInscription = 'Creation date', sortProducts()">
+            @click="changeCriteria('creationDate')">
               Creation date
             </span>
           </div>
@@ -28,12 +28,12 @@
       <div class="products-page__sorting-type-wrap">
         <span class="products-page__sorting-type-inscription">Type</span>
         <div class="products-page__select-dropdown dropdown">
-          <!-- {{sortType}} -->
+          {{sortTypeInscription}}
           <div class="header__navigation__dropdown-content">
             <span class="header__navigation__dropdown-link" 
-            @click="ascendingClick">Ascending</span>
+            @click="ascendingClick()">Ascending</span>
             <span class="header__navigation__dropdown-link" 
-            @click="descendingClick">Descending</span>
+            @click="descendingClick()">Descending</span>
           </div>
         </div>
       </div>
@@ -44,15 +44,15 @@
       </div>
       <div class="products-page__genre-wrap">
         <p class="products-page__genre-radio"><input type="radio" 
-        checked name="genre" @change="filterProductsByGenre('')"> All genres</p>
+        checked name="genre" @change="genreGhanged('')"> All genres</p>
         <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genre = 'shooter', filterProducts()">Shooter</p>
+        @change="genreGhanged('shooter')">Shooter</p>
         <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genre = 'action', filterProducts()">Action</p>
+        @change="genreGhanged('action')">Action</p>
         <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genre = 'arcade', filterProducts()">Arcade</p>
+        @change="genreGhanged('arcade')">Arcade</p>
         <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genre = 'adventure', filterProducts()">Adventure</p>
+        @change="genreGhanged('adventure')">Adventure</p>
       </div>
     </div>
     <div class="products-page__price-filtration">
@@ -61,17 +61,17 @@
       </div>
       <div class="products-page__price-wrap">
         <p class="products-page__price-radio"><input type="radio" checked name="price" 
-        @change="price = 0, filterProducts()">All prices</p>
+        @change="priceGhanged(0, false)">All prices</p>
         <p class="products-page__price-radio"><input type="radio" name="price" 
-        @change="price = 5, less = true, filterProducts()">Below 5$</p>
+        @change="priceGhanged(5, true)">Below 5$</p>
         <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="price = 10, less = true, filterProducts()">Below 10$</p>
+        @change="priceGhanged(10, true)">Below 10$</p>
         <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="price = 20, less = true, filterProducts()">Below 20$</p>
+        @change="priceGhanged(20, true)">Below 20$</p>
         <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="price = 50, less = true, filterProducts()">Below 50$</p>
+        @change="priceGhanged(50, true)">Below 50$</p>
         <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="price = 40, less = false, filterProducts()">Over 40$</p>
+        @change="priceGhanged(40, false)">Over 40$</p>
       </div>
     </div>
     <div class="products-page__platform-filtration">
@@ -80,20 +80,20 @@
       </div>
       <div class="products-page__platform-wrap">
         <p class="products-page__platform-radio"><input type="radio" checked name="platform" 
-        @change="platform = '', filterProducts()">All platforms</p>
+        @change="platformGhanged('')">All platforms</p>
         <p class="products-page__platform-radio"><input type="radio" name="platform" 
-        @change="platform = '1', filterProducts()">PC</p>
+        @change="platformGhanged('1')">PC</p>
         <p class="products-page__platform-radio"><input type="radio" name="platform" 
-        @change="platform = '2', filterProducts()">PS</p>
+        @change="platformGhanged('2')">PS</p>
         <p class="products-page__platform-radio"><input type="radio" name="platform"
-        @change="platform = '3', filterProducts()">Xbox</p>
+        @change="platformGhanged('3')">Xbox</p>
       </div>
     </div>
   </Section>
   <Section :headerName="'All products'">
     <div class="products-page__products">
       <div class="products-page__product-card"
-      v-for="product in products" :key="product.id">
+      v-for="product in filteredProducts" :key="product.id">
         <ProductCard :product="product"/>
       </div>
     </div>
@@ -114,6 +114,20 @@ enum SortType {
   DSC = 'desc',
 }
 
+// eslint-disable-next-line no-shadow
+enum SortCriteria {
+  rating = 'productRating',
+  price = 'productPrice',
+  creationDate = 'creationDate',
+}
+
+// eslint-disable-next-line no-shadow
+enum FilterField {
+  genre = 'productGenre',
+  price = 'productPrice',
+  platform = 'categoryId',
+}
+
 @Options({
   components: {
     ProductCard,
@@ -124,125 +138,103 @@ enum SortType {
     axios
       .get('http://localhost:3000/products')
       .then((response) => {
-        this.allProducts = response.data;
         this.products = response.data;
-        this.sortProducts();
       });
   }
 })
 
 export default class Products extends Vue {
-  allProducts: IProduct[] = [];
   products: IProduct[] = [];
-  sortInscription = 'Rating';
-  ascending = false;
-  descending = true;
 
-  wasFiltered = false;
+  filterPredicates = {
+    genre: '',
+    price: {
+      sum: 0,
+      less: false,
+    },
+    platform: ''
+  }
 
-  genre = '';
-  
-  price = 0;
-  less = false;
+  currentSortType: SortType = SortType.ASC;
+  currentSortCriteria: SortCriteria = SortCriteria.rating;
 
-  platform = '';
+  sortCriteriaInscription = 'Rating';
+  sortTypeInscription = 'Asceding';
 
-  filterProducts() {
-    if (this.wasFiltered) {
-      this.products = this.allProducts.slice();
-      this.wasFiltered = false;
+  get filteredProducts() {
+    return this.products
+      .filter(this.productFiltering())
+      .sort(this.productSorting());
+  }
+
+  genreGhanged(genre: string) {
+    this.filterPredicates.genre = genre;
+  }
+
+  priceGhanged(price: number, less: boolean) {
+    this.filterPredicates.price.sum = price;
+    this.filterPredicates.price.less = less;
+  }
+
+  platformGhanged(platform: string) {
+    this.filterPredicates.platform = platform;
+  }
+
+  changeCriteria(criteria: string) {
+    switch (criteria) {
+      case 'productRating':
+        this.currentSortCriteria = SortCriteria.rating;
+        this.sortCriteriaInscription = 'Rating';
+        break;
+      case 'productPrice':
+        this.currentSortCriteria = SortCriteria.price;
+        this.sortCriteriaInscription = 'Price';
+        break;
+      case 'creationDate':
+        this.currentSortCriteria = SortCriteria.creationDate;
+        this.sortCriteriaInscription = 'Creation date';
+        break;
+      default:
+        this.currentSortCriteria = SortCriteria.rating;
+        this.sortCriteriaInscription = 'Rating';    
     }
-    this.wasFiltered = true;
-    if (this.genre) {
-      this.filterProductsByGenre();
-    }
-    if (this.price) {
-      this.filterProductsByPrice();
-    }
-    if (this.platform) {
-      this.filterProductsByPlatform();
+    this.sortProducts();
+  }
+
+  ascendingClick() {
+    this.sortTypeInscription = 'Asceding';
+    this.currentSortType = SortType.ASC;
+  }
+
+  descendingClick() {
+    this.sortTypeInscription = 'Desceding';
+    this.currentSortType = SortType.DSC;
+  }
+
+  sortProducts() {
+    this.products.sort(this.productSorting());
+  }
+
+  productSorting(): (a, b) => number {
+    return (a: IProduct, b: IProduct):number => {
+      if (a[this.currentSortCriteria] > b[this.currentSortCriteria]) {
+        return this.currentSortType === SortType.ASC ? 1 : -1;
+      }
+      if (a[this.currentSortCriteria] < b[this.currentSortCriteria]) {
+        return this.currentSortType === SortType.ASC ? -1 : 1;
+      }
+      return 0;
     }
   }
 
-  filterProductsByGenre() {
-    this.products = this.products.filter((product) => product.productGenre
-      .toLowerCase().includes(this.genre));
+  productFiltering(): (product) => boolean {
+    return (product: IProduct):boolean => ((product[FilterField.genre]
+      .toLowerCase().includes(this.filterPredicates.genre))
+        && (this.filterPredicates.price.less 
+          ? product[FilterField.price] < this.filterPredicates.price.sum 
+          : product[FilterField.price] > this.filterPredicates.price.sum)
+        && (product[FilterField.platform].includes(this.filterPredicates.platform)))
   }
-  
-  filterProductsByPrice() {
-    this.products = this.products.filter((product) => (this.less 
-      ? product.productPrice < this.price : product.productPrice > this.price));
-  }
-
-  filterProductsByPlatform() {
-    this.products = this.products.filter((product) => product.categoryId.includes(this.platform));
-  }
-
-  // ascendingClick() {
-  //   this.sortType = 'Ascending';
-  //   this.ascending = true;
-  //   this.descending = false;
-  //   this.sortProducts();
-  // }
-
-  // descendingClick() {
-  //   this.sortType = 'Descending';
-  //   this.ascending = false;
-  //   this.descending = true;
-  //   this.sortProducts();
-  // }
-
-  // sortProducts(field: string, type: SortType): (a, b) => number {
-  //   return (a: IProduct, b: IProduct):number => {
-  //     if (a[field] > b[field]) return type === SortType.ASC ? 1 : -1;
-  //     if (a[field] < b[field]) return type === SortType.ASC ? -1 : 1;
-  //     return 0;
-  //   }
-  // }
-
-  // поменять название
-  // sortProducts (field: keyof IProduct, type: SortType): (a, b) => {
-  //   return (elem) => {
-  //     return 
-  //   }
-  // }
-
-  // sortProducts() {
-  //   if (this.ascending) {
-  //     if (this.sortInscription === 'Rating') {
-  //       this.products.sort((a, b) => a.productRating - b.productRating);
-  //     } else if (this.sortInscription === 'Price') {
-  //       this.products.sort((a, b) => a.productPrice - b.productPrice);
-  //     } else if (this.sortInscription === 'Creation date') {
-  //       this.products.sort((a, b) => {
-  //         if (a.creationDate < b.creationDate) {
-  //           return -1;
-  //         }
-  //         if (a.creationDate > b.creationDate) {
-  //           return 1;
-  //         }
-  //         return 0;
-  //       });
-  //     }
-  //   } else if (this.descending) {
-  //     if (this.sortInscription === 'Rating') {
-  //       this.products.sort((a, b) => b.productRating - a.productRating);
-  //     } else if (this.sortInscription === 'Price') {
-  //       this.products.sort((a, b) => b.productPrice - a.productPrice);
-  //     } else if (this.sortInscription === 'Creation date') {
-  //       this.products.sort((a, b) => {
-  //         if (a.creationDate < b.creationDate) {
-  //           return 1;
-  //         }
-  //         if (a.creationDate > b.creationDate) {
-  //           return -1;
-  //         }
-  //         return 0;
-  //       });
-  //     }
-  //   }
-  //   return this.products;
-  // }
 }
 </script>
 
