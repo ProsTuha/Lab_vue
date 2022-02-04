@@ -28,7 +28,7 @@
       <div class="products-page__sorting-type-wrap">
         <span class="products-page__sorting-type-inscription">Type</span>
         <div class="products-page__select-dropdown dropdown">
-          {{sortType}}
+          <!-- {{sortType}} -->
           <div class="header__navigation__dropdown-content">
             <span class="header__navigation__dropdown-link" 
             @click="ascendingClick">Ascending</span>
@@ -108,6 +108,12 @@ import ProductCard from '@/components/ProductCard.vue';
 import Section from '@/components/Section.vue';
 import { IProduct } from '@/interfaces';
 
+// eslint-disable-next-line no-shadow
+enum SortType {
+  ASC = 'asc',
+  DSC = 'desc',
+}
+
 @Options({
   components: {
     ProductCard,
@@ -129,7 +135,6 @@ export default class Products extends Vue {
   allProducts: IProduct[] = [];
   products: IProduct[] = [];
   sortInscription = 'Rating';
-  sortType = 'Descending';
   ascending = false;
   descending = true;
 
@@ -173,56 +178,71 @@ export default class Products extends Vue {
     this.products = this.products.filter((product) => product.categoryId.includes(this.platform));
   }
 
-  ascendingClick() {
-    this.sortType = 'Ascending';
-    this.ascending = true;
-    this.descending = false;
-    this.sortProducts();
-  }
+  // ascendingClick() {
+  //   this.sortType = 'Ascending';
+  //   this.ascending = true;
+  //   this.descending = false;
+  //   this.sortProducts();
+  // }
 
-  descendingClick() {
-    this.sortType = 'Descending';
-    this.ascending = false;
-    this.descending = true;
-    this.sortProducts();
-  }
+  // descendingClick() {
+  //   this.sortType = 'Descending';
+  //   this.ascending = false;
+  //   this.descending = true;
+  //   this.sortProducts();
+  // }
 
-  sortProducts() {
-    if (this.ascending) {
-      if (this.sortInscription === 'Rating') {
-        this.products.sort((a, b) => a.productRating - b.productRating);
-      } else if (this.sortInscription === 'Price') {
-        this.products.sort((a, b) => a.productPrice - b.productPrice);
-      } else if (this.sortInscription === 'Creation date') {
-        this.products.sort((a, b) => {
-          if (a.creationDate < b.creationDate) {
-            return -1;
-          }
-          if (a.creationDate > b.creationDate) {
-            return 1;
-          }
-          return 0;
-        });
-      }
-    } else if (this.descending) {
-      if (this.sortInscription === 'Rating') {
-        this.products.sort((a, b) => b.productRating - a.productRating);
-      } else if (this.sortInscription === 'Price') {
-        this.products.sort((a, b) => b.productPrice - a.productPrice);
-      } else if (this.sortInscription === 'Creation date') {
-        this.products.sort((a, b) => {
-          if (a.creationDate < b.creationDate) {
-            return 1;
-          }
-          if (a.creationDate > b.creationDate) {
-            return -1;
-          }
-          return 0;
-        });
-      }
-    }
-    return this.products;
-  }
+  // sortProducts(field: string, type: SortType): (a, b) => number {
+  //   return (a: IProduct, b: IProduct):number => {
+  //     if (a[field] > b[field]) return type === SortType.ASC ? 1 : -1;
+  //     if (a[field] < b[field]) return type === SortType.ASC ? -1 : 1;
+  //     return 0;
+  //   }
+  // }
+
+  // поменять название
+  // sortProducts (field: keyof IProduct, type: SortType): (a, b) => {
+  //   return (elem) => {
+  //     return 
+  //   }
+  // }
+
+  // sortProducts() {
+  //   if (this.ascending) {
+  //     if (this.sortInscription === 'Rating') {
+  //       this.products.sort((a, b) => a.productRating - b.productRating);
+  //     } else if (this.sortInscription === 'Price') {
+  //       this.products.sort((a, b) => a.productPrice - b.productPrice);
+  //     } else if (this.sortInscription === 'Creation date') {
+  //       this.products.sort((a, b) => {
+  //         if (a.creationDate < b.creationDate) {
+  //           return -1;
+  //         }
+  //         if (a.creationDate > b.creationDate) {
+  //           return 1;
+  //         }
+  //         return 0;
+  //       });
+  //     }
+  //   } else if (this.descending) {
+  //     if (this.sortInscription === 'Rating') {
+  //       this.products.sort((a, b) => b.productRating - a.productRating);
+  //     } else if (this.sortInscription === 'Price') {
+  //       this.products.sort((a, b) => b.productPrice - a.productPrice);
+  //     } else if (this.sortInscription === 'Creation date') {
+  //       this.products.sort((a, b) => {
+  //         if (a.creationDate < b.creationDate) {
+  //           return 1;
+  //         }
+  //         if (a.creationDate > b.creationDate) {
+  //           return -1;
+  //         }
+  //         return 0;
+  //       });
+  //     }
+  //   }
+  //   return this.products;
+  // }
 }
 </script>
 
