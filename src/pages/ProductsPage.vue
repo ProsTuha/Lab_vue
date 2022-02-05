@@ -11,16 +11,9 @@
           {{sortCriteriaInscription}}
           <div class="header__navigation__dropdown-content">
             <span class="header__navigation__dropdown-link" 
-            @click="changeCriteria('productRating')">
-              Rating
-            </span>
-            <span class="header__navigation__dropdown-link" 
-            @click="changeCriteria('productPrice')">
-              Price
-            </span>
-            <span class="header__navigation__dropdown-link" 
-            @click="changeCriteria('creationDate')">
-              Creation date
+            v-for="criteria in criteriaSet" :key="criteria.inscription" 
+            @click="changeCriteria(criteria.criteria)">
+              {{criteria.inscription}}
             </span>
           </div>
         </div>
@@ -43,16 +36,9 @@
         Genre
       </div>
       <div class="products-page__genre-wrap">
-        <p class="products-page__genre-radio"><input type="radio" 
-        checked name="genre" @change="genreGhanged('')"> All genres</p>
-        <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genreGhanged('shooter')">Shooter</p>
-        <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genreGhanged('action')">Action</p>
-        <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genreGhanged('arcade')">Arcade</p>
-        <p class="products-page__genre-radio"><input type="radio" name="genre"
-        @change="genreGhanged('adventure')">Adventure</p>
+        <p class="products-page__genre-radio" v-for="genre in genreSet" :key="genre.inscription">
+          <input type="radio" :checked="genre.checked" name="genre" 
+          @change="genreGhanged(genre.value)">{{genre.inscription}}</p>
       </div>
     </div>
     <div class="products-page__price-filtration">
@@ -60,18 +46,9 @@
         Price
       </div>
       <div class="products-page__price-wrap">
-        <p class="products-page__price-radio"><input type="radio" checked name="price" 
-        @change="priceGhanged(0, false)">All prices</p>
-        <p class="products-page__price-radio"><input type="radio" name="price" 
-        @change="priceGhanged(5, true)">Below 5$</p>
-        <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="priceGhanged(10, true)">Below 10$</p>
-        <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="priceGhanged(20, true)">Below 20$</p>
-        <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="priceGhanged(50, true)">Below 50$</p>
-        <p class="products-page__price-radio"><input type="radio" name="price"
-        @change="priceGhanged(40, false)">Over 40$</p>
+        <p class="products-page__price-radio" v-for="price in priceSet" :key="price.inscription">
+          <input type="radio" :checked="price.checked" name="price" 
+          @change="priceGhanged(price.value, price.less)">{{price.inscription}}</p>
       </div>
     </div>
     <div class="products-page__platform-filtration">
@@ -79,14 +56,10 @@
         Platform
       </div>
       <div class="products-page__platform-wrap">
-        <p class="products-page__platform-radio"><input type="radio" checked name="platform" 
-        @change="platformGhanged('')">All platforms</p>
-        <p class="products-page__platform-radio"><input type="radio" name="platform" 
-        @change="platformGhanged('1')">PC</p>
-        <p class="products-page__platform-radio"><input type="radio" name="platform" 
-        @change="platformGhanged('2')">PS</p>
-        <p class="products-page__platform-radio"><input type="radio" name="platform"
-        @change="platformGhanged('3')">Xbox</p>
+        <p class="products-page__platform-radio" v-for="platform in platformSet" 
+        :key="platform.inscription">
+          <input type="radio" :checked="platform.checked" name="platform" 
+          @change="platformGhanged(platform.value)">{{platform.inscription}}</p>
       </div>
     </div>
   </Section>
@@ -146,7 +119,92 @@ enum FilterField {
 })
 
 export default class Products extends Vue {
-  products: IProduct[] = [];
+  products: IProduct[] = []; 
+  
+  criteriaSet = [{
+    inscription: 'Rating',
+    criteria: 'productRating'
+  },
+  {
+    inscription: 'Price',
+    criteria: 'productPrice'
+  },
+  {
+    inscription: 'Creation date',
+    criteria: 'creationDate'
+  }];
+
+  genreSet = [{
+    inscription: 'All genres',
+    value: '',
+    checked: true
+  }, {
+    inscription: 'Shooter',
+    value: 'shooter',
+    checked: false
+  }, {
+    inscription: 'Action',
+    value: 'action',
+    checked: false
+  }, {
+    inscription: 'Arcade',
+    value: 'arcade',
+    checked: false
+  }, {
+    inscription: 'Adventure',
+    value: 'adventure',
+    checked: false
+  }];
+
+  priceSet = [{
+    inscription: 'All prices',
+    value: 0,
+    less: false,
+    checked: true
+  }, {
+    inscription: 'Below 5$',
+    value: 5,
+    less: true,
+    checked: false
+  }, {
+    inscription: 'Below 10$',
+    value: 10,
+    less: true,
+    checked: false
+  }, {
+    inscription: 'Below 20$',
+    value: 20,
+    less: true,
+    checked: false
+  }, {
+    inscription: 'Below 50$',
+    value: 50,
+    less: true,
+    checked: false
+  }, {
+    inscription: 'Over 40$',
+    value: 40,
+    less: false,
+    checked: false
+  }];
+
+  platformSet = [{
+    inscription: 'All platforms',
+    value: '',
+    checked: true
+  }, {
+    inscription: 'PC',
+    value: '1',
+    checked: false
+  }, {
+    inscription: 'PS',
+    value: '2',
+    checked: false
+  }, {
+    inscription: 'Xbox',
+    value: '3',
+    checked: false
+  }];
 
   filterPredicates = {
     genre: '',
@@ -217,7 +275,7 @@ export default class Products extends Vue {
     this.products.sort(this.productSorting());
   }
 
-  productSorting(): (a, b) => number {
+  productSorting(): (a: any, b: any) => number {
     return (a: IProduct, b: IProduct):number => {
       if (a[this.currentSortCriteria] > b[this.currentSortCriteria]) {
         return this.currentSortType === SortType.ASC ? 1 : -1;
@@ -229,7 +287,7 @@ export default class Products extends Vue {
     }
   }
 
-  productFiltering(): (product) => boolean {
+  productFiltering(): (product: any) => boolean {
     return (product: IProduct):boolean => ((product[FilterField.genre]
       .toLowerCase().includes(this.filterPredicates.genre))
         && (this.filterPredicates.price.less 
