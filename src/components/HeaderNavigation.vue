@@ -13,14 +13,14 @@
         </router-link>
         <div class="header__navigation-link dropdown">
           Categories
-          <div class="header__navigation__dropdown-content">
-            <router-link class="header__navigation__dropdown-link" 
+          <div class="header__navigation__content dropdown-content">
+            <router-link class="header__navigation__link dropdown-link" 
             to="/products/pc-products">PC</router-link>
 
-            <router-link class="header__navigation__dropdown-link" 
+            <router-link class="header__navigation__link dropdown-link" 
             to="/products/playstation-products">PlayStation</router-link>
 
-            <router-link class="header__navigation__dropdown-link" 
+            <router-link class="header__navigation__link dropdown-link" 
             to="/products/xbox-products">Xbox</router-link>
           </div>
         </div>

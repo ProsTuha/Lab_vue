@@ -9,8 +9,8 @@
         <span class="products-page__sorting-criteria-inscription">Criteria</span>
         <div class="products-page__select-dropdown dropdown">
           {{sortCriteriaInscription}}
-          <div class="header__navigation__dropdown-content">
-            <span class="header__navigation__dropdown-link" 
+          <div class="products-page__content dropdown-content">
+            <span class="products-page__link dropdown-link" 
             v-for="criteria in criteriaSet" :key="criteria.inscription" 
             @click="changeCriteria(criteria.criteria)">
               {{criteria.inscription}}
@@ -22,10 +22,10 @@
         <span class="products-page__sorting-type-inscription">Type</span>
         <div class="products-page__select-dropdown dropdown">
           {{sortTypeInscription}}
-          <div class="header__navigation__dropdown-content">
-            <span class="header__navigation__dropdown-link" 
+          <div class="products-page__content dropdown-content">
+            <span class="header__navigation__link dropdown-link" 
             @click="ascendingClick()">Ascending</span>
-            <span class="header__navigation__dropdown-link" 
+            <span class="header__navigation__link dropdown-link" 
             @click="descendingClick()">Descending</span>
           </div>
         </div>
@@ -289,7 +289,7 @@ export default class Products extends Vue {
     this.products.sort(this.productSorting());
   }
 
-  productSorting(): (a: any, b: any) => number {
+  productSorting(): (a: IProduct, b: IProduct) => number {
     return (a: IProduct, b: IProduct):number => {
       if (a[this.currentSortCriteria] > b[this.currentSortCriteria]) {
         return this.currentSortType === SortType.ASC ? 1 : -1;
@@ -301,7 +301,7 @@ export default class Products extends Vue {
     }
   }
 
-  productFiltering(): (product: any) => boolean {
+  productFiltering(): (product: IProduct) => boolean {
     return (product: IProduct):boolean => ((product[FilterField.genre]
       .toLowerCase().includes(this.filterPredicates.genre))
         && (this.filterPredicates.price.less 
