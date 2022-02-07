@@ -1,4 +1,4 @@
-<template>  
+<template>
 <div class="products-page">
   <Section class="products-page__filtration-section" :headerName="'Filtration'">
     <div class="products-page__sorting">
