@@ -83,20 +83,17 @@ import Section from '@/components/Section.vue';
 import Loader from '@/components/Loader.vue'
 import { IProduct } from '@/interfaces';
 
-// eslint-disable-next-line no-shadow
 enum SortType {
   ASC = 'asc',
   DSC = 'desc',
 }
 
-// eslint-disable-next-line no-shadow
 enum SortCriteria {
   rating = 'productRating',
   price = 'productPrice',
   creationDate = 'creationDate',
 }
 
-// eslint-disable-next-line no-shadow
 enum FilterField {
   genre = 'productGenre',
   price = 'productPrice',
