@@ -9,8 +9,8 @@
         <span class="products-page__sorting-criteria-inscription">Criteria</span>
         <div class="products-page__select-dropdown dropdown">
           {{sortCriteriaInscription}}
-          <div class="header__navigation__dropdown-content">
-            <span class="header__navigation__dropdown-link" 
+          <div class="products-page__content dropdown-content">
+            <span class="products-page__link dropdown-link" 
             v-for="criteria in criteriaSet" :key="criteria.inscription" 
             @click="changeCriteria(criteria.criteria)">
               {{criteria.inscription}}
@@ -22,10 +22,10 @@
         <span class="products-page__sorting-type-inscription">Type</span>
         <div class="products-page__select-dropdown dropdown">
           {{sortTypeInscription}}
-          <div class="header__navigation__dropdown-content">
-            <span class="header__navigation__dropdown-link" 
+          <div class="products-page__content dropdown-content">
+            <span class="header__navigation__link dropdown-link" 
             @click="ascendingClick()">Ascending</span>
-            <span class="header__navigation__dropdown-link" 
+            <span class="header__navigation__link dropdown-link" 
             @click="descendingClick()">Descending</span>
           </div>
         </div>
@@ -72,6 +72,7 @@
     </div>
   </Section>
 </div>
+<Loader v-if="showLoader" :showLoader="showLoader"/>
 </template>
 
 <script lang='ts'>
@@ -82,20 +83,17 @@ import Section from '@/components/Section.vue';
 import Loader from '@/components/Loader.vue'
 import { IProduct } from '@/interfaces';
 
-// eslint-disable-next-line no-shadow
 enum SortType {
   ASC = 'asc',
   DSC = 'desc',
 }
 
-// eslint-disable-next-line no-shadow
 enum SortCriteria {
   rating = 'productRating',
   price = 'productPrice',
   creationDate = 'creationDate',
 }
 
-// eslint-disable-next-line no-shadow
 enum FilterField {
   genre = 'productGenre',
   price = 'productPrice',
@@ -110,16 +108,44 @@ enum FilterField {
   },
 
   mounted() {
+    this.showLoader = true;
     axios
       .get('http://localhost:3000/products')
       .then((response) => {
         this.products = response.data;
+        this.showLoader = false;
       });
+    this.wasMounted = true;
+  },
+
+  computed: {
+    filteredProducts() {
+      this.showLoader = this.wasMounted;
+      return this.products
+        .filter(this.productFiltering())
+        .sort(this.productSorting());
+    }
+  },
+
+  watch: {
+    filteredProducts() {
+      setTimeout(() => { this.showLoader = false }, 500)
+    }
   }
 })
 
 export default class Products extends Vue {
   products: IProduct[] = []; 
+
+  wasMounted = false;
+
+  currentSortType: SortType = SortType.ASC;
+  currentSortCriteria: SortCriteria = SortCriteria.rating;
+
+  sortCriteriaInscription = 'Rating';
+  sortTypeInscription = 'Asceding';
+
+  showLoader = false;
   
   criteriaSet = [{
     inscription: 'Rating',
@@ -215,18 +241,6 @@ export default class Products extends Vue {
     platform: ''
   }
 
-  currentSortType: SortType = SortType.ASC;
-  currentSortCriteria: SortCriteria = SortCriteria.rating;
-
-  sortCriteriaInscription = 'Rating';
-  sortTypeInscription = 'Asceding';
-
-  get filteredProducts() {
-    return this.products
-      .filter(this.productFiltering())
-      .sort(this.productSorting());
-  }
-
   genreGhanged(genre: string) {
     this.filterPredicates.genre = genre;
   }
@@ -275,7 +289,7 @@ export default class Products extends Vue {
     this.products.sort(this.productSorting());
   }
 
-  productSorting(): (a: any, b: any) => number {
+  productSorting(): (a: IProduct, b: IProduct) => number {
     return (a: IProduct, b: IProduct):number => {
       if (a[this.currentSortCriteria] > b[this.currentSortCriteria]) {
         return this.currentSortType === SortType.ASC ? 1 : -1;
@@ -287,7 +301,7 @@ export default class Products extends Vue {
     }
   }
 
-  productFiltering(): (product: any) => boolean {
+  productFiltering(): (product: IProduct) => boolean {
     return (product: IProduct):boolean => ((product[FilterField.genre]
       .toLowerCase().includes(this.filterPredicates.genre))
         && (this.filterPredicates.price.less 
@@ -302,6 +316,7 @@ export default class Products extends Vue {
 @import '@/assets/dropdown-styles.scss';
 .products-page {
   display: flex;
+  margin: 10px 0;
 
   &__sorting-inscription,
   &__genre-inscription,
