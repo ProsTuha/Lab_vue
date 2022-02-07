@@ -72,6 +72,7 @@
     </div>
   </Section>
 </div>
+<Loader v-if="showLoader" :showLoader="showLoader"/>
 </template>
 
 <script lang='ts'>
@@ -110,16 +111,44 @@ enum FilterField {
   },
 
   mounted() {
+    this.showLoader = true;
     axios
       .get('http://localhost:3000/products')
       .then((response) => {
         this.products = response.data;
+        this.showLoader = false;
       });
+    this.wasMounted = true;
+  },
+
+  computed: {
+    filteredProducts() {
+      this.showLoader = this.wasMounted;
+      return this.products
+        .filter(this.productFiltering())
+        .sort(this.productSorting());
+    }
+  },
+
+  watch: {
+    filteredProducts() {
+      setTimeout(() => { this.showLoader = false }, 500)
+    }
   }
 })
 
 export default class Products extends Vue {
   products: IProduct[] = []; 
+
+  wasMounted = false;
+
+  currentSortType: SortType = SortType.ASC;
+  currentSortCriteria: SortCriteria = SortCriteria.rating;
+
+  sortCriteriaInscription = 'Rating';
+  sortTypeInscription = 'Asceding';
+
+  showLoader = false;
   
   criteriaSet = [{
     inscription: 'Rating',
@@ -215,18 +244,6 @@ export default class Products extends Vue {
     platform: ''
   }
 
-  currentSortType: SortType = SortType.ASC;
-  currentSortCriteria: SortCriteria = SortCriteria.rating;
-
-  sortCriteriaInscription = 'Rating';
-  sortTypeInscription = 'Asceding';
-
-  get filteredProducts() {
-    return this.products
-      .filter(this.productFiltering())
-      .sort(this.productSorting());
-  }
-
   genreGhanged(genre: string) {
     this.filterPredicates.genre = genre;
   }
@@ -302,6 +319,7 @@ export default class Products extends Vue {
 @import '@/assets/dropdown-styles.scss';
 .products-page {
   display: flex;
+  margin: 10px 0;
 
   &__sorting-inscription,
   &__genre-inscription,

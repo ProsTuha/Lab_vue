@@ -1,4 +1,5 @@
 <template>
+<teleport to="#loader" :disabled="!disabled">
 <div class="load-section">
   <div class="load-section__roller">
     <div>
@@ -19,22 +20,33 @@
     </div>
   </div>
 </div>
+</teleport>
 </template>
 
 <script>
-export default {
-    
+import { Vue, Options } from 'vue-class-component';
+
+@Options({
+  props: {
+    showLoader: Boolean
+  }
+})
+export default class Loader extends Vue {
+  disabled = false;
 }
 </script>
 
 <style lang="scss" scoped>
 .load-section {
-  width: 100%;
-  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   z-index: 100;
 
   &__roller {
