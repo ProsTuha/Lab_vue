@@ -29,8 +29,8 @@
       </div>
       </router-link>
       <div class="product-card__back-adding">
-        <button class="product-card__back-adding-button" href="#">
-          Add to cart
+        <button class="product-card__back-adding-button" @click="addToCart">
+          {{addToCartInscription}}
         </button>
       </div>
     </div>
@@ -39,23 +39,66 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapState } from 'vuex';
 
 @Options({
   props: {
     product: Object
   },
   computed: {
+    ...mapState(['isAuthorized', 'user']),
     productName() {
       if (this.product.productName.length > 10) {
         return `${this.product.productName.substr(0, 10)}...`
       }
       return this.product.productName
+    },
+    addToCartInscription() {
+      return this.inCart ? 'Remove from cart' : 'Add to cart'
     }
+  },
+  methods: {
+    addToCart() {
+      if (this.isAuthorized) {
+        if (this.inCart) {
+          this.changeIndex();
+          this.$store.commit('removeFromCart', this.productIndex);
+          this.inCart = false;
+        } else {
+          this.$store.commit('addToCart', this.product);
+          this.inCart = true;
+        }
+        this.$emit('cartActions', this.inCart);
+      } else {
+        this.$emit('nonAuthorized');
+      }
+    },
+    changeIndex() {
+      this.user.cartProducts.find((elem, index) => {
+        if (elem.id === this.product.id) {
+          this.productIndex = index;
+          return true;
+        } 
+        return false;
+      });
+    }
+  },
+  mounted() {
+    this.user.cartProducts.find((elem, index) => {
+      if (elem.id === this.product.id) {
+        this.inCart = true;
+        this.productIndex = index;
+        return true;
+      } 
+      return false;
+    });
   }
 })
 
 export default class ProductCard extends Vue {
   raitingStars: string[] = ['★', '★', '★', '★', '★'];
+  inCart = false;
+  productIndex = -1;
 }
 </script>
 

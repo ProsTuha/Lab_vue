@@ -1,6 +1,6 @@
 @mixin alert {
   display: block;
-  position: absolute;
+  position: fixed;
   align-items: center;
   width: 40%;
   top: 1.5%;

@@ -53,8 +53,8 @@
           </p>
         </div>
         <div class="product-details__basic-info-adding">
-          <button class="product-details__basic-info-adding-button" href="#">
-            Add to cart
+          <button class="product-details__basic-info-adding-button" @click="addToCart">
+            {{addToCartInscription}}
           </button>
         </div>
         </div>
@@ -95,20 +95,60 @@
       </div>
     </div>
   </div>
+<Alert v-if="showAlert" :isSuccess="isSuccess" :isError="!isSuccess" :message="alertMessage"/>
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-import { Options, Vue } from 'vue-class-component'
-import { IProduct } from '@/interfaces'
+import axios from 'axios';
+import { mapState } from 'vuex';
+import { Options, Vue } from 'vue-class-component';
+import { IProduct } from '@/interfaces';
+import Alert from '@/components/Alert.vue';
 
 @Options({
+  components: {
+    Alert
+  },
+  computed: {
+    ...mapState(['isAuthorized', 'user']),
+
+    addToCartInscription() {
+      return this.inCart ? 'Remove from cart' : 'Add to cart'
+    }
+  },
   mounted() {
     axios
       .get(`http://localhost:3000/products?id_like=${this.$route.params.id}`)
       .then((response) => {
         [this.product] = response.data;
+        this.cartCheck();
       });
+  },
+  methods: {
+    cartCheck() {
+      this.user.cartProducts.find((elem, index) => {
+        if (elem.id === this.product.id) {
+          this.inCart = true;
+          this.productIndex = index;
+          return true;
+        } 
+        return false;
+      });
+    },
+    addToCart() {
+      if (this.isAuthorized) {
+        if (this.inCart) {
+          this.$store.commit('removeFromCart', this.productIndex);
+          this.inCart = false;
+        } else {
+          this.$store.commit('addToCart', this.product);
+          this.inCart = true;
+        }
+        this.showCartAlert();
+      } else {
+        this.showNonAuthorizedAlert();
+      }
+    }
   }
 })
 
@@ -131,7 +171,28 @@ export default class DetailPage extends Vue {
     tags: '',
     systemRequirements: ''
   };
+
+  showAlert = false;
+  isSuccess = true;
+  inCart = false;
+  productIndex = -1;
+  alertMessage = 'Successfully added to cart';
+
   raitingStars: string[] = ['★', '★', '★', '★', '★'];
+
+  showCartAlert() {
+    this.showAlert = true;
+    this.isSuccess = true;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = this.inCart ? 'Successfully added to cart' : 'Successfully removed from cart'
+  }
+
+  showNonAuthorizedAlert() {
+    this.showAlert = true;
+    this.isSuccess = false;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = 'First you need to log in / register'
+  }
 }
 </script>
 
@@ -226,7 +287,6 @@ export default class DetailPage extends Vue {
       right: 100px;
       height: 60px;
       border-radius: 20px;
-      width: 200px;
       background: $color-pink;
       border: 2px solid $color-black;
       font-size: 30px; 

@@ -27,6 +27,10 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
+        <router-link class="header__shopping-cart" to="/shopping-cart">
+          <img src="@/img/others/cart-icon.png" alt="cart" class="header__cart-img">
+          {{cartCount}}
+        </router-link>
         <div class="header__navigation-link" @click="showSignIn" v-if="!isAuthorized">
           Sign In
         </div>
@@ -68,8 +72,12 @@ import Modal from '@/components/Modal.vue';
     SignUpModal,
     Modal
   },
-  computed: 
-    mapState(['isAuthorized', 'user'])
+  computed: {
+    ...mapState(['isAuthorized', 'user']),
+    cartCount() {
+      return this.user.cartProducts.length;
+    }
+  }
 })
 export default class HeaderNavigation extends Vue {
   modal = false;
@@ -179,12 +187,10 @@ export default class HeaderNavigation extends Vue {
 
     &__log-out {
       height: 30px;
-      line-height: 30px;
       margin: 17.5px 10px 17.5px;
       width: 30px;
       text-align: center;
       border-radius: 5px;
-      border: 2px solid $color-black;
       background: $color-pink;
     }
 
@@ -194,8 +200,34 @@ export default class HeaderNavigation extends Vue {
     }
 
     &__log-out-img {
-      vertical-align: middle;
+      margin: 3.5px;
       height: 23px;
+    }
+
+    &__shopping-cart {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      text-decoration: none;
+      height: 40px;
+      margin: 12.5px 10px 12.5px;
+      width: 80px;
+      text-align: center;
+      border-radius: 5px;
+      background: $color-pink;
+      font-size: 25px;
+      color: $color-purple;
+    }
+
+    &__shopping-cart:hover {
+      background: $color-purple;
+      transition: background 0.5s;
+      color: $color-pink;;
+    }
+
+    &__cart-img {
+      height: 35px;
+      margin: 2.5px;
     }
   }
 </style>
