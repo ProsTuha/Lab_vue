@@ -47,6 +47,10 @@ const routes = [
     component: ShoppingCart
   },
   {
+    path: '/ordering',
+    component: ShoppingCart
+  },
+  {
     path: '/:catchAll(.*)',
     component: Error
   }
