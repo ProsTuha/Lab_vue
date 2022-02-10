@@ -25,7 +25,8 @@
       </div>
     </div>
     <div class="cart__total-cost">
-      <span class="cart__cost"></span> Total cost: {{totalPrice}}
+      <span class="cart__cost">Total cost: {{totalPrice}}</span>
+      <button class="cart__checkout-button">Checkout</button>
     </div>
   </Section>
 </div>
@@ -162,6 +163,8 @@ export default class ShoppingCart extends Vue {
   }
 
   &__total-cost {
+    display: flex;
+    justify-content: space-around;
     font-size: 30px;
     width: 95%;
     border-radius: 15px;
@@ -171,7 +174,23 @@ export default class ShoppingCart extends Vue {
   }
 
   &__cost {
-    margin-left: 20px;
+    margin: 10px 0;
+  }
+
+  &__checkout-button {
+    background-color: $color-pink;
+    color: $color-black;
+    font-size: 30px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 0;
+  }
+
+  &__checkout-button:hover {
+    transition: background 1s;
+    background-color: $color-black;
+    color: $color-pink;
   }
 }
 
