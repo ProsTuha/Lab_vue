@@ -469,7 +469,7 @@ export default class UserProfile extends Vue {
       margin-bottom: 5px;
       border-radius: 20px;
       border: 5px solid $color-black;
-      background: $color-purple;
+      background: $color-orange;
     }
 
     &__change-password {
@@ -511,7 +511,7 @@ export default class UserProfile extends Vue {
     }
 
     &__basic-info-signature {
-      background: $color-purple;
+      background: $color-orange;
       border-radius: 20px;
       border: 5px solid $color-black;
       width: 100%;
@@ -527,7 +527,7 @@ export default class UserProfile extends Vue {
       font-size: 30px;
       border-radius: 20px;
       border: 5px solid $color-black;
-      background: $color-purple;
+      background: $color-orange;
       padding-left: 10px;
     }
 
@@ -581,7 +581,7 @@ export default class UserProfile extends Vue {
     }
 
     &__edit-icon:hover {
-      background: $color-purple;
+      background: $color-orange;
       transition: background 0.4s  ;
       cursor: pointer;
     }
@@ -595,7 +595,7 @@ export default class UserProfile extends Vue {
     }
 
     &__adding-plus:hover {
-      background: $color-purple;
+      background: $color-orange;
       transition: background 0.4s  ;
       cursor: pointer;
     }

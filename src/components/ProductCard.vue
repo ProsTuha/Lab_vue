@@ -139,7 +139,7 @@ export default class ProductCard extends Vue {
   }
 
   &__info-name {
-    color: $color-purple;
+    color: $color-orange;
     font-weight: 600;
   }
           
@@ -185,7 +185,7 @@ export default class ProductCard extends Vue {
   }
 
   &__back-adding-button {
-    background-color: $color-purple;
+    background-color: $color-orange;
     border-radius: 5px;
     border: 0;
     cursor: pointer;
@@ -202,11 +202,11 @@ export default class ProductCard extends Vue {
 
   &__front,
   &__back {
-    border: 4px $color-purple solid;
+    border: 4px $color-orange solid;
     border-radius: 15px;
-    box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
-    0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
-    0 0 25px $color-purple, 0 0 30px $color-purple;
+    box-shadow: 0 0 1px $color-white, 0 0 2px $color-orange, 0 0 4px $color-white, 
+    0 0 8px $color-orange, 0 0 16px $color-orange, 0 0 20px $color-orange, 
+    0 0 25px $color-orange, 0 0 30px $color-orange;
   }
 
   &:hover &__front {  

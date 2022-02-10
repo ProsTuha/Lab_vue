@@ -27,7 +27,7 @@
         <router-link class="header__navigation-link" to="/about">
           About
         </router-link>
-        <router-link class="header__shopping-cart" to="/shopping-cart">
+        <router-link class="header__shopping-cart" to="/shopping-cart" v-if="isAuthorized">
           <img src="@/img/others/cart-icon.png" alt="cart" class="header__cart-img">
           {{cartCount}}
         </router-link>
@@ -141,18 +141,18 @@ export default class HeaderNavigation extends Vue {
       cursor: pointer;
 
       &:focus {
-        color: $color-purple;
+        color: $color-orange;
       }
 
       &:hover {
-        border-bottom: 5px solid $color-purple;
+        border-bottom: 5px solid $color-orange;
         background-color: $navigation-bg-hover;
         height: 60px;
         color: $color-white;
       }
 
       &--active {
-        color: $color-purple;
+        color: $color-orange;
       }
     }
 
@@ -174,13 +174,13 @@ export default class HeaderNavigation extends Vue {
 
       &:hover,
       &:focus {
-        color: $color-purple;
+        color: $color-orange;
       }
     }
 
     &__user-login {
       font-size: 20px;
-      color: $color-purple;
+      color: $color-orange;
       line-height: 65px;
       text-decoration: none;
     }
@@ -195,7 +195,7 @@ export default class HeaderNavigation extends Vue {
     }
 
     &__log-out:hover {
-      background: $color-purple;
+      background: $color-orange;
       transition: background 0.5s;
     }
 
@@ -216,11 +216,11 @@ export default class HeaderNavigation extends Vue {
       border-radius: 5px;
       background: $color-pink;
       font-size: 25px;
-      color: $color-purple;
+      color: $color-orange;
     }
 
     &__shopping-cart:hover {
-      background: $color-purple;
+      background: $color-orange;
       transition: background 0.5s;
       color: $color-pink;;
     }

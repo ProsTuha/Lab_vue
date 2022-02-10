@@ -28,3 +28,11 @@ import './assets/colors.scss';
 export default class App extends Vue {
 }
 </script>
+
+<style lang="scss" scoped>
+.content {
+  background-image: url(img/bg.png);
+  background-repeat: no-repeat ;
+  background-position: center;
+}
+</style>

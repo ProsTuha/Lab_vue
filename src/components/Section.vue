@@ -39,7 +39,7 @@ export default class Section extends Vue {
     padding-left: 1em;
     width: 90%;
     margin: 0 auto;
-    border-bottom: 1px solid $color-black;
+    border-bottom: 1px solid $color-orange;
   }
   
   &__content {

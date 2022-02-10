@@ -38,7 +38,7 @@ export default class FooterLogos extends Vue {
 
     &__link:hover,
     &__link:focus {
-        border-bottom: 5px solid $color-purple;
+        border-bottom: 5px solid $color-orange;
     }
 }
 </style>

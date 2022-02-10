@@ -156,7 +156,7 @@ export default class DetailPage extends Vue {
   isLoading = true;
   product: IProduct = {
     id: -1,
-    categoryId: '-1',
+    categoryId: [],
     productName: '',
     productDescription: '',
     productPrice: -1,
@@ -209,13 +209,13 @@ export default class DetailPage extends Vue {
 
       &__main {
         width: 75%;
-        background: $additional-info;
+        background: $color-orange;
         margin: 15px 20px 15px 5px;
         border-radius: 20px;
         border: 2px solid $color-black;
-        box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
-        0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
-        0 0 25px $color-purple;
+        box-shadow: 0 0 1px $color-white, 0 0 2px $color-orange, 0 0 4px $color-white, 
+        0 0 8px $color-orange, 0 0 16px $color-orange, 0 0 20px $color-orange, 
+        0 0 25px $color-orange;
       }
 
       &__main-wrap {
@@ -238,9 +238,9 @@ export default class DetailPage extends Vue {
       width: 100%;
       border-radius: 20px;
       border: 2px solid $color-black;
-      box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
-      0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
-      0 0 25px $color-purple;
+      box-shadow: 0 0 1px $color-white, 0 0 2px $color-orange, 0 0 4px $color-white, 
+      0 0 8px $color-orange, 0 0 16px $color-orange, 0 0 20px $color-orange, 
+      0 0 25px $color-orange;
       object-fit: cover;
     }
 
@@ -252,7 +252,7 @@ export default class DetailPage extends Vue {
       margin: 5px 0 10px 0px;
       color: $color-black;
       text-align: center;
-      background: $color-purple;
+      background: $color-orange;
       border-radius: 20px;
       border: 2px solid $color-black;
     }
@@ -309,13 +309,13 @@ export default class DetailPage extends Vue {
     }
 
     &__additional-info {
-      background: $additional-info;
+      background: $color-orange;
       margin: 15px 10px 15px;
       border-radius: 20px;
       border: 2px solid $color-black;
-      box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
-      0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
-      0 0 25px $color-purple;
+      box-shadow: 0 0 1px $color-white, 0 0 2px $color-orange, 0 0 4px $color-white, 
+      0 0 8px $color-orange, 0 0 16px $color-orange, 0 0 20px $color-orange, 
+      0 0 25px $color-orange;
       border-radius: 20px; 
 
       &__table {

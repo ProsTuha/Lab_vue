@@ -224,19 +224,19 @@ export default class Products extends Vue {
 
   platformSet = [{
     inscription: 'All platforms',
-    value: '',
+    value: 1 || 2 || 3,
     checked: true
   }, {
     inscription: 'PC',
-    value: '1',
+    value: 1,
     checked: false
   }, {
     inscription: 'PS',
-    value: '2',
+    value: 2,
     checked: false
   }, {
     inscription: 'Xbox',
-    value: '3',
+    value: 3,
     checked: false
   }];
 
@@ -246,7 +246,7 @@ export default class Products extends Vue {
       sum: 0,
       less: false,
     },
-    platform: ''
+    platform: 1 || 2 || 3
   }
 
   genreGhanged(genre: string) {
@@ -258,7 +258,7 @@ export default class Products extends Vue {
     this.filterPredicates.price.less = less;
   }
 
-  platformGhanged(platform: string) {
+  platformGhanged(platform: number) {
     this.filterPredicates.platform = platform;
   }
 

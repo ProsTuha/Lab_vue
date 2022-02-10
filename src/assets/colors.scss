@@ -1,9 +1,9 @@
 $color-gray: #CECDCE;
-$color-purple: #9833CC;
 $color-black: #000000;
 $color-white: #ffffff;
 $color-red: red;
-$color-pink: pink;
+$color-pink: rgb(179, 11, 11);
+$color-orange: rgb(255, 145, 0);
 $navigation-bg-hover: #272727;
 
 //  alert-colors
@@ -20,7 +20,7 @@ $link-bg: rgb(32, 37, 43);
 
 // section-colors
 
-$section-bg: rgba(0, 0, 0, 0.397);
+$section-bg: rgba(0, 0, 0, 0.4);
 
 // product-colors
 
@@ -28,10 +28,9 @@ $rating-star: rgb(255, 217, 0);
 
 // input-colors
 
-$input-background: #9833CC;
-$placeholder: #0000004b;
+$input-background: rgb(255, 145, 0);
+$placeholder: rgba(0, 0, 0, 0.5);
 
 // detail page
 
-$additional-info: #9933cc4d;
 $transparent-black: rgba(0, 0, 0, 0.5);

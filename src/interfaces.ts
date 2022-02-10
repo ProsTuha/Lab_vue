@@ -6,7 +6,7 @@ export interface ICategory {
 
 export interface IProduct {
   id: number;
-  categoryId: string;
+  categoryId: number[];
   productName: string;
   productDescription: string;
   productPrice: number; 
