@@ -6,6 +6,7 @@ import Error from '@/pages/Page404.vue';
 import Details from '@/pages/DetailPage.vue';
 import UserProfile from '@/pages/UserProfile.vue';
 import ShoppingCart from '@/pages/ShoppingCart.vue';
+import Checkout from '@/pages/CheckoutPage.vue';
 
 const routes = [
   {
@@ -48,7 +49,7 @@ const routes = [
   },
   {
     path: '/ordering',
-    component: ShoppingCart
+    component: Checkout
   },
   {
     path: '/:catchAll(.*)',

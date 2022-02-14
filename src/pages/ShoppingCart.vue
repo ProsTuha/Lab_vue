@@ -11,7 +11,8 @@
     :key="product.id">
       <div class="cart__table-cells">
         <p class="cart__table-cell">{{product.productName}}</p>
-        <select name="categories" class="cart__table-cell cart__table-select">
+        <select name="categories" class="cart__table-cell cart__table-select" 
+        @change="setCategory(index, $event)">
         <option v-for="category in product.categoryId" 
         :key="category">
           {{createCaregory(category)}}
@@ -26,9 +27,12 @@
     </div>
     <div class="cart__total-cost">
       <span class="cart__cost">Total cost: {{totalPrice}}</span>
-      <button class="cart__checkout-button">Checkout</button>
+      <router-link :to="routerPath">
+        <button class="cart__checkout-button" @click="setData()">Checkout</button>
+      </router-link>
     </div>
   </Section>
+  <Alert v-if="emptyBasket" :isError="true" :message="alertMessage"/>
 </div>
 </template>
 
@@ -36,15 +40,20 @@
 import { Vue, Options } from 'vue-class-component';
 import { mapState } from 'vuex';
 import Section from '@/components/Section.vue';
+import Alert from '@/components/Alert.vue';
 
 @Options({
   components: {
-    Section
+    Section,
+    Alert
   },
   mounted() {
     this.user.cartProducts.forEach((element) => {
       this.totalPrice = +(this.totalPrice + element.productPrice).toFixed(2);
     });
+    for (let i = 0; i < this.user.cartProducts.length; i += 1) {
+      this.productCartCategories.push(this.createCaregory(this.user.cartProducts[i].categoryId[0]));
+    }
   },
   computed: {
     ...mapState(['user']),
@@ -60,6 +69,22 @@ import Section from '@/components/Section.vue';
     deleteProduct(index: number, price: number) {
       this.$store.commit('removeFromCart', index);
       this.totalPrice = +(this.totalPrice - price).toFixed(2);
+    },
+    setCategory(index: number, event) {
+      this.productCartCategories[index] = event.target.value;
+    },
+    setData() {
+      if (this.user.cartProducts.length !== 0) {
+        this.$store.commit('setTotalPrice', this.totalPrice)
+        this.$store.commit('setProductPlatform', this.productCartCategories);
+        this.routerPath = '/ordering';
+      } else {
+        this.emptyBasket = true;
+        setTimeout(() => {
+          this.emptyBasket = false
+        }, 2000)
+        this.routerPath = '/shopping-cart';
+      }
     }
   }
 })
@@ -70,7 +95,15 @@ export default class ShoppingCart extends Vue {
   mounth = '';
   year = '';
 
-  productIndex = -1;
+  routerPath = '/ordering' || '/shopping-cart';
+
+  emptyBasket = false;
+  alertMessage = 'Your basket is empty!';
+
+  productCartCategories = []
+
+  categoryId = -1;
+
   totalPrice = 0;
 
   createCaregory(id: number): string {

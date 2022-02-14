@@ -20,7 +20,6 @@ export interface IProduct {
   announcementDate: string;
   tags: string;
   systemRequirements: string;
- // addedToCart: boolean;
 }
 
 export interface IUser {  
@@ -36,4 +35,12 @@ export interface IUser {
   shippingAddress: string;
   paymentCard: string;
   cartProducts: IProduct[];
+  cartPrice: number;
+}
+
+export interface IOrder {
+  number: string;
+  userId: number;
+  productList: IProduct[];
+  status: string;
 }
