@@ -37,6 +37,12 @@ import { Vue, Options } from 'vue-class-component';
 import { mapState } from 'vuex';
 import Section from '@/components/Section.vue';
 
+enum Plartform {
+  PC = 1,
+  PS = 2,
+  Xbox = 3
+}
+
 @Options({
   components: {
     Section
@@ -75,11 +81,11 @@ export default class ShoppingCart extends Vue {
 
   createCaregory(id: number): string {
     switch (id) {
-      case 1: 
+      case Plartform.PC: 
         return 'PC';
-      case 2: 
+      case Plartform.PS: 
         return 'PS';
-      case 3: 
+      case Plartform.Xbox: 
         return 'Xbox';
       default:
         return '' 

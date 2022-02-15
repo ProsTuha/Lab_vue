@@ -29,7 +29,7 @@
       </div>
       </router-link>
       <div class="product-card__back-adding">
-        <button class="product-card__back-adding-button" @click="addToCart">
+        <button class="product-card__back-adding-button" @click="addToCart()">
           {{addToCartInscription}}
         </button>
       </div>
@@ -54,7 +54,7 @@ import { mapState } from 'vuex';
       return this.product.productName
     },
     addToCartInscription() {
-      return this.inCart ? 'Remove from cart' : 'Add to cart'
+      return this.inCart ? this.removeFromCartInsc : this.addToCartInsc
     }
   },
   methods: {
@@ -99,6 +99,9 @@ export default class ProductCard extends Vue {
   raitingStars: string[] = ['★', '★', '★', '★', '★'];
   inCart = false;
   productIndex = -1;
+
+  removeFromCartInsc = 'Remove from cart'
+  addToCartInsc = 'Add to cart'
 }
 </script>
 
