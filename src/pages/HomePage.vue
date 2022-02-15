@@ -97,6 +97,10 @@ export default class HomePage extends Vue {
   showAlert = false;
   isSuccess = true;
   alertMessage = 'Successfully added to cart';
+
+  addedToCart = 'Successfully added to cart';
+  removedFromCart = 'Successfully removed from cart';
+  logInWarn = 'First you need to log in / register';
   
   createRequest(value) {
     if (value !== '') {
@@ -114,14 +118,14 @@ export default class HomePage extends Vue {
     this.showAlert = true;
     this.isSuccess = true;
     setTimeout(() => { this.showAlert = false }, 2000);
-    this.alertMessage = value ? 'Successfully added to cart' : 'Successfully removed from cart'
+    this.alertMessage = value ? this.addedToCart : this.removedFromCart;
   }
 
   showNonAuthorizedAlert() {
     this.showAlert = true;
     this.isSuccess = false;
     setTimeout(() => { this.showAlert = false }, 2000);
-    this.alertMessage = 'First you need to log in / register'
+    this.alertMessage = this.logInWarn;
   }
 }
 </script>

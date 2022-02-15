@@ -217,12 +217,12 @@ export default class HeaderNavigation extends Vue {
       background: $color-pink;
       font-size: 25px;
       color: $color-orange;
-    }
 
-    &__shopping-cart:hover {
-      background: $color-orange;
-      transition: background 0.5s;
-      color: $color-pink;;
+      &:hover {
+        background: $color-orange;
+        transition: background 0.5s;
+        color: $color-pink;
+      }
     }
 
     &__cart-img {
