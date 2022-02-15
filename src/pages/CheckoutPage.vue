@@ -58,7 +58,9 @@
           </router-link>
         </div>
         <div class="checkout__confirm">
-          <button class="checkout__confirm-button" @click="confirmInfo()">Confirm</button>
+          <router-link :to="'/order/thanks/'+ createRandomNumber()"> 
+            <button class="checkout__confirm-button" @click="confirmInfo()">Confirm</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -67,7 +69,7 @@
     <div class="checkout__response">
       <div class="checkout__order-number">
         Your order number: 
-        <span class="checkout__number">{{createRandomNumber()}}</span>
+        <span class="checkout__number">{{order.number}}</span>
       </div>
       <div class="checkout__thanks">
         Thanks for your order! :)
@@ -120,7 +122,7 @@ import { IOrder } from '@/interfaces';
 
     confirmInfo() {
       if (!this.badName && !this.badSurname && !this.badAddress 
-    && !this.badPhone && !this.badDay && !this.badTime) {
+      && !this.badPhone && !this.badDay && !this.badTime) {
         this.order.userId = this.user.id;
         this.order.productList = this.user.cartProducts;
         this.order.status = 'Processed';

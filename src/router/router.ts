@@ -48,8 +48,14 @@ const routes = [
     component: ShoppingCart
   },
   {
-    path: '/ordering',
-    component: Checkout
+    path: '/order',
+    component: Checkout,
+    children: [
+      {
+        path: 'thanks/:order_id',
+        component: Checkout
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',
