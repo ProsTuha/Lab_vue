@@ -119,7 +119,7 @@ export default class SignInModal extends Vue {
     }
 
     &__sign-up-proposal {
-      color: $color-purple;
+      color: $color-orange;
       font-size: 18px;
       margin: 10px 15px;
     }

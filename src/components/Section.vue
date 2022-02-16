@@ -29,17 +29,18 @@ export default class Section extends Vue {
 <style lang="scss" scoped>
 .section {
   background-color: $section-bg;
-  width: 65%;
-  margin: 1% auto auto;
+  width: 100%;
+  margin: 1% auto;
   border-radius: 40px;
   padding: 1% 0 3%;
 
   &__header {
-    font-size: 2em;
+    font-size: 2.3em;
     padding-left: 1em;
     width: 90%;
     margin: 0 auto;
-    border-bottom: 1px solid $color-black;
+    color: $color-pink;
+    border-bottom: 1px solid $color-orange;
   }
   
   &__content {

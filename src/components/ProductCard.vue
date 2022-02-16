@@ -29,8 +29,8 @@
       </div>
       </router-link>
       <div class="product-card__back-adding">
-        <button class="product-card__back-adding-button" href="#">
-          Add to cart
+        <button class="product-card__back-adding-button" @click="addToCart()">
+          {{addToCartInscription}}
         </button>
       </div>
     </div>
@@ -39,23 +39,69 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapState } from 'vuex';
 
 @Options({
   props: {
     product: Object
   },
   computed: {
+    ...mapState(['isAuthorized', 'user']),
     productName() {
       if (this.product.productName.length > 10) {
         return `${this.product.productName.substr(0, 10)}...`
       }
       return this.product.productName
+    },
+    addToCartInscription() {
+      return this.inCart ? this.removeFromCartInsc : this.addToCartInsc
     }
+  },
+  methods: {
+    addToCart() {
+      if (this.isAuthorized) {
+        if (this.inCart) {
+          this.changeIndex();
+          this.$store.commit('removeFromCart', this.productIndex);
+          this.inCart = false;
+        } else {
+          this.$store.commit('addToCart', this.product);
+          this.inCart = true;
+        }
+        this.$emit('cartActions', this.inCart);
+      } else {
+        this.$emit('nonAuthorized');
+      }
+    },
+    changeIndex() {
+      this.user.cartProducts.find((elem, index) => {
+        if (elem.id === this.product.id) {
+          this.productIndex = index;
+          return true;
+        } 
+        return false;
+      });
+    }
+  },
+  mounted() {
+    this.user.cartProducts.find((elem, index) => {
+      if (elem.id === this.product.id) {
+        this.inCart = true;
+        this.productIndex = index;
+        return true;
+      } 
+      return false;
+    });
   }
 })
 
 export default class ProductCard extends Vue {
   raitingStars: string[] = ['★', '★', '★', '★', '★'];
+  inCart = false;
+  productIndex = -1;
+
+  removeFromCartInsc = 'Remove from cart'
+  addToCartInsc = 'Add to cart'
 }
 </script>
 
@@ -96,7 +142,7 @@ export default class ProductCard extends Vue {
   }
 
   &__info-name {
-    color: $color-purple;
+    color: $color-orange;
     font-weight: 600;
   }
           
@@ -142,7 +188,7 @@ export default class ProductCard extends Vue {
   }
 
   &__back-adding-button {
-    background-color: $color-purple;
+    background-color: $color-orange;
     border-radius: 5px;
     border: 0;
     cursor: pointer;
@@ -159,11 +205,11 @@ export default class ProductCard extends Vue {
 
   &__front,
   &__back {
-    border: 4px $color-purple solid;
+    border: 4px $color-orange solid;
     border-radius: 15px;
-    box-shadow: 0 0 1px $color-white, 0 0 2px $color-purple, 0 0 4px $color-white, 
-    0 0 8px $color-purple, 0 0 16px $color-purple, 0 0 20px $color-purple, 
-    0 0 25px $color-purple, 0 0 30px $color-purple;
+    box-shadow: 0 0 1px $color-white, 0 0 2px $color-orange, 0 0 4px $color-white, 
+    0 0 8px $color-orange, 0 0 16px $color-orange, 0 0 20px $color-orange, 
+    0 0 25px $color-orange, 0 0 30px $color-orange;
   }
 
   &:hover &__front {  

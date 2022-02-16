@@ -1,6 +1,6 @@
 <template>
 <div class="products-page">
-  <Section class="products-page__filtration-section" :headerName="'Filtration'">
+  <Section class="products-page__section-filtration" :headerName="'Filtration'">
     <div class="products-page__sorting">
       <div class="products-page__sorting-inscription">
         Sort
@@ -63,15 +63,17 @@
       </div>
     </div>
   </Section>
-  <Section :headerName="'All products'">
+  <Section class="products-page__section-products" :headerName="'All products'">
     <div class="products-page__products">
       <div class="products-page__product-card"
       v-for="product in filteredProducts" :key="product.id">
-        <ProductCard :product="product"/>
+        <ProductCard @cart-actions="showCartAlert" 
+        @non-authorized="showNonAuthorizedAlert" :product="product"/>
       </div>
     </div>
   </Section>
 </div>
+<Alert v-if="showAlert" :isSuccess="isSuccess" :isError="!isSuccess" :message="alertMessage"/>
 <Loader v-if="showLoader" :showLoader="showLoader"/>
 </template>
 
@@ -80,6 +82,7 @@ import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 import ProductCard from '@/components/ProductCard.vue';
 import Section from '@/components/Section.vue';
+import Alert from '@/components/Alert.vue';
 import Loader from '@/components/Loader.vue'
 import { IProduct } from '@/interfaces';
 
@@ -104,6 +107,7 @@ enum FilterField {
   components: {
     ProductCard,
     Section,
+    Alert,
     Loader
   },
 
@@ -144,6 +148,10 @@ export default class Products extends Vue {
 
   sortCriteriaInscription = 'Rating';
   sortTypeInscription = 'Asceding';
+
+  showAlert = false;
+  isSuccess = true;
+  alertMessage = 'Successfully added to cart';
 
   showLoader = false;
   
@@ -216,19 +224,19 @@ export default class Products extends Vue {
 
   platformSet = [{
     inscription: 'All platforms',
-    value: '',
+    value: 1 || 2 || 3,
     checked: true
   }, {
     inscription: 'PC',
-    value: '1',
+    value: 1,
     checked: false
   }, {
     inscription: 'PS',
-    value: '2',
+    value: 2,
     checked: false
   }, {
     inscription: 'Xbox',
-    value: '3',
+    value: 3,
     checked: false
   }];
 
@@ -238,7 +246,7 @@ export default class Products extends Vue {
       sum: 0,
       less: false,
     },
-    platform: ''
+    platform: 1 || 2 || 3
   }
 
   genreGhanged(genre: string) {
@@ -250,7 +258,7 @@ export default class Products extends Vue {
     this.filterPredicates.price.less = less;
   }
 
-  platformGhanged(platform: string) {
+  platformGhanged(platform: number) {
     this.filterPredicates.platform = platform;
   }
 
@@ -309,6 +317,20 @@ export default class Products extends Vue {
           : product[FilterField.price] > this.filterPredicates.price.sum)
         && (product[FilterField.platform].includes(this.filterPredicates.platform)))
   }
+
+  showCartAlert(value) {
+    this.showAlert = true;
+    this.isSuccess = true;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = value ? 'Successfully added to cart' : 'Successfully removed from cart'
+  }
+
+  showNonAuthorizedAlert() {
+    this.showAlert = true;
+    this.isSuccess = false;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = 'First you need to log in / register'
+  }
 }
 </script>
 
@@ -325,6 +347,7 @@ export default class Products extends Vue {
     font-size: 28px;
     border-bottom: 1px solid $color-black;
     margin-top: 15px;
+    color: $color-orange;
   }
 
   &__sorting-wrap,
@@ -337,10 +360,16 @@ export default class Products extends Vue {
   &__sorting-type-inscription,
   &__sorting-criteria-inscription {
     font-size: 23px;
+    color: $color-pink;
   }
 
-  &__filtration-section {
+  &__section-products {
+    width: 65%;
+  }
+
+  &__section-filtration {
     width: 25%;
+    color: $color-pink;
   }
 
   &__select-dropdown {
@@ -349,6 +378,7 @@ export default class Products extends Vue {
     font-size: 23px;
     border-radius: 5px;
     border: 2px solid $color-black;
+    color: white;
   }
 
   &__select-dropdown:hover {

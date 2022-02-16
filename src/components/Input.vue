@@ -8,7 +8,7 @@
       class="input-wrap__input">
     </form>
     <img src="@/img/others/basket-icon.png" alt="clear" @click="clearInput"
-     v-if="isWritten" class="input-wrap__cleaning-basket">
+     v-if="isWritten && !isTime" class="input-wrap__cleaning-basket">
   </div>
 </template>
 
@@ -33,10 +33,12 @@ import { Options, Vue } from 'vue-class-component';
   mounted() {
     this.inputValue = this.content;
     this.isWritten = this.inputValue.length > 0;
+    if (this.inputType === 'date' || this.inputType === 'time') this.isTime = true;
   }
 })
 export default class Input extends Vue {
     isWritten = false;
+    isTime = false;
     inputValue = '';
 
     getValue() {

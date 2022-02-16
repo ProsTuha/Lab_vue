@@ -1,11 +1,12 @@
 import { createApp } from 'vue';
+import VueTheMask from 'vue-the-mask';
 import App from './App.vue';
-import router from '@/router/router'
-import './assets/main-styles.scss'
-import './interfaces'
-import store from '@/store'
+import router from '@/router/router';
+import './assets/main-styles.scss';
+import './interfaces';
+import store from '@/store';
 
-const app = createApp(App).use(router).use(store);
+const app = createApp(App).use(router).use(store).use(VueTheMask);
 
 const errors: any[] = [];
 app.config.errorHandler = function (err, vm, info) {

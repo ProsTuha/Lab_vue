@@ -2,7 +2,9 @@
   "products": [
     {
       "id": 1,
-      "categoryId": "1",
+      "categoryId": [
+        1
+      ],
       "productName": "Overwatch",
       "productDescription": "Overwatch is a vibrant team game with a diverse cast of heroes. Travel the world, fight for objects and lead your team to victory in 6v6 battles.",
       "productPrice": 23.99,
@@ -19,7 +21,9 @@
     },
     {
       "id": 2,
-      "categoryId": "1",
+      "categoryId": [
+        1
+      ],
       "productName": "Minecraft",
       "productDescription": "Prepare for an adventure of limitless possibilities as you build, mine, battle mobs, and explore the ever-changing Minecraft landscape.",
       "productPrice": 25.99,
@@ -36,7 +40,9 @@
     },
     {
       "id": 3,
-      "categoryId": "1",
+      "categoryId": [
+        1
+      ],
       "productName": "Terraria",
       "productDescription": "The very world is at your fingertips as you fight for survival, fortune, and glory. Delve deep into cavernous expanses, seek out ever-greater foes to test your mettle in combat, or construct your own city - In the World of Terraria, the choice is yours!",
       "productPrice": 4.99,
@@ -53,7 +59,10 @@
     },
     {
       "id": 4,
-      "categoryId": "1, 2",
+      "categoryId": [
+        1,
+        2
+      ],
       "productName": "God of War",
       "productDescription": "Taking revenge on the gods of Olympus, Kratos settled in the realm of the Scandinavian monsters and monsters. In this harsh, merciless world, he must not only fight for survival on his own ... but also teach this son.",
       "productPrice": 40.99,
@@ -70,7 +79,11 @@
     },
     {
       "id": 5,
-      "categoryId": "1, 2, 3",
+      "categoryId": [
+        1,
+        2,
+        3
+      ],
       "productName": "Grand Theft Auto V",
       "productDescription": "Los Santos is the city of the sun, starlets and runaway stars. Once the envy of the entire Western world, it is now the home of crappy reality shows, suffocating in the grip of economic problems.",
       "productPrice": 40.99,
@@ -87,7 +100,10 @@
     },
     {
       "id": 6,
-      "categoryId": "1, 2",
+      "categoryId": [
+        1,
+        2
+      ],
       "productName": "The Witcher 3: Wild Hunt",
       "productDescription": "As war rages across the Northern Realms, you must complete the most important contract of your life - track down the Child of Prophecy, a living weapon that can change the shape of the world.",
       "productPrice": 19.99,
@@ -184,6 +200,55 @@
       "address": "Some street",
       "shippingAddress": "Some street",
       "paymentCard": "1234567812345678"
+    }
+  ],
+  "orders": [
+    {
+      "id": "NJ6x3iEHmexIj",
+      "userId": 1,
+      "productList": [
+        {
+          "id": 2,
+          "categoryId": [
+            1
+          ],
+          "productName": "Minecraft",
+          "productDescription": "Prepare for an adventure of limitless possibilities as you build, mine, battle mobs, and explore the ever-changing Minecraft landscape.",
+          "productPrice": 25.99,
+          "productGenre": "Action & Adventure",
+          "productRating": 4,
+          "productImagePath": "Minecraft.jpg",
+          "creationDate": "2011-11-18",
+          "publisher": "Mojang Studios",
+          "country": "Sweden",
+          "edition": "Java",
+          "announcementDate": "2009-05-17",
+          "tags": "#sandbox #minecraft",
+          "systemRequirements": "CPU: Intel Pentium 4 2.0 Ghz / AMD Athlon XP 2200+ | Nvidia GeForce 8600 / ATI Radeon HD 2600 graphics card",
+          "selectedCategory": "PC"
+        },
+        {
+          "id": 1,
+          "categoryId": [
+            1
+          ],
+          "productName": "Overwatch",
+          "productDescription": "Overwatch is a vibrant team game with a diverse cast of heroes. Travel the world, fight for objects and lead your team to victory in 6v6 battles.",
+          "productPrice": 23.99,
+          "productGenre": "Shooter",
+          "productRating": 4,
+          "productImagePath": "Overwatch.jpg",
+          "creationDate": "2016-05-03",
+          "publisher": "Blizzard Entertainment",
+          "country": "USA",
+          "edition": "Origins",
+          "announcementDate": "2014-11-07",
+          "tags": "#shooter #overwatch",
+          "systemRequirements": "CPU: Intel® Core™ i3 or AMD Phenom™ X3 8650 | NVIDIA® GeForce® GTX 460, ATI Radeon™ HD 4850, or Intel® HD Graphics 4400 graphics card",
+          "selectedCategory": "PC"
+        }
+      ],
+      "status": "Processed"
     }
   ]
 }

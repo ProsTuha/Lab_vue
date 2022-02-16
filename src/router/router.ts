@@ -5,6 +5,8 @@ import About from '@/pages/AboutPage.vue';
 import Error from '@/pages/Page404.vue';
 import Details from '@/pages/DetailPage.vue';
 import UserProfile from '@/pages/UserProfile.vue';
+import ShoppingCart from '@/pages/ShoppingCart.vue';
+import Checkout from '@/pages/CheckoutPage.vue';
 
 const routes = [
   {
@@ -38,12 +40,26 @@ const routes = [
     component: About
   },
   {
-    path: '/:catchAll(.*)',
-    component: Error
-  },
-  {
     path: '/profile',
     component: UserProfile
+  },
+  {
+    path: '/shopping-cart',
+    component: ShoppingCart
+  },
+  {
+    path: '/order',
+    component: Checkout,
+    children: [
+      {
+        path: 'thanks/:order_id',
+        component: Checkout
+      }
+    ]
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: Error
   }
 ]
 

@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
-import { IUser } from '@/interfaces'
+import { IUser, IProduct } from '@/interfaces';
 
 interface IWarnAndError {
   message: string;
@@ -31,19 +31,24 @@ export default createStore<IStore>({
       age: 0,
       address: '',
       shippingAddress: '',
-      paymentCard: ''
+      paymentCard: '',
+      cartProducts: [],
+      cartPrice: 0
     },
     warns: [],
     errors: []
   },
   getters: {},
+  
   mutations: {
     userLogIn(state) {
       state.isAuthorized = true;
     },
+
     userLogOut(state) {
       state.isAuthorized = false;
     },
+
     setUserData(state, userData) {
       state.user.login = userData.login;
       state.user.password = userData.password;
@@ -57,6 +62,7 @@ export default createStore<IStore>({
       state.user.shippingAddress = userData.shippingAddress;
       state.user.paymentCard = userData.paymentCard;
     },
+
     clearUserData(state) {
       state.user.login = '';
       state.user.password = '';
@@ -70,6 +76,30 @@ export default createStore<IStore>({
       state.user.shippingAddress = '';
       state.user.paymentCard = '';
     },
+
+    addToCart(state, product: IProduct) {
+      state.user.cartProducts.push(product);
+    },
+
+    removeFromCart(state, index) {
+      state.user.cartProducts.splice(index, 1);
+    },
+
+    clearCart(state) {
+      state.user.cartProducts.length = 0;
+    },
+
+    setTotalPrice(state, price: number) {
+      state.user.cartPrice = price;
+    },
+
+    setProductPlatform(state, categories: []) {
+      const field = 'selectedCategory';
+      for (let i = 0; i < state.user.cartProducts.length; i += 1) {
+        state.user.cartProducts[i][field] = categories[i];
+      }
+    },
+
     addWarn(state, warning) {
       if (state.warns.length < 5) {
         state.warns.push(warning);
@@ -78,6 +108,7 @@ export default createStore<IStore>({
         state.warns.push(warning);
       }
     },
+
     addError(state, error) {
       if (state.errors.length < 5) {
         state.errors.push(error);
