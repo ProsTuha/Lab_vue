@@ -35,10 +35,11 @@ export default class Section extends Vue {
   padding: 1% 0 3%;
 
   &__header {
-    font-size: 2em;
+    font-size: 2.3em;
     padding-left: 1em;
     width: 90%;
     margin: 0 auto;
+    color: $color-pink;
     border-bottom: 1px solid $color-orange;
   }
   

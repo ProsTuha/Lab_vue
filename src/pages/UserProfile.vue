@@ -277,7 +277,8 @@ export default class UserProfile extends Vue {
     address: '',
     shippingAddress: '',
     paymentCard: '',
-    cartProducts: []
+    cartProducts: [],
+    cartPrice: 0
   };
 
   isAuthorized: any;

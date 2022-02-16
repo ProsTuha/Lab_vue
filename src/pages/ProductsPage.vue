@@ -347,6 +347,7 @@ export default class Products extends Vue {
     font-size: 28px;
     border-bottom: 1px solid $color-black;
     margin-top: 15px;
+    color: $color-orange;
   }
 
   &__sorting-wrap,
@@ -359,6 +360,7 @@ export default class Products extends Vue {
   &__sorting-type-inscription,
   &__sorting-criteria-inscription {
     font-size: 23px;
+    color: $color-pink;
   }
 
   &__section-products {
@@ -367,6 +369,7 @@ export default class Products extends Vue {
 
   &__section-filtration {
     width: 25%;
+    color: $color-pink;
   }
 
   &__select-dropdown {
@@ -375,6 +378,7 @@ export default class Products extends Vue {
     font-size: 23px;
     border-radius: 5px;
     border: 2px solid $color-black;
+    color: white;
   }
 
   &__select-dropdown:hover {

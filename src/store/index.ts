@@ -33,6 +33,7 @@ export default createStore<IStore>({
       shippingAddress: '',
       paymentCard: '',
       cartProducts: [],
+      cartPrice: 0
     },
     warns: [],
     errors: []
@@ -82,6 +83,21 @@ export default createStore<IStore>({
 
     removeFromCart(state, index) {
       state.user.cartProducts.splice(index, 1);
+    },
+
+    clearCart(state) {
+      state.user.cartProducts.length = 0;
+    },
+
+    setTotalPrice(state, price: number) {
+      state.user.cartPrice = price;
+    },
+
+    setProductPlatform(state, categories: []) {
+      const field = 'selectedCategory';
+      for (let i = 0; i < state.user.cartProducts.length; i += 1) {
+        state.user.cartProducts[i][field] = categories[i];
+      }
     },
 
     addWarn(state, warning) {
