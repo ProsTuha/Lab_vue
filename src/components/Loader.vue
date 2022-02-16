@@ -68,7 +68,7 @@ export default class Loader extends Vue {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: $color-purple;
+    background: $color-orange;
     margin: -4px 0 0 -4px;
   }
 

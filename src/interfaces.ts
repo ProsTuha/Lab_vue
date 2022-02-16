@@ -6,7 +6,7 @@ export interface ICategory {
 
 export interface IProduct {
   id: number;
-  categoryId: string;
+  categoryId: number[];
   productName: string;
   productDescription: string;
   productPrice: number; 
@@ -20,6 +20,7 @@ export interface IProduct {
   announcementDate: string;
   tags: string;
   systemRequirements: string;
+ // addedToCart: boolean;
 }
 
 export interface IUser {  
@@ -34,4 +35,5 @@ export interface IUser {
   address: string;
   shippingAddress: string;
   paymentCard: string;
+  cartProducts: IProduct[];
 }

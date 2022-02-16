@@ -2,7 +2,7 @@
   <div class="home">
     <div class="home__content">
       <div class="home__content__search">
-        <Section headerName="Search">
+        <Section class="home__section" headerName="Search">
           <div class="home__content__search-input">
             <Input :inputType="'text'" 
             @input-event="createRequest"
@@ -17,7 +17,7 @@
         </Section>
       </div>
       <div class="home__content__categories">
-        <Section headerName="Categories">
+        <Section class="home__section" headerName="Categories">
           <div class="home__content__categories-wrap">
             <CategoryCard v-for="category in platformCategories" 
             class="home__content__category"
@@ -27,9 +27,11 @@
         </Section>
       </div>
       <div class="home__content__last-products">
-        <Section headerName="Recently added">
+        <Section class="home__section" headerName="Recently added">
           <div class="home__content__last-products-wrap">
-            <ProductCard v-for="product in sortedLastProducts.slice(0,3)" 
+            <ProductCard @cart-actions="showCartAlert" 
+            @non-authorized="showNonAuthorizedAlert"
+            v-for="product in sortedLastProducts.slice(0,3)" 
             :key="product.id" 
             :product="product"
             class="home__content__last-product"/>
@@ -38,6 +40,7 @@
       </div>
     </div> 
   </div>
+  <Alert v-if="showAlert" :isSuccess="isSuccess" :isError="!isSuccess" :message="alertMessage"/>
 </template>
 
 <script lang="ts">
@@ -46,6 +49,7 @@ import axios from 'axios'
 import CategoryCard from '@/components/CategoryCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Section from '@/components/Section.vue'
+import Alert from '@/components/Alert.vue';
 import Input from '@/components/Input.vue'
 import { IProduct, ICategory } from '@/interfaces'
 
@@ -54,7 +58,8 @@ import { IProduct, ICategory } from '@/interfaces'
     CategoryCard,
     ProductCard,
     Section,
-    Input
+    Input,
+    Alert
   },
   computed: {
     sortedLastProducts() {
@@ -84,10 +89,18 @@ import { IProduct, ICategory } from '@/interfaces'
   }
 })
 export default class HomePage extends Vue {
-  products: IProduct[] = []
-  recentlyProducts: IProduct[] = []
-  platformCategories: ICategory[] = []
-  ifProductsLoading = true
+  products: IProduct[] = [];
+  recentlyProducts: IProduct[] = [];
+  platformCategories: ICategory[] = [];
+  ifProductsLoading = true;
+
+  showAlert = false;
+  isSuccess = true;
+  alertMessage = 'Successfully added to cart';
+
+  addedToCart = 'Successfully added to cart';
+  removedFromCart = 'Successfully removed from cart';
+  logInWarn = 'First you need to log in / register';
   
   createRequest(value) {
     if (value !== '') {
@@ -99,6 +112,20 @@ export default class HomePage extends Vue {
     } else {
       this.products.length = 0
     }
+  }
+  
+  showCartAlert(value) {
+    this.showAlert = true;
+    this.isSuccess = true;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = value ? this.addedToCart : this.removedFromCart;
+  }
+
+  showNonAuthorizedAlert() {
+    this.showAlert = true;
+    this.isSuccess = false;
+    setTimeout(() => { this.showAlert = false }, 2000);
+    this.alertMessage = this.logInWarn;
   }
 }
 </script>
@@ -148,6 +175,10 @@ export default class HomePage extends Vue {
     &__category {
       margin: 0 15px;
     }
+  }
+
+  &__section {
+    width: 65%;
   }
 }
 </style>

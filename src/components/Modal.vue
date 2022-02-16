@@ -68,7 +68,7 @@ export default class ModalWindow extends Vue {
       cursor: pointer;
 
       &:hover {
-        background: $color-purple;
+        background: $color-orange;
       }
     }
 
