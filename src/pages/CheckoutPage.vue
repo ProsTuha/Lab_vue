@@ -90,6 +90,7 @@
     </div>
     <div class="checkout__total-cost">
       <span class="checkout__cost">Total cost: {{user.cartPrice}}$</span>
+
       <router-link to="/">
         <button class="checkout__button" @click="goHomePage()">Go home page</button>
       </router-link>
@@ -146,9 +147,11 @@ enum Statuses {
     axios
       .get(`http://localhost:3000/orders?id_like=^${this.$route.params.order_id}`)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response.data.length !== 0 && response.data[0].userId === this.user.id) {
           console.log(response.data);
           [this.order] = response.data;
+        } else {
+          this.order.id = 'Order was not found! :('
         }
       })
   },

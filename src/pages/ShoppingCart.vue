@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="cart__total-cost">
-      <span class="cart__cost">Total cost: {{totalPrice}}</span>
+      <span class="cart__cost">Total cost: {{totalPrice}}$</span>
       <router-link :to="routerPath">
         <button class="cart__checkout-button" @click="setData()">Checkout</button>
       </router-link>
