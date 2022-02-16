@@ -66,35 +66,42 @@
     </div>
   </Section>
   <Section class="checkout__order-section" v-if="showOrder" :headerName="'Your order'">
-    <div class="checkout__response">
-      <div class="checkout__order-number">
-        Your order number: 
-        <span class="checkout__number">{{order.id}}</span>
+    <div class="checkout__section-content" v-if="!notFound">
+      <div class="checkout__response">
+        <div class="checkout__order-number">
+          Your order number: 
+          <span class="checkout__number">{{order.id}}</span>
+        </div>
+        <div class="checkout__thanks">
+          Thanks for your order! :)
+        </div>
       </div>
-      <div class="checkout__thanks">
-        Thanks for your order! :)
+      <div class="checkout__order-list">
+        <p class="checkout__header-name">Name</p>
+        <p class="checkout__header-name">Platform</p>
+        <p class="checkout__header-name">Price</p>
+      </div>
+      <div class="checkout__table-row" v-for="product in order.productList" 
+      :key="product.id">
+        <div class="checkout__table-cells">
+          <p class="checkout__table-cell">{{product.productName}}</p>
+          <p class="checkout__table-cell">{{product.selectedCategory}}</p>
+          <p class="checkout__table-cell">{{product.productPrice}}$</p>
+        </div>
+      </div>
+      <div class="checkout__total-cost">
+        <span class="checkout__cost">Total cost: {{user.cartPrice}}$</span>
+        <router-link to="/">
+          <button class="checkout__button" @click="goHomePage()">Go home page</button>
+        </router-link>
       </div>
     </div>
-    <div class="checkout__order-list">
-      <p class="checkout__header-name">Name</p>
-      <p class="checkout__header-name">Platform</p>
-      <p class="checkout__header-name">Price</p>
+    <div class="checkout__not-found" v-if="notFound">
+      Not found!
     </div>
-    <div class="checkout__table-row" v-for="product in order.productList" 
-    :key="product.id">
-      <div class="checkout__table-cells">
-        <p class="checkout__table-cell">{{product.productName}}</p>
-        <p class="checkout__table-cell">{{product.selectedCategory}}</p>
-        <p class="checkout__table-cell">{{product.productPrice}}$</p>
-      </div>
-    </div>
-    <div class="checkout__total-cost">
-      <span class="checkout__cost">Total cost: {{user.cartPrice}}$</span>
-
-      <router-link to="/">
-        <button class="checkout__button" @click="goHomePage()">Go home page</button>
-      </router-link>
-    </div>
+    <router-link to="/">
+      <button class="checkout__button" @click="goHomePage()">Go home page</button>
+    </router-link>
   </Section>
 </div>
 </template>
@@ -150,8 +157,9 @@ enum Statuses {
         if (response.data.length !== 0 && response.data[0].userId === this.user.id) {
           console.log(response.data);
           [this.order] = response.data;
+          this.notFound = false;
         } else {
-          this.order.id = 'Order was not found! :('
+          this.notFound = true;
         }
       })
   },
@@ -164,6 +172,8 @@ export default class Checkout extends Vue {
     productList: [],
     status: ''
   }
+
+  notFound = false;
 
   emptyFieldError = 'Fill in the field';
 
@@ -292,6 +302,10 @@ export default class Checkout extends Vue {
     margin: 0 auto;
   }
 
+  &__order-section {
+    height: 600px;
+  }
+
   &__form-field {
     margin: 5px auto;
   }
@@ -326,6 +340,16 @@ export default class Checkout extends Vue {
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
+  }
+
+  &__not-found {
+    font-size: 55px;
+    text-align: center;
+    color: $color-orange;
+  }
+
+  &__button-not-found {
+    margin: 0 auto;
   }
 
   &__bad-notice {
