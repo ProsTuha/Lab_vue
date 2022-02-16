@@ -83,7 +83,7 @@ enum Plartform {
       if (this.user.cartProducts.length !== 0) {
         this.$store.commit('setTotalPrice', this.totalPrice)
         this.$store.commit('setProductPlatform', this.productCartCategories);
-        this.routerPath = '/ordering';
+        this.routerPath = '/order';
       } else {
         this.emptyBasket = true;
         setTimeout(() => {

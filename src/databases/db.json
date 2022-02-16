@@ -202,5 +202,53 @@
       "paymentCard": "1234567812345678"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "NJ6x3iEHmexIj",
+      "userId": 1,
+      "productList": [
+        {
+          "id": 2,
+          "categoryId": [
+            1
+          ],
+          "productName": "Minecraft",
+          "productDescription": "Prepare for an adventure of limitless possibilities as you build, mine, battle mobs, and explore the ever-changing Minecraft landscape.",
+          "productPrice": 25.99,
+          "productGenre": "Action & Adventure",
+          "productRating": 4,
+          "productImagePath": "Minecraft.jpg",
+          "creationDate": "2011-11-18",
+          "publisher": "Mojang Studios",
+          "country": "Sweden",
+          "edition": "Java",
+          "announcementDate": "2009-05-17",
+          "tags": "#sandbox #minecraft",
+          "systemRequirements": "CPU: Intel Pentium 4 2.0 Ghz / AMD Athlon XP 2200+ | Nvidia GeForce 8600 / ATI Radeon HD 2600 graphics card",
+          "selectedCategory": "PC"
+        },
+        {
+          "id": 1,
+          "categoryId": [
+            1
+          ],
+          "productName": "Overwatch",
+          "productDescription": "Overwatch is a vibrant team game with a diverse cast of heroes. Travel the world, fight for objects and lead your team to victory in 6v6 battles.",
+          "productPrice": 23.99,
+          "productGenre": "Shooter",
+          "productRating": 4,
+          "productImagePath": "Overwatch.jpg",
+          "creationDate": "2016-05-03",
+          "publisher": "Blizzard Entertainment",
+          "country": "USA",
+          "edition": "Origins",
+          "announcementDate": "2014-11-07",
+          "tags": "#shooter #overwatch",
+          "systemRequirements": "CPU: Intel® Core™ i3 or AMD Phenom™ X3 8650 | NVIDIA® GeForce® GTX 460, ATI Radeon™ HD 4850, or Intel® HD Graphics 4400 graphics card",
+          "selectedCategory": "PC"
+        }
+      ],
+      "status": "Processed"
+    }
+  ]
 }

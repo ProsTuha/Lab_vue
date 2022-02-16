@@ -39,7 +39,7 @@ export interface IUser {
 }
 
 export interface IOrder {
-  number: string;
+  id: string;
   userId: number;
   productList: IProduct[];
   status: string;
