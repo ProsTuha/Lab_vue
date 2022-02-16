@@ -58,7 +58,7 @@
           </router-link>
         </div>
         <div class="checkout__confirm">
-          <router-link :to="'/order/thanks/'+ createRandomNumber()"> 
+          <router-link :to="'/order/thanks/'+ order.id"> 
             <button class="checkout__confirm-button" @click="confirmInfo()">Confirm</button>
           </router-link>
         </div>
@@ -69,7 +69,7 @@
     <div class="checkout__response">
       <div class="checkout__order-number">
         Your order number: 
-        <span class="checkout__number">{{order.number}}</span>
+        <span class="checkout__number">{{order.id}}</span>
       </div>
       <div class="checkout__thanks">
         Thanks for your order! :)
@@ -80,7 +80,7 @@
       <p class="checkout__header-name">Platform</p>
       <p class="checkout__header-name">Price</p>
     </div>
-    <div class="checkout__table-row" v-for="product in this.user.cartProducts" 
+    <div class="checkout__table-row" v-for="product in order.productList" 
     :key="product.id">
       <div class="checkout__table-cells">
         <p class="checkout__table-cell">{{product.productName}}</p>
@@ -91,7 +91,7 @@
     <div class="checkout__total-cost">
       <span class="checkout__cost">Total cost: {{user.cartPrice}}$</span>
       <router-link to="/">
-        <button class="checkout__button" @click="createRequest()">Go home page</button>
+        <button class="checkout__button" @click="goHomePage()">Go home page</button>
       </router-link>
     </div>
   </Section>
@@ -106,6 +106,15 @@ import Input from '@/components/Input.vue';
 import Section from '@/components/Section.vue';
 import { IOrder } from '@/interfaces';
 
+enum Statuses {
+  processed = 'Processed', 
+  confirmed = 'Confirmed',
+  sent = 'Sent',
+  canceled = 'Canceled',
+  delivered = 'Delivered',
+  completed = 'Сompleted'
+}
+
 @Options({
   components: {
     Input,
@@ -115,8 +124,7 @@ import { IOrder } from '@/interfaces';
     ...mapState(['user']),
   },
   methods: {
-    createRequest() {
-      axios.post('http://localhost:3000/orders', this.order);
+    goHomePage() {
       this.$store.commit('clearCart');
     },
 
@@ -125,27 +133,43 @@ import { IOrder } from '@/interfaces';
       && !this.badPhone && !this.badDay && !this.badTime) {
         this.order.userId = this.user.id;
         this.order.productList = this.user.cartProducts;
-        this.order.status = 'Processed';
-        this.showOrder = true;
+        this.order.status = Statuses.processed;
+        this.createRandomNumber();
+        axios.post('http://localhost:3000/orders', this.order).then(() => {
+          this.showOrder = true;
+        });
       }
     }
-  }
+  },
+  mounted() {
+    this.showOrder = this.$route.params.order_id;
+    axios
+      .get(`http://localhost:3000/orders?id_like=^${this.$route.params.order_id}`)
+      .then((response) => {
+        if (response.data.length !== 0) {
+          console.log(response.data);
+          [this.order] = response.data;
+        }
+      })
+  },
 })
 
 export default class Checkout extends Vue {
   order: IOrder = {
-    number: '',
+    id: '',
     userId: 0,
     productList: [],
     status: ''
   }
 
-  errorName = 'Fill in the field';
-  errorSurname = 'Fill in the field';
-  errorAddress = 'Fill in the field';
-  errorPhone = 'Fill in the field';
-  errorDay = 'Fill in the field';
-  errorTime = 'Fill in the field';
+  emptyFieldError = 'Fill in the field';
+
+  errorName = this.emptyFieldError;
+  errorSurname = this.emptyFieldError;
+  errorAddress = this.emptyFieldError;
+  errorPhone = this.emptyFieldError;
+  errorDay = this.emptyFieldError;
+  errorTime = this.emptyFieldError;
 
   badName = true;
   badSurname = true;
@@ -170,7 +194,7 @@ export default class Checkout extends Vue {
       this.badName = false;
       this.name = value;
     } else {
-      this.errorName = 'Fill in the field';
+      this.errorName = this.emptyFieldError;
       this.badName = true;
     }
   }
@@ -179,7 +203,7 @@ export default class Checkout extends Vue {
       this.badSurname = false;
       this.surname = value;
     } else {
-      this.errorSurname = 'Fill in the field';
+      this.errorSurname = this.emptyFieldError;
       this.badSurname = true;
     }
   }
@@ -194,7 +218,7 @@ export default class Checkout extends Vue {
         this.deliveryAddress = value; 
       }
     } else {
-      this.errorAddress = 'Fill in the field';
+      this.errorAddress = this.emptyFieldError;
       this.badAddress = true;
     }
   }
@@ -209,7 +233,7 @@ export default class Checkout extends Vue {
         this.phoneNumber = value; 
       }
     } else {
-      this.errorPhone = 'Fill in the field';
+      this.errorPhone = this.emptyFieldError;
       this.badPhone = true;
     }
   }
@@ -218,7 +242,7 @@ export default class Checkout extends Vue {
       this.badDay = false;
       this.deliveryDay = value;
     } else {
-      this.errorDay = 'Fill in the field';
+      this.errorDay = this.emptyFieldError;
       this.badDay = true;
     }
   }
@@ -228,7 +252,7 @@ export default class Checkout extends Vue {
       this.badTime = false;
       this.time = value;
     } else {
-      this.errorTime = 'Fill in the field';
+      this.errorTime = this.emptyFieldError;
       this.badTime = true;
     }
   }
@@ -243,7 +267,7 @@ export default class Checkout extends Vue {
       position = Math.floor(Math.random() * maxPosition);
       result += words.substring(position, position + 1);
     }
-    this.order.number = result;
+    this.order.id = result;
     return result;
   }
 }
