@@ -7,6 +7,10 @@ import Details from '@/pages/DetailPage.vue';
 import UserProfile from '@/pages/UserProfile.vue';
 import ShoppingCart from '@/pages/ShoppingCart.vue';
 import Checkout from '@/pages/CheckoutPage.vue';
+import Admin from '@/pages/AdminPage.vue';
+import AdminProducts from '@/pages/AdminProductsPage.vue';
+import AdminAdd from '@/pages/AdminAddPage.vue';
+import AdminEdit from '@/pages/AdminEditPage.vue';
 
 const routes = [
   {
@@ -56,6 +60,22 @@ const routes = [
         component: Checkout
       }
     ]
+  },
+  {
+    path: '/admin',
+    component: Admin,
+  },
+  {
+    path: '/admin/products',
+    component: AdminProducts
+  },
+  {
+    path: '/admin/products/add',
+    component: AdminAdd
+  },
+  {
+    path: '/admin/products/edit/:id',
+    component: AdminEdit
   },
   {
     path: '/:catchAll(.*)',

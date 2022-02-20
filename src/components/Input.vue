@@ -26,8 +26,13 @@ import { Options, Vue } from 'vue-class-component';
       default: ''
     },
     content: {
-      type: String,
+      type: [String, Number],
       default: ''
+    }
+  },
+  watch: {
+    content() {
+      this.inputValue = this.content;
     }
   },
   mounted() {
@@ -71,6 +76,7 @@ export default class Input extends Vue {
       background: $input-background;
       border-radius: 20px;
       padding-left: 7px;
+      padding-right: 40px;
     }
   }
 
@@ -80,7 +86,7 @@ export default class Input extends Vue {
 
   &__cleaning-basket {
     position: absolute;
-    right: 0;
+    right: -40px;
     height: 70%;
     top: 15%;
   }

@@ -40,6 +40,9 @@
         <router-link class="header__user-login" v-if="isAuthorized" to="/profile">
           {{user.login}}
         </router-link>
+        <router-link class="header__navigation-link" to="/admin" v-if="user.role === 'ADMIN'">
+          Admin
+        </router-link>
         <router-link class="header__log-out" 
         @click="logOut" v-if="isAuthorized" to="/">
           <img src="@/img/others/logout-icon.png" class="header__log-out-img" alt="Log Out">
