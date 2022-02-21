@@ -120,6 +120,29 @@ enum FilterField {
         this.showLoader = false;
       });
     this.wasMounted = true;
+
+    const { path } = this.$route;
+    
+    switch (path.slice(path.lastIndexOf('/') + 1)) {
+      case 'products':
+        this.platformSet[0].checked = true;
+        this.filterPredicates.platform = 1 || 2 || 3;
+        break;
+      case 'pc-products':
+        this.platformSet[1].checked = true;
+        this.filterPredicates.platform = 1;
+        break;
+      case 'playstation-products':
+        this.platformSet[2].checked = true;
+        this.filterPredicates.platform = 2;
+        break;
+      case 'xbox-products':
+        this.platformSet[3].checked = true;
+        this.filterPredicates.platform = 3;
+        break;
+      default:
+        this.platformSet[0].checked = true;
+    }
   },
 
   computed: {
@@ -171,7 +194,7 @@ export default class Products extends Vue {
   genreSet = [{
     inscription: 'All genres',
     value: '',
-    checked: true
+    checked: false
   }, {
     inscription: 'Shooter',
     value: 'shooter',

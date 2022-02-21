@@ -23,15 +23,15 @@ const routes = [
     children: [
       {
         path: 'pc-products',
-        component: Home
+        component: Products
       },
       {
         path: 'playstation-products',
-        component: Home
+        component: Products
       },
       {
         path: 'xbox-products',
-        component: Home
+        component: Products
       }
     ]
   },
