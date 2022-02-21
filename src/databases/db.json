@@ -22,20 +22,19 @@
     {
       "id": 2,
       "categoryId": [
-        1,
         2
       ],
       "productName": "God Of War",
       "productDescription": "Some description",
       "productPrice": 15.99,
-      "productGenre": "Action&Adventure",
+      "productGenre": "Adventure&Action",
       "productRating": 0,
       "productImagePath": "GodOfWar.jpg",
-      "creationDate": "2019-04-12",
+      "creationDate": "2019-07-12",
       "publisher": "Some publisher",
       "country": "USA",
       "edition": "Basic",
-      "announcementDate": "2017-12-12",
+      "announcementDate": "2017-05-12",
       "tags": "#godofwar #action",
       "systemRequirements": "Some requirements"
     }

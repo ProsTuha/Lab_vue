@@ -103,6 +103,20 @@ enum FilterField {
   platform = 'categoryId',
 }
 
+enum PlatformCategories {
+  products = 'products',
+  pcProducts = 'pc-products',
+  psProducts = 'playstation-products',
+  xboxProducts = 'xbox-products',
+}
+
+enum PlatformNumbers {
+  pc = 1,
+  ps = 2,
+  xbox = 3
+
+}
+
 @Options({
   components: {
     ProductCard,
@@ -124,24 +138,27 @@ enum FilterField {
     const { path } = this.$route;
     
     switch (path.slice(path.lastIndexOf('/') + 1)) {
-      case 'products':
+      case PlatformCategories.products:
         this.platformSet[0].checked = true;
-        this.filterPredicates.platform = 1 || 2 || 3;
+        this.filterPredicates.platform = [PlatformNumbers.pc, PlatformNumbers.ps, 
+          PlatformNumbers.xbox];
         break;
-      case 'pc-products':
+      case PlatformCategories.pcProducts:
         this.platformSet[1].checked = true;
-        this.filterPredicates.platform = 1;
+        this.filterPredicates.platform = [PlatformNumbers.pc];
         break;
-      case 'playstation-products':
+      case PlatformCategories.psProducts:
         this.platformSet[2].checked = true;
-        this.filterPredicates.platform = 2;
+        this.filterPredicates.platform = [PlatformNumbers.ps];
         break;
-      case 'xbox-products':
+      case PlatformCategories.xboxProducts:
         this.platformSet[3].checked = true;
-        this.filterPredicates.platform = 3;
+        this.filterPredicates.platform = [PlatformNumbers.xbox];
         break;
       default:
         this.platformSet[0].checked = true;
+        this.filterPredicates.platform = [PlatformNumbers.pc, PlatformNumbers.ps, 
+          PlatformNumbers.xbox]
     }
   },
 
@@ -247,19 +264,19 @@ export default class Products extends Vue {
 
   platformSet = [{
     inscription: 'All platforms',
-    value: 1 || 2 || 3,
+    value: [1, 2, 3],
     checked: true
   }, {
     inscription: 'PC',
-    value: 1,
+    value: [1],
     checked: false
   }, {
     inscription: 'PS',
-    value: 2,
+    value: [2],
     checked: false
   }, {
     inscription: 'Xbox',
-    value: 3,
+    value: [3],
     checked: false
   }];
 
@@ -269,7 +286,7 @@ export default class Products extends Vue {
       sum: 0,
       less: false,
     },
-    platform: 1 || 2 || 3
+    platform: []
   }
 
   genreGhanged(genre: string) {
@@ -281,7 +298,7 @@ export default class Products extends Vue {
     this.filterPredicates.price.less = less;
   }
 
-  platformGhanged(platform: number) {
+  platformGhanged(platform: []) {
     this.filterPredicates.platform = platform;
   }
 
@@ -332,13 +349,20 @@ export default class Products extends Vue {
     }
   }
 
+  platformIncludes(productPlatforms: number[]) {
+    for (let i = 0; i < this.filterPredicates.platform.length; i += 1) {
+      if (productPlatforms.includes(this.filterPredicates.platform[i])) return true;
+    }
+    return false;
+  }
+
   productFiltering(): (product: IProduct) => boolean {
     return (product: IProduct):boolean => ((product[FilterField.genre]
       .toLowerCase().includes(this.filterPredicates.genre))
         && (this.filterPredicates.price.less 
           ? product[FilterField.price] < this.filterPredicates.price.sum 
           : product[FilterField.price] > this.filterPredicates.price.sum)
-        && (product[FilterField.platform].includes(this.filterPredicates.platform)))
+        && this.platformIncludes(product[FilterField.platform]))
   }
 
   showCartAlert(value) {
