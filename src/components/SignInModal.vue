@@ -116,6 +116,7 @@ export default class SignInModal extends Vue {
 
     &__input {
       width: 50%;
+      margin-right: 40px;
     }
 
     &__sign-up-proposal {

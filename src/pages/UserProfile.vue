@@ -427,12 +427,11 @@ export default class UserProfile extends Vue {
         if (error) {
           this.alertMessage = 'There were errors in the process :(';
           this.showAlert(false);
+        } else {
+          this.alertMessage = 'Success!';
+          this.showAlert(true);
         }
       });
-    if (!this.error) {
-      this.alertMessage = 'Success!';
-      this.showAlert(true);
-    }
   }
 
   showAlert(isSuccess: boolean) {
