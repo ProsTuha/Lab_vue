@@ -51,13 +51,11 @@
     </div>
   </header>
 
-  <Modal :title="'Authorization'" 
-  v-model:modal="signIn" v-if="signIn">
+  <Modal :title="'Authorization'" v-model:modal="signIn" v-if="signIn">
     <SignInModal @authorized="authorizedUser"/>
   </Modal>
 
-  <Modal :title="'Registration'"  
-  v-model:modal="signUp" v-if="signUp">
+  <Modal :title="'Registration'" v-model:modal="signUp" v-if="signUp">
     <SignUpModal @registered="registeredUser"/>
   </Modal>
 </template>
@@ -66,7 +64,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { mapState } from 'vuex';
 import SignInModal from '@/components/SignInModal.vue';
-import SignUpModal from '@/components/SignUpModal.vue'
+import SignUpModal from '@/components/SignUpModal.vue';
 import Modal from '@/components/Modal.vue';
 
 @Options({
